@@ -38,7 +38,7 @@ Appliquer la migration SQL `drizzle/0000_slimy_cyclops.sql` à cette base avant 
 
 Accueil, expertises, réalisations avec filtres, trois fiches chantier, entreprise et zone d’intervention, devis en trois étapes, confidentialité, mentions légales et page 404.
 
-Les textes, contacts et références sont regroupés dans `lib/content.ts`. Les photographies proviennent du site MK Aération fourni pour la refonte. Le logo est repris de cette même source. Le chantier Grenoble est présenté sans lui attribuer de photographie d’un autre chantier. Aucune note, certification ni statistique commerciale n’a été inventée.
+Les textes, contacts et références sont regroupés dans `lib/content.ts`. Les photographies proviennent du site MK Aération fourni pour la refonte. Le logo original fourni en pièce jointe par MK Aération est repris intégralement dans l’en-tête, le pied de page et les icônes du navigateur. Le chantier Grenoble est présenté sans lui attribuer de photographie d’un autre chantier. Aucune note, certification ni statistique commerciale n’a été inventée.
 
 ## Demandes de devis
 

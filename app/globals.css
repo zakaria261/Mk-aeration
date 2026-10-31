@@ -21,7 +21,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 110px;
+  scroll-padding-top: 132px;
 }
 body {
   margin: 0;
@@ -259,14 +259,15 @@ main {
   position: sticky;
   top: 0;
   z-index: 60;
-  background: rgba(250, 251, 248, 0.97);
-  border-bottom: 1px solid var(--line);
+  background: #000;
+  color: #fff;
+  border-bottom: 1px solid #1d2b33;
 }
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 88px;
+  height: 120px;
   gap: 25px;
 }
 .brand {
@@ -275,33 +276,15 @@ main {
   gap: 10px;
   flex-shrink: 0;
 }
-.brand-mark {
-  width: 47px;
-  height: 47px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #080e12;
+.brand-logo {
+  width: 108px;
+  height: 108px;
+  object-fit: contain;
+  background: #000;
 }
-.brand-mark img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.brand-words {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.brand-words strong {
-  font-size: 21px;
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 1;
-}
-.brand-words small {
-  font-size: 6.8px;
-  letter-spacing: 0.12em;
-  font-weight: 700;
+.brand-light .brand-logo {
+  width: 180px;
+  height: 180px;
 }
 .desktop-nav {
   display: flex;
@@ -327,14 +310,14 @@ main {
   background: var(--blue);
 }
 .desktop-nav a.active {
-  color: var(--blue);
+  color: #70b4ff;
 }
 .menu-toggle {
   display: none;
   background: transparent;
   border: 0;
   padding: 10px;
-  color: var(--ink);
+  color: #fff;
 }
 .mobile-menu {
   display: none;
@@ -956,9 +939,6 @@ main {
   grid-template-columns: 1.2fr 0.65fr 1fr 1fr;
   gap: 45px;
   padding-bottom: 50px;
-}
-.brand-light .brand-words small {
-  color: #9dacb8;
 }
 .footer-brand > p {
   font-size: 13px;
@@ -1706,7 +1686,7 @@ main {
   background: var(--surface);
   padding: 28px;
   position: sticky;
-  top: 110px;
+  top: 132px;
 }
 .quote-sidebar .section-label {
   font-size: 9px;
@@ -1856,7 +1836,7 @@ main {
     background: var(--surface);
   }
   .desktop-nav a:hover {
-    color: var(--blue);
+    color: #70b4ff;
   }
   .project-card:hover .project-image > img {
     transform: scale(1.045);
@@ -1908,16 +1888,6 @@ main {
   }
   .header-inner {
     gap: 20px;
-  }
-  .brand-words strong {
-    font-size: 19px;
-  }
-  .brand-words small {
-    font-size: 6px;
-  }
-  .brand-mark {
-    width: 42px;
-    height: 42px;
   }
   .hero h1 {
     font-size: 112px;
@@ -1991,12 +1961,6 @@ main {
     gap: 10px;
     padding: 13px 14px;
     font-size: 11px;
-  }
-  .brand-words strong {
-    font-size: 18px;
-  }
-  .brand-words small {
-    font-size: 5.7px;
   }
   .hero h1 {
     font-size: 98px;
@@ -2165,14 +2129,18 @@ main {
 }
 @media (max-width: 800px) {
   html {
-    scroll-padding-top: 90px;
+    scroll-padding-top: 116px;
   }
   .container {
     padding-left: 24px;
     padding-right: 24px;
   }
   .header-inner {
-    height: 76px;
+    height: 104px;
+  }
+  .header .brand-logo {
+    width: 92px;
+    height: 92px;
   }
   .desktop-nav,
   .header-quote {
@@ -2183,16 +2151,6 @@ main {
     margin-right: -10px;
     align-items: center;
     justify-content: center;
-  }
-  .brand-mark {
-    width: 42px;
-    height: 42px;
-  }
-  .brand-words strong {
-    font-size: 20px;
-  }
-  .brand-words small {
-    font-size: 6.4px;
   }
   .topbar .container {
     height: 27px;
@@ -2801,20 +2759,10 @@ main {
     padding-right: 22px;
   }
   .header-inner {
-    height: 74px;
+    height: 104px;
   }
   .topbar .container {
     height: 26px;
-  }
-  .brand-mark {
-    width: 39px;
-    height: 39px;
-  }
-  .brand-words strong {
-    font-size: 19px;
-  }
-  .brand-words small {
-    font-size: 6px;
   }
   .mobile-menu {
     top: 100px;
@@ -3751,12 +3699,6 @@ main {
   }
   .hero h1 {
     font-size: clamp(64px, 21vw, 76px);
-  }
-  .brand-words strong {
-    font-size: 18px;
-  }
-  .brand-words small {
-    font-size: 5.6px;
   }
   .hero-project {
     left: 18px;

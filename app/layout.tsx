@@ -22,8 +22,9 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: { url: "/favicon.png", sizes: "64x64", type: "image/png" },
+    shortcut: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -45,6 +46,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "HVACBusiness",
               name: "MK Aération",
+              logo: `${siteUrl}/images/logo-mk-aeration.jpg`,
               telephone: "+33768476126",
               email: "mk.aeration@hotmail.com",
               url: siteUrl,

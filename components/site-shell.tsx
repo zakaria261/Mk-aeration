@@ -25,13 +25,15 @@ export function Brand({ light = false }: { light?: boolean }) {
       className={`brand ${light ? "brand-light" : ""}`}
       aria-label="MK Aération — accueil"
     >
-      <span className="brand-mark">
-        <img src="/images/logo-mark.webp" alt="" width="48" height="48" />
-      </span>
-      <span className="brand-words">
-        <strong>MK AÉRATION</strong>
-        <small>AU SERVICE DE LA QUALITÉ DE L’AIR</small>
-      </span>
+      <img
+        className="brand-logo"
+        src="/images/logo-mk-aeration.jpg"
+        alt="MK Aération — Au service de la qualité de l’air"
+        width="1080"
+        height="1080"
+        loading={light ? "lazy" : "eager"}
+        decoding="async"
+      />
     </Link>
   );
 }
