@@ -427,6 +427,14 @@ export function QuoteForm() {
             {error && (
               <div className="form-error" role="alert">
                 {error}
+                {step === 3 && (
+                  <div>
+                    <a className="text-link" href={emailHref}>
+                      Transmettre ma demande par e-mail
+                      <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+                )}
               </div>
             )}
             <div className="form-footer">

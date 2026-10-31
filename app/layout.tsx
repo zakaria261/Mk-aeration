@@ -1,9 +1,10 @@
+import { siteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header, Footer } from "@/components/site-shell";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mk-aeration.zak26140000.chatgpt.site"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "MK Aération — Ventilation, VMC & extraction",
     template: "%s | MK Aération",
@@ -46,7 +47,7 @@ export default function RootLayout({
               name: "MK Aération",
               telephone: "+33768476126",
               email: "mk.aeration@hotmail.com",
-              url: "https://mk-aeration.zak26140000.chatgpt.site",
+              url: siteUrl,
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "2 route des Champs",

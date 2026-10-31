@@ -4,7 +4,7 @@ Site vitrine en français, développé avec Next.js App Router et React, exécut
 
 ## Démarrage local
 
-Node.js 22.13 ou plus récent.
+Node.js 22 LTS.
 
 ```sh
 npm ci
@@ -12,6 +12,27 @@ npm run dev
 ```
 
 Le serveur utilise normalement `http://127.0.0.1:5173`.
+
+## Déploiement Vercel
+
+`vercel.json` sélectionne le framework Next.js, lance `npm run build:vercel` (`next build`) et utilise `.next`. Le build Sites (`npm run build`) reste distinct et produit `dist/` pour Cloudflare ; il ne doit pas servir de build Vercel.
+
+Pour exécuter la version Next.js native en local :
+
+```sh
+npm run dev:next
+# ou, pour tester la version de production :
+npm run build:vercel
+npm run start:next
+```
+
+Les pages de présentation sont pré-générées par Next.js. L’API de devis est une fonction serveur Node.js. Sur Sites, elle conserve sa liaison D1 native ; sur Vercel, elle utilise l’API REST D1 avec les variables **serveur uniquement** suivantes :
+
+- `CLOUDFLARE_ACCOUNT_ID` : identifiant du compte Cloudflare propriétaire de la base.
+- `CLOUDFLARE_D1_DATABASE_ID` : identifiant de la base D1 contenant la table `quote_requests`.
+- `CLOUDFLARE_D1_API_TOKEN` : jeton limité à cette base avec accès D1 en lecture et écriture.
+
+Appliquer la migration SQL `drizzle/0000_slimy_cyclops.sql` à cette base avant réception des demandes. La base gérée par Sites n’est pas automatiquement transférée vers Vercel. Les variables doivent être configurées dans Vercel, puis un déploiement doit être relancé. Sans cette configuration, le site vitrine fonctionne mais l’API refuse explicitement les demandes ; le visiteur peut alors envoyer le récapitulatif par sa messagerie. Aucune confirmation de sauvegarde n’est simulée.
 
 ## Pages et contenu
 
@@ -48,13 +69,15 @@ Ne jamais placer ces valeurs dans le code ou dans une variable `NEXT_PUBLIC_*`. 
 ```sh
 npx tsc --noEmit
 node --experimental-strip-types --test tests/quote-validation.test.mjs
+node --experimental-strip-types --test tests/server-env.test.mjs
 npm run build
+npm run build:vercel
 ```
 
 Vérifications effectuées : réponses HTTP des dix pages, 404, sitemap et robots ; enregistrement local réel, nouvelle tentative sans doublon, refus d’e-mail et code postal invalides, absence de consentement, champ piège, origine étrangère et charge trop volumineuse. Inspection visuelle Safari sur ordinateur et cadres mobiles de 390 et 360 px. Menu et navigation vers le devis contrôlés. Le parcours de saisie complet sur un appareil physique reste à vérifier.
 
 ## Avant ouverture au public
 
-La publication Sites est privée par défaut. Le domaine public définitif pourra ensuite être raccordé et les URL absolues de `layout.tsx`, `sitemap.ts` et `robots.ts` mises à jour. Compléter les informations juridiques réelles, la politique de conservation et la procédure de suppression, puis configurer les notifications d’e-mail avant une campagne de collecte publique. Les pages légales signalent les éléments manquants sans inventer de SIRET ou de dénomination juridique.
+La publication Sites est privée par défaut. Le domaine public définitif pourra ensuite être raccordé. Sur Vercel, les URL de référencement utilisent automatiquement `VERCEL_PROJECT_PRODUCTION_URL` ; définir `NEXT_PUBLIC_SITE_URL` pour imposer le domaine officiel. Sans ces variables, l’aperçu Sites conserve son URL actuelle. Compléter les informations juridiques réelles, la politique de conservation et la procédure de suppression, puis configurer les notifications d’e-mail avant une campagne de collecte publique. Les pages légales signalent les éléments manquants sans inventer de SIRET ou de dénomination juridique.
 
 Les images sont locales, proposées en plusieurs tailles WebP avec `srcset`. La police de titre est locale. Les mouvements sont limités aux transitions et respectent la préférence de réduction des animations.
