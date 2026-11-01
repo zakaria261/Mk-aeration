@@ -7,10 +7,14 @@ export function ProjectGallery() {
   const visible = projects.filter(
     (p) => filter === "Tous les chantiers" || p.category === filter,
   );
+  const filters = [
+    "Tous les chantiers",
+    ...new Set(projects.map((project) => project.category)),
+  ];
   return (
     <>
       <div className="project-filters" aria-label="Filtrer les réalisations">
-        {["Tous les chantiers", "CTA & double flux", "Extraction"].map((f) => (
+        {filters.map((f) => (
           <button
             key={f}
             type="button"
@@ -19,11 +23,11 @@ export function ProjectGallery() {
           >
             {f}
             <span>
-              {f === "Tous les chantiers"
-                ? "03"
-                : f === "Extraction"
-                  ? "01"
-                  : "02"}
+              {String(
+                f === "Tous les chantiers"
+                  ? projects.length
+                  : projects.filter((project) => project.category === f).length,
+              ).padStart(2, "0")}
             </span>
           </button>
         ))}

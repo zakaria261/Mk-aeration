@@ -16,6 +16,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: p ? `Chantier ${p.title}` : "Chantier introuvable",
     description: p?.description,
+    ...(p
+      ? {
+          openGraph: {
+            title: `${p.title} — MK Aération`,
+            description: p.description,
+            images: [{ url: p.image, alt: p.alt }],
+          },
+        }
+      : {}),
   };
 }
 export default async function Project({ params }: Props) {
@@ -23,6 +32,7 @@ export default async function Project({ params }: Props) {
   const p = projects.find((p) => p.slug === slug);
   if (!p) notFound();
   const next = projects[(projects.indexOf(p) + 1) % projects.length];
+  const hero = p.media[0];
   return (
     <main id="contenu">
       <section className="project-detail-intro container">
@@ -32,23 +42,31 @@ export default async function Project({ params }: Props) {
         </Link>
         <div className="project-detail-heading">
           <div>
-            <SectionLabel>{p.category.toUpperCase()}</SectionLabel>
+            <SectionLabel>
+              {p.sector.toUpperCase()} · {p.category.toUpperCase()}
+            </SectionLabel>
             <h1>{p.title.toUpperCase()}</h1>
           </div>
           <p>{p.place}</p>
         </div>
       </section>
-      <div className="container">
+      <figure className="container project-main-media">
         <Photo
-          className="project-detail-hero"
+          className={`project-detail-hero ${hero.height > hero.width ? "project-detail-portrait" : ""}`}
           sizes="(max-width: 1392px) 100vw, 1280px"
-          src={p.images[0]}
-          alt={p.alt}
-          width="1800"
-          height="1350"
+          src={hero.src}
+          alt={hero.alt}
+          width={hero.width}
+          height={hero.height}
           fetchPriority="high"
         />
-      </div>
+        <figcaption className="project-media-caption">
+          <span>
+            {hero.kind === "projet" ? "VUE DU PROJET" : "PHOTO DE CHANTIER"}
+          </span>
+          {hero.caption}
+        </figcaption>
+      </figure>
       <section className="container project-story section-space">
         <div>
           <SectionLabel>LE CHANTIER</SectionLabel>
@@ -56,7 +74,9 @@ export default async function Project({ params }: Props) {
           <p>{p.description}</p>
         </div>
         <aside>
-          <span className="eyebrow">NOTRE INTERVENTION</span>
+          <span className="eyebrow">
+            {p.slug === "htc-la-boisse" ? "LA RÉFÉRENCE" : "NOTRE INTERVENTION"}
+          </span>
           <ul className="check-list">
             {p.scope.map((s) => (
               <li key={s}>
@@ -66,20 +86,36 @@ export default async function Project({ params }: Props) {
             ))}
           </ul>
           <Link className="button" href="/devis">
-            Un projet similaire ? <ArrowUpRight size={20} />
+            Un projet similaire ?<ArrowUpRight size={20} />
           </Link>
         </aside>
       </section>
-      {p.images.length > 1 && (
-        <div className="container project-second-image">
-          <Photo
-            src={p.images[1]}
-            alt={`Autre vue des réseaux sur le chantier ${p.title}`}
-            width="1200"
-            height="1200"
-            loading="lazy"
-          />
-        </div>
+      {p.media.length > 1 && (
+        <section className="container project-photo-section">
+          <SectionLabel>LE CHANTIER EN IMAGES</SectionLabel>
+          <div className="project-photo-grid">
+            {p.media.slice(1).map((m) => (
+              <figure key={m.src}>
+                <Photo
+                  src={m.src}
+                  alt={m.alt}
+                  width={m.width}
+                  height={m.height}
+                  loading="lazy"
+                  sizes="(max-width: 600px) 100vw, 45vw"
+                />
+                <figcaption className="project-media-caption">
+                  <span>
+                    {m.kind === "projet"
+                      ? "VUE DU PROJET"
+                      : "PHOTO DE CHANTIER"}
+                  </span>
+                  {m.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
       )}
       <div className="container next-project">
         <span>LE CHANTIER SUIVANT</span>

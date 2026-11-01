@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { ArrowUpRight, Wind } from "lucide-react";
-import Link from "next/link";
 import { PageIntro, SectionLabel } from "@/components/ui";
 import { ProjectGallery } from "@/components/project-gallery";
+import { FeaturedProject } from "@/components/featured-project";
 import { ContactBanner } from "@/components/site-shell";
 export const metadata: Metadata = {
-  title: "Nos réalisations",
+  title: "Chantiers & réalisations aérauliques",
   description:
-    "Découvrez les chantiers MK Aération : FIER Annecy, légumerie de Vourney, plateforme Lidl et Métropole de Grenoble.",
+    "Forum de Grenoble, HTC La Boisse, Yottacity, Annecy : découvrez nos gaines de ventilation, réseaux de soufflage et d’extraction, raccordements CTA et VMC.",
 };
 export default function Realisations() {
   return (
@@ -16,50 +15,37 @@ export default function Realisations() {
         label="Réalisations"
         title={
           <>
-            LA PREUVE.
+            CHANTIERS.
             <br />
-            <span className="text-blue">PAR LE TERRAIN.</span>
+            <span className="text-blue">AÉRAULIQUES.</span>
           </>
         }
       >
-        Des bâtiments différents. La même exigence dans la pose. Entrez dans les
-        coulisses de nos installations.
+        Du bâtiment tertiaire au site industriel : réseaux aérauliques, gaines
+        de ventilation, soufflage, extraction et raccordements aux CTA. Le
+        travail de nos équipes, en images.
       </PageIntro>
+      <section className="container featured-case-section">
+        <FeaturedProject light />
+      </section>
       <section className="container gallery-section">
+        <SectionLabel>TOUTES NOS RÉFÉRENCES</SectionLabel>
         <ProjectGallery />
       </section>
-      <section className="grenoble-section section-space">
-        <div className="container grenoble-grid">
-          <div
-            className="technical-visual"
-            aria-label="Illustration technique du chantier, sans photographie"
-          >
-            <div className="technical-grid" />
-            <Wind size={96} strokeWidth={0.8} />
-            <strong>13</strong>
-            <span>COLONNES DE VENTILATION</span>
-            <small>SCHÉMA D’INTENTION · MÉTROPOLE DE GRENOBLE</small>
-          </div>
-          <div>
-            <SectionLabel>JOURNAL DE CHANTIER</SectionLabel>
-            <h2>
-              MÉTROPOLE
-              <br />
-              DE GRENOBLE.
-            </h2>
-            <p>
-              Les 13 colonnes circulaires et rectangulaires sont en place, du
-              R+2 jusqu’à la terrasse. Une étape concrète sur ce chantier de
-              ventilation.
-            </p>
-            <p>
-              La prochaine étape : raccorder les réseaux aux centrales de
-              traitement d’air.
-            </p>
-            <Link className="text-link" href="/devis">
-              Un chantier similaire ? Parlons-en <ArrowUpRight size={18} />
-            </Link>
-          </div>
+      <section className="project-commitment section-space">
+        <div className="container">
+          <SectionLabel>CE QUE MONTRENT NOS CHANTIERS</SectionLabel>
+          <h2>
+            DU RÉSEAU PRINCIPAL
+            <br />
+            <span className="text-blue">AU DÉTAIL DE POSE.</span>
+          </h2>
+          <p>
+            Colonnes aérauliques en terrasse, raccordements de CTA, transitions
+            de gaines ou grilles de soufflage intégrées au sol : chaque chantier
+            demande une implantation précise et une bonne coordination avec les
+            autres corps d’état.
+          </p>
         </div>
       </section>
       <ContactBanner />

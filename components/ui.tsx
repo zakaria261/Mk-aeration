@@ -36,15 +36,21 @@ export function ProjectCard({
           width="900"
           height="900"
           loading="lazy"
+          style={{ objectPosition: project.imagePosition }}
         />
         <span className="project-tag">{project.category}</span>
+        {project.coverKind === "projet" && (
+          <span className="project-cover-note">Vue du projet</span>
+        )}
         <span className="project-arrow">
           <ArrowUpRight size={23} />
         </span>
       </div>
       <div className="project-caption">
         <div>
-          <small>{project.place}</small>
+          <small>
+            {project.sector} · {project.place}
+          </small>
           <h3>{project.title}</h3>
         </div>
         <span className="project-index">0{index + 1}</span>

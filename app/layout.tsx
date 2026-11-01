@@ -6,15 +6,15 @@ import { Header, Footer } from "@/components/site-shell";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MK Aération — Ventilation, VMC & extraction",
+    default: "MK Aération — Réseaux aérauliques, CTA & VMC",
     template: "%s | MK Aération",
   },
   description:
-    "Installation de réseaux de ventilation, VMC double flux et extraction professionnelle. MK Aération intervient dans la Drôme, l’Isère, le Rhône et la Haute-Savoie.",
+    "Pose de réseaux aérauliques, gaines de ventilation, réseaux de soufflage et d’extraction, CTA et VMC. Chantiers tertiaires et industriels dans les départements 26, 38, 69 et 74.",
   openGraph: {
     title: "MK Aération — L’air sain. Le travail bien fait.",
     description:
-      "Votre spécialiste ventilation, VMC et extraction en Auvergne-Rhône-Alpes.",
+      "Réseaux aérauliques, gaines de ventilation, CTA, VMC, soufflage et extraction en Auvergne-Rhône-Alpes.",
     locale: "fr_FR",
     type: "website",
     images: [

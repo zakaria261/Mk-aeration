@@ -4,6 +4,14 @@ const widths: Record<string, number> = {
   "annecy-cta": 1200,
   "legumerie-ventilation": 1200,
   "lidl-extraction": 922,
+  "forum-grenoble-projet": 1200,
+  "htc-la-boisse-projet": 1550,
+  "forum-grenoble-chantier": 1280,
+  "yottacity-soufflage": 800,
+  "grenoble-toiture": 800,
+  "grenoble-gaines-circulaires": 800,
+  "grenoble-raccordement": 800,
+  "grenoble-gaines-rectangulaires": 800,
 };
 export function Photo({
   src,
@@ -21,7 +29,15 @@ export function Photo({
       sizes={sizes}
       srcSet={
         widths[name]
-          ? `${src.replace(".webp", "-480.webp")} 480w, ${src.replace(".webp", "-800.webp")} 800w, ${src} ${widths[name]}w`
+          ? [
+              ...[480, 800]
+                .filter((width) => width < widths[name])
+                .map(
+                  (width) =>
+                    `${src.replace(".webp", `-${width}.webp`)} ${width}w`,
+                ),
+              `${src} ${widths[name]}w`,
+            ].join(", ")
           : undefined
       }
     />

@@ -212,11 +212,9 @@ export function Footer() {
             </div>
             <div>
               <span className="footer-label">NOS MÉTIERS</span>
-              <Link href="/expertises#reseaux">Réseaux de ventilation</Link>
-              <Link href="/expertises#vmc">VMC & double flux</Link>
-              <Link href="/expertises#extraction">
-                Extraction professionnelle
-              </Link>
+              <Link href="/expertises#reseaux">Réseaux aérauliques</Link>
+              <Link href="/expertises#vmc">CTA & VMC</Link>
+              <Link href="/expertises#extraction">Soufflage & extraction</Link>
               <Link href="/entreprise#zone">Zone d’intervention</Link>
             </div>
             <div className="footer-contact">

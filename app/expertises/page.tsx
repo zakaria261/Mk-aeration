@@ -8,7 +8,7 @@ import { ContactBanner } from "@/components/site-shell";
 export const metadata: Metadata = {
   title: "Nos expertises",
   description:
-    "Réseaux circulaires et rectangulaires, VMC double flux, CTA et extraction professionnelle : découvrez les métiers de MK Aération.",
+    "Réseaux aérauliques et gaines de ventilation : pose de réseaux de soufflage et d’extraction, raccordement CTA, installation VMC et grilles de diffusion.",
 };
 export default function Expertises() {
   return (
@@ -23,8 +23,9 @@ export default function Expertises() {
           </>
         }
       >
-        De la pose des gaines au raccordement des équipements, nous intervenons
-        là où la précision fait la différence.
+        Pose de réseaux aérauliques et de gaines de ventilation, réseaux de
+        soufflage et d’extraction, CTA et VMC : notre savoir-faire accompagne
+        chaque étape de l’installation.
       </PageIntro>
       <div className="container expertise-anchor-nav">
         {services.map((s) => (

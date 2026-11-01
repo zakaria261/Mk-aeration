@@ -1,8 +1,8 @@
 import { z } from "zod";
 export const serviceNames: Record<string, string> = {
-  reseaux: "Réseaux de ventilation",
-  vmc: "VMC & double flux",
-  extraction: "Extraction professionnelle",
+  reseaux: "Réseaux aérauliques",
+  vmc: "CTA & VMC",
+  extraction: "Soufflage & extraction",
   autre: "Un autre besoin",
 };
 export const quoteSchema = z.object({

@@ -6,12 +6,12 @@ import {
   Phone,
   Wind,
   Fan,
-  MoveUpRight,
   CookingPot,
   MapPin,
   Check,
 } from "lucide-react";
 import { services, projects, company } from "@/lib/content";
+import { FeaturedProject } from "@/components/featured-project";
 import { ContactBanner } from "@/components/site-shell";
 import { SectionLabel, ProjectCard, FAQ } from "@/components/ui";
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <div className="hero-eyebrow">
-              <span className="status-dot" /> VENTILATION & QUALITÉ DE L’AIR
+              <span className="status-dot" /> RÉSEAUX AÉRAULIQUES · CTA · VMC
             </div>
             <h1>
               L’AIR SAIN.
@@ -31,8 +31,12 @@ export default function Home() {
               <span>BIEN FAIT.</span>
             </h1>
             <p>
-              Des réseaux de ventilation aux installations double flux, nous
-              donnons de l’air à vos bâtiments.
+              <strong>
+                Réseaux aérauliques, gaines de ventilation, soufflage et
+                extraction.
+              </strong>{" "}
+              Raccordement de CTA et installation de VMC pour vos bâtiments
+              tertiaires et industriels.
             </p>
             <div className="hero-actions">
               <Link href="/devis" className="button">
@@ -95,7 +99,7 @@ export default function Home() {
                 <ArrowUpRight size={29} />
               </Link>
             </div>
-            <div className="hero-photo-index">01 — 03</div>
+            <div className="hero-photo-index">INSTALLATION MK AÉRATION</div>
           </div>
         </div>
       </section>
@@ -103,15 +107,15 @@ export default function Home() {
         <div className="container">
           <span>
             <Wind />
-            Réseaux de ventilation
+            Réseaux aérauliques
           </span>
           <span>
             <Fan />
-            VMC & double flux
+            CTA & VMC
           </span>
           <span>
             <CookingPot />
-            Extraction professionnelle
+            Soufflage & extraction
           </span>
           <span className="strip-last">
             <MapPin />
@@ -129,9 +133,9 @@ export default function Home() {
               SON <span className="text-blue">SOUFFLE.</span>
             </h2>
             <p>
-              Un atelier, une cuisine professionnelle, un bâtiment collectif.
-              Chaque lieu a ses contraintes. Notre métier : y apporter une
-              réponse concrète.
+              Gaines circulaires et rectangulaires, réseaux de soufflage et
+              d’extraction, CTA et VMC : nous adaptons la pose aux contraintes
+              de chaque bâtiment tertiaire, industriel ou professionnel.
             </p>
           </div>
           <div className="expertise-grid">
@@ -152,8 +156,8 @@ export default function Home() {
             </div>
             <div className="expertise-photo">
               <Photo
-                src="/images/legumerie-ventilation.webp"
-                alt="Raccordement précis d’une centrale de traitement d’air à des réseaux circulaires"
+                src="/images/grenoble-gaines-rectangulaires.webp"
+                alt="Gaines aérauliques rectangulaires installées dans les réservations de la toiture à Grenoble"
                 width="1000"
                 height="1000"
                 loading="lazy"
@@ -187,23 +191,15 @@ export default function Home() {
               </Link>
             </div>
           </div>
+          <FeaturedProject />
           <div className="projects-grid">
-            {projects.map((p, i) => (
-              <ProjectCard key={p.slug} project={p} index={i} />
-            ))}
-          </div>
-          <div className="ongoing">
-            <span className="ongoing-label">
-              <span className="status-dot" /> AUSSI SUR LE TERRAIN
-            </span>
-            <div>
-              <strong>Métropole de Grenoble</strong>
-              <p>
-                13 colonnes circulaires et rectangulaires mises en place.
-                Prochaine étape : les raccordements aux centrales.
-              </p>
-            </div>
-            <MoveUpRight size={28} />
+            {projects
+              .filter((p) =>
+                ["htc-la-boisse", "yottacity", "fier-annecy"].includes(p.slug),
+              )
+              .map((p, i) => (
+                <ProjectCard key={p.slug} project={p} index={i + 1} />
+              ))}
           </div>
         </div>
       </section>

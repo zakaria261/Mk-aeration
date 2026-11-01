@@ -23,8 +23,8 @@ export default function Entreprise() {
           </>
         }
       >
-        Nous sommes MK Aération. Une entreprise de ventilation qui croit aux
-        choses simples : écouter, bien préparer et bien poser.
+        Nous sommes MK Aération. Une entreprise de réseaux aérauliques qui croit
+        aux choses simples : écouter, bien préparer et bien poser.
       </PageIntro>
       <section className="container company-photo">
         <Photo
@@ -50,15 +50,16 @@ export default function Entreprise() {
             </h2>
             <div className="company-text">
               <p>
-                Un réseau de ventilation, c’est une succession de détails qui
+                Un réseau aéraulique, c’est une succession de détails qui
                 comptent. Un passage à anticiper. Une transition à adapter. Un
                 raccordement à réaliser avec précision.
               </p>
               <p>
-                Notre savoir-faire couvre les réseaux circulaires et
-                rectangulaires, la VMC, le double flux et l’extraction de
-                cuisines professionnelles. Nous entretenons cette expertise par
-                la formation continue et le travail sur le terrain.
+                Notre savoir-faire couvre la pose de gaines de ventilation
+                circulaires et rectangulaires, les réseaux de soufflage et
+                d’extraction, le raccordement des CTA et l’installation de VMC.
+                Nous entretenons cette expertise par la formation continue et le
+                travail sur le terrain.
               </p>
               <p>
                 Chaque projet est l’occasion de mettre cette expérience au
