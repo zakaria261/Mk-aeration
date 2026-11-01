@@ -74,9 +74,7 @@ export default async function Project({ params }: Props) {
           <p>{p.description}</p>
         </div>
         <aside>
-          <span className="eyebrow">
-            {p.slug === "htc-la-boisse" ? "LA RÉFÉRENCE" : "NOTRE INTERVENTION"}
-          </span>
+          <span className="eyebrow">NOTRE INTERVENTION</span>
           <ul className="check-list">
             {p.scope.map((s) => (
               <li key={s}>
