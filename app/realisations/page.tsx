@@ -6,7 +6,7 @@ import { ContactBanner } from "@/components/site-shell";
 export const metadata: Metadata = {
   title: "Chantiers & réalisations aérauliques",
   description:
-    "Forum de Grenoble, HTC La Boisse, Yottacity, Annecy : découvrez nos gaines de ventilation, réseaux de soufflage et d’extraction, raccordements CTA et VMC.",
+    "Forum de Grenoble, HTC La Boisse, tunnel du Mont-Blanc, Yottacity : découvrez nos gaines de ventilation, réseaux aérauliques et raccordements CTA et VMC.",
 };
 export default function Realisations() {
   return (

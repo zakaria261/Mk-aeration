@@ -36,9 +36,9 @@ Appliquer la migration SQL `drizzle/0000_slimy_cyclops.sql` à cette base avant 
 
 ## Pages et contenu
 
-Accueil, expertises, réalisations avec filtres, six fiches chantier, entreprise et zone d’intervention, devis en trois étapes, confidentialité, mentions légales et page 404.
+Accueil, expertises, réalisations avec filtres, sept fiches chantier, entreprise et zone d’intervention, devis en trois étapes, confidentialité, mentions légales et page 404.
 
-Les textes, contacts et références sont regroupés dans `lib/content.ts`. Les photographies proviennent du site MK Aération fourni pour la refonte, des images de chantier transmises directement dans la conversation et des publications LinkedIn de Murat Kaya indiquées dans `docs/project-sources.md`. Le logo original fourni en pièce jointe par MK Aération est repris intégralement dans l’en-tête, le pied de page et les icônes du navigateur. Les dossiers présentent le Forum de la Métropole de Grenoble, HTC La Boisse, Yottacity, FIER Annecy, la légumerie de Vourney et la plateforme Lidl. HTC La Boisse présente les quatre photographies de pose de gaines circulaires de la publication du 26 mars 2026, puis la vue architecturale du programme. Les vues architecturales sont légendées « Vue du projet » ; les photographies de pose restent identifiées comme photos de chantier. Les captures de conversations et d’interfaces sociales ne sont pas publiées. Aucune note, certification ni statistique commerciale n’a été inventée.
+Les textes, contacts et références sont regroupés dans `lib/content.ts`. Les photographies proviennent du site MK Aération fourni pour la refonte, des images de chantier transmises directement dans la conversation et des publications LinkedIn de Murat Kaya indiquées dans `docs/project-sources.md`. Le logo original fourni en pièce jointe par MK Aération est repris intégralement dans l’en-tête, le pied de page et les icônes du navigateur. Les dossiers présentent le Forum de la Métropole de Grenoble, HTC La Boisse, le tunnel du Mont-Blanc, Yottacity, FIER Annecy, la légumerie de Vourney et la plateforme Lidl. HTC La Boisse présente les quatre photographies de pose de gaines circulaires de la publication du 26 mars 2026, puis la vue architecturale du programme. Les vues architecturales sont légendées « Vue du projet » ; les photographies de pose restent identifiées comme photos de chantier. La fiche du tunnel du Mont-Blanc reprend intégralement le visuel de présentation fourni par le client et les interventions décrites par Murat Kaya sur LinkedIn ; ce visuel est légendé distinctement des photographies de chantier. Les captures de conversations et d’interfaces sociales ne sont pas publiées. Aucune note, certification ni statistique commerciale n’a été inventée.
 
 ## Demandes de devis
 
@@ -74,7 +74,7 @@ npm run build
 npm run build:vercel
 ```
 
-Vérifications effectuées : réponses HTTP des treize pages, 404, sitemap et robots ; enregistrement local réel, nouvelle tentative sans doublon, refus d’e-mail et code postal invalides, absence de consentement, champ piège, origine étrangère et charge trop volumineuse. Inspection visuelle Safari sur ordinateur et cadres mobiles de 390 et 360 px. Menu et navigation vers le devis contrôlés. Le parcours de saisie complet sur un appareil physique reste à vérifier.
+Vérifications effectuées : réponses HTTP des quatorze pages, 404, sitemap et robots ; enregistrement local réel, nouvelle tentative sans doublon, refus d’e-mail et code postal invalides, absence de consentement, champ piège, origine étrangère et charge trop volumineuse. Inspection visuelle Safari sur ordinateur et cadres mobiles de 390 et 360 px. Fiche Mont-Blanc vérifiée dans Chrome à 360 px : visuel complet et absence de débordement horizontal. Menu et navigation vers le devis contrôlés. Le parcours de saisie complet sur un appareil physique reste à vérifier.
 
 ## Avant ouverture au public
 

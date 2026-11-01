@@ -10,6 +10,7 @@ const widths: Record<string, number> = {
   "htc-la-boisse-descentes": 1152,
   "htc-la-boisse-derivations": 1152,
   "htc-la-boisse-raccordements": 1152,
+  "mont-blanc-presentation": 1461,
   "forum-grenoble-chantier": 1280,
   "yottacity-soufflage": 800,
   "grenoble-toiture": 800,

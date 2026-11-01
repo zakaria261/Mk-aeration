@@ -195,7 +195,7 @@ export default function Home() {
           <div className="projects-grid">
             {projects
               .filter((p) =>
-                ["htc-la-boisse", "yottacity", "fier-annecy"].includes(p.slug),
+                ["htc-la-boisse", "tunnel-du-mont-blanc", "yottacity"].includes(p.slug),
               )
               .map((p, i) => (
                 <ProjectCard key={p.slug} project={p} index={i + 1} />

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
-import { projects } from "@/lib/content";
+import { projects, projectMediaLabels } from "@/lib/content";
 import { ContactBanner } from "@/components/site-shell";
 import { SectionLabel } from "@/components/ui";
 type Props = { params: Promise<{ slug: string }> };
@@ -61,9 +61,7 @@ export default async function Project({ params }: Props) {
           fetchPriority="high"
         />
         <figcaption className="project-media-caption">
-          <span>
-            {hero.kind === "projet" ? "VUE DU PROJET" : "PHOTO DE CHANTIER"}
-          </span>
+          <span>{projectMediaLabels[hero.kind]}</span>
           {hero.caption}
         </figcaption>
       </figure>
@@ -103,11 +101,7 @@ export default async function Project({ params }: Props) {
                   sizes="(max-width: 600px) 100vw, 45vw"
                 />
                 <figcaption className="project-media-caption">
-                  <span>
-                    {m.kind === "projet"
-                      ? "VUE DU PROJET"
-                      : "PHOTO DE CHANTIER"}
-                  </span>
+                  <span>{projectMediaLabels[m.kind]}</span>
                   {m.caption}
                 </figcaption>
               </figure>

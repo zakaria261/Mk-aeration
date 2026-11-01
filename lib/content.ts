@@ -62,7 +62,7 @@ export type ProjectMedia = {
   src: string;
   alt: string;
   caption: string;
-  kind: "chantier" | "projet";
+  kind: "chantier" | "projet" | "presentation";
   width: number;
   height: number;
 };
@@ -74,12 +74,18 @@ export type Project = {
   category: string;
   image: string;
   alt: string;
-  coverKind: "chantier" | "projet";
+  coverKind: ProjectMedia["kind"];
   imagePosition?: string;
   intro: string;
   description: string;
   scope: string[];
   media: ProjectMedia[];
+};
+
+export const projectMediaLabels: Record<ProjectMedia["kind"], string> = {
+  chantier: "PHOTO DE CHANTIER",
+  projet: "VUE DU PROJET",
+  presentation: "VISUEL DE PRÉSENTATION",
 };
 
 export const projects: Project[] = [
@@ -215,6 +221,36 @@ export const projects: Project[] = [
           "Vue architecturale du programme HTC La Boisse. Visuel du projet fourni ; il ne s’agit pas d’une photographie des installations.",
         kind: "projet",
         width: 1550,
+        height: 720,
+      },
+    ],
+  },
+  {
+    slug: "tunnel-du-mont-blanc",
+    title: "Tunnel du Mont-Blanc",
+    place: "France · Italie",
+    sector: "Infrastructures",
+    category: "Ventilation & hydraulique",
+    image: "/images/mont-blanc-presentation.webp",
+    alt: "Visuel MK Aération présentant l’entrée du tunnel du Mont-Blanc dans un paysage alpin",
+    coverKind: "presentation",
+    intro: "Huit mois de travaux au cœur des Alpes.",
+    description:
+      "MK Aération a participé au chantier du tunnel du Mont-Blanc pendant huit mois. Notre intervention comprend la pose d’une gaine de ventilation de 1 000 × 1 000 mm pour l’amenée d’air d’un local électrique. Les équipes ont également installé des conduites PVC Ø125 pour la récupération des eaux de la cascade située au milieu du tunnel, avec un réseau distribué sur plus de 11,6 km à travers les zones techniques. Des interventions nocturnes et la préparation du supportage ont accompagné ces travaux entre la France et l’Italie.",
+    scope: [
+      "Amenée d’air d’un local électrique",
+      "Gaine de ventilation de 1 000 × 1 000 mm",
+      "Pose de conduites PVC Ø125 pour la récupération des eaux",
+      "Réseau distribué sur plus de 11,6 km",
+      "Supportage et interventions nocturnes",
+    ],
+    media: [
+      {
+        src: "/images/mont-blanc-presentation.webp",
+        alt: "Entrée du tunnel du Mont-Blanc et montagnes, sur le visuel de présentation fourni par MK Aération",
+        caption: "Tunnel du Mont-Blanc — visuel de présentation fourni par MK Aération.",
+        kind: "presentation",
+        width: 1461,
         height: 720,
       },
     ],

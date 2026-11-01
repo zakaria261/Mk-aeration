@@ -28,7 +28,7 @@ export function ProjectCard({
 }) {
   return (
     <Link href={`/realisations/${project.slug}`} className="project-card">
-      <div className="project-image">
+      <div className={`project-image${project.coverKind === "presentation" ? " project-image-presentation" : ""}`}>
         <Photo
           sizes="(max-width: 600px) calc(100vw - 44px), (max-width: 1392px) 30vw, 400px"
           src={project.image}
@@ -41,6 +41,9 @@ export function ProjectCard({
         <span className="project-tag">{project.category}</span>
         {project.coverKind === "projet" && (
           <span className="project-cover-note">Vue du projet</span>
+        )}
+        {project.coverKind === "presentation" && (
+          <span className="project-cover-note">Visuel de présentation</span>
         )}
         <span className="project-arrow">
           <ArrowUpRight size={23} />
