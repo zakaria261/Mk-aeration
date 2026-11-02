@@ -11,7 +11,7 @@ import {
   Check,
 } from "lucide-react";
 import { services, projects, company } from "@/lib/content";
-import { FeaturedProject } from "@/components/featured-project";
+import { FieldworkStories } from "@/components/fieldwork-stories";
 import { ContactBanner } from "@/components/site-shell";
 import { SectionLabel, ProjectCard, FAQ } from "@/components/ui";
 export default function Home() {
@@ -191,7 +191,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <FeaturedProject />
+          <FieldworkStories />
           <div className="projects-grid">
             {projects
               .filter((p) =>

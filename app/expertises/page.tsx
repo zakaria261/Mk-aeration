@@ -2,7 +2,8 @@ import { Photo } from "@/components/photo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Check, ArrowRight } from "lucide-react";
-import { services } from "@/lib/content";
+import { services, projects } from "@/lib/content";
+import { ProjectVideo } from "@/components/project-video";
 import { PageIntro, SectionLabel, FAQ } from "@/components/ui";
 import { ContactBanner } from "@/components/site-shell";
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     "Réseaux aérauliques et gaines de ventilation : pose de réseaux de soufflage et d’extraction, raccordement CTA, installation VMC et grilles de diffusion.",
 };
 export default function Expertises() {
+  const hotte = projects.find((project) => project.slug === "pose-hotte-cuisine-professionnelle")!;
   return (
     <main id="contenu">
       <PageIntro
@@ -69,10 +71,31 @@ export default function Expertises() {
               <Link className="button" href={`/devis?service=${s.id}`}>
                 Parlons de votre installation <ArrowUpRight size={19} />
               </Link>
+              {s.id === "vmc" && (
+                <Link className="text-link service-case-link" href="/realisations/rehabilitation-vmc-21-appartements">Voir la réhabilitation de 21 appartements <ArrowRight size={18} /></Link>
+              )}
+              {s.id === "extraction" && (
+                <a className="text-link service-case-link" href="#hottes-professionnelles">La pose d’une hotte en vidéo <ArrowRight size={18} /></a>
+              )}
             </div>
           </div>
         </section>
       ))}
+      <section className="hotte-feature section-space" id="hottes-professionnelles">
+        <div className="container project-film-lead">
+          <ProjectVideo video={hotte.video!} />
+          <div className="project-film-intro">
+            <SectionLabel>CUISINES PROFESSIONNELLES</SectionLabel>
+            <h2>LA POSE D’UNE HOTTE.<br /><span className="text-blue">SUR LE TERRAIN.</span></h2>
+            <p>{hotte.description}</p>
+            <ul className="check-list">
+              {hotte.scope.map((item) => <li key={item}><Check size={17} />{item}</li>)}
+            </ul>
+            <Link className="button" href="/devis?service=extraction">Votre projet de hotte <ArrowUpRight size={19} /></Link>
+            <Link className="text-link" href={`/realisations/${hotte.slug}`}>Voir cette intervention <ArrowRight size={18} /></Link>
+          </div>
+        </div>
+      </section>
       <section className="process-section section-space">
         <div className="container">
           <SectionLabel>DU BESOIN AU CHANTIER</SectionLabel>

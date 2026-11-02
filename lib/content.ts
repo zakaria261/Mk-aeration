@@ -38,6 +38,7 @@ export const services = [
       "Installation de VMC et réseaux double flux",
       "Liaisons entre équipements et réseaux aérauliques",
       "Adaptation des départs rectangulaires aux gaines circulaires",
+      "Réhabilitation des réseaux VMC en logement collectif",
     ],
   },
   {
@@ -66,6 +67,15 @@ export type ProjectMedia = {
   width: number;
   height: number;
 };
+export type ProjectVideo = {
+  src: string;
+  poster: string;
+  title: string;
+  caption: string;
+  duration: string;
+  width: number;
+  height: number;
+};
 export type Project = {
   slug: string;
   title: string;
@@ -80,6 +90,10 @@ export type Project = {
   description: string;
   scope: string[];
   media: ProjectMedia[];
+  video?: ProjectVideo;
+  figures?: { value: string; label: string }[];
+  stages?: { title: string; description: string }[];
+  objective?: string;
 };
 
 export const projectMediaLabels: Record<ProjectMedia["kind"], string> = {
@@ -89,6 +103,119 @@ export const projectMediaLabels: Record<ProjectMedia["kind"], string> = {
 };
 
 export const projects: Project[] = [
+  {
+    slug: "rehabilitation-vmc-21-appartements",
+    title: "Réhabilitation VMC",
+    place: "3 immeubles · 21 appartements",
+    sector: "Logement collectif",
+    category: "Réhabilitation VMC",
+    image: "/images/vmc-video-poster.webp",
+    alt: "Nouveaux réseaux de ventilation en toiture sur le chantier de réhabilitation VMC",
+    coverKind: "chantier",
+    imagePosition: "50% 55%",
+    intro: "Réhabiliter les réseaux VMC.",
+    description:
+      "Nos équipes interviennent sur trois immeubles comprenant 21 appartements pour remplacer les anciens réseaux de ventilation. De la dépose à l’installation des nouveaux réseaux VMC, chaque passage, chaque raccordement et chaque bouche d’extraction fait partie d’une intervention organisée à l’échelle des trois bâtiments.",
+    objective:
+      "Assurer une ventilation efficace dans chacun des logements, contribuer à une meilleure qualité de l’air intérieur et au confort des occupants. L’intervention comprend la vérification des raccordements et du bon fonctionnement des installations.",
+    figures: [
+      { value: "3", label: "immeubles" },
+      { value: "21", label: "appartements" },
+    ],
+    scope: [
+      "Démontage et dépose des anciens réseaux",
+      "Évacuation des anciennes installations",
+      "Préparation des passages et cheminements",
+      "Installation des nouveaux réseaux VMC",
+      "Raccordement des équipements de ventilation",
+      "Pose des bouches d’extraction et accessoires",
+      "Vérification des raccordements et du fonctionnement",
+    ],
+    stages: [
+      {
+        title: "Déposer l’existant",
+        description: "Démontage des anciens réseaux de ventilation et évacuation des installations déposées.",
+      },
+      {
+        title: "Préparer les passages",
+        description: "Préparation des cheminements et des passages nécessaires à la pose des nouveaux réseaux.",
+      },
+      {
+        title: "Installer et raccorder",
+        description: "Remontage des réseaux VMC, raccordement des équipements et pose des bouches d’extraction avec leurs accessoires.",
+      },
+      {
+        title: "Vérifier les installations",
+        description: "Vérification des raccordements et du bon fonctionnement des nouvelles installations de ventilation.",
+      },
+    ],
+    video: {
+      src: "/videos/rehabilitation-vmc.mp4",
+      poster: "/images/vmc-video-poster.webp",
+      title: "Réhabilitation des réseaux VMC",
+      caption: "Les anciens réseaux en toiture, leur démontage et la mise en place des nouveaux conduits : l’avancement du chantier en vidéo.",
+      duration: "1 min 01",
+      width: 720,
+      height: 1280,
+    },
+    media: [
+      {
+        src: "/images/vmc-cheminements.webp",
+        alt: "Cheminement des gaines de ventilation en partie haute dans les locaux en travaux",
+        caption: "Vue des cheminements et des raccordements des gaines de ventilation en partie haute.",
+        kind: "chantier",
+        width: 1440,
+        height: 2560,
+      },
+      {
+        src: "/images/vmc-reseaux.webp",
+        alt: "Gaines circulaires parallèles et dérivations du réseau de ventilation sous dalle",
+        caption: "Gaines circulaires, dérivations et supportage : le détail de l’implantation des réseaux.",
+        kind: "chantier",
+        width: 1440,
+        height: 2560,
+      },
+      {
+        src: "/images/vmc-equipements.webp",
+        alt: "Équipements de traitement d’air et gaines circulaires raccordées sous dalle",
+        caption: "Les équipements de ventilation et leurs liaisons avec les gaines circulaires.",
+        kind: "chantier",
+        width: 1440,
+        height: 2560,
+      },
+    ],
+  },
+  {
+    slug: "pose-hotte-cuisine-professionnelle",
+    title: "Pose de hotte",
+    place: "Cuisine professionnelle",
+    sector: "Cuisine professionnelle",
+    category: "Extraction",
+    image: "/images/hotte-video-poster.webp",
+    alt: "Hotte de cuisine professionnelle et gaine d’extraction en cours d’installation",
+    coverKind: "chantier",
+    intro: "La pose d’une hotte, sur le terrain.",
+    description:
+      "Préparation du supportage, ajustements des fixations et mise en place de la hotte : la vidéo montre notre équipe au travail sur une installation de cuisine professionnelle. La hotte est raccordée à une gaine d’extraction circulaire, avec une attention portée à l’implantation de l’ensemble.",
+    objective:
+      "Coordonner la pose de la hotte et son raccordement au réseau d’extraction, en tenant compte de la configuration de la cuisine.",
+    scope: [
+      "Préparation du supportage",
+      "Mise en place de la hotte de cuisine",
+      "Fixations et ajustements de pose",
+      "Raccordement au réseau d’extraction",
+    ],
+    video: {
+      src: "/videos/pose-hotte-cuisine.mp4",
+      poster: "/images/hotte-video-poster.webp",
+      title: "Pose d’une hotte de cuisine professionnelle",
+      caption: "Supportage, fixation et raccordement au conduit d’extraction : les gestes de pose de notre équipe.",
+      duration: "48 s",
+      width: 720,
+      height: 1280,
+    },
+    media: [],
+  },
   {
     slug: "forum-metropole-grenoble",
     title: "Forum de la Métropole",

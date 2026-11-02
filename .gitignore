@@ -43,3 +43,10 @@ yarn-error.log*
 
 # OS metadata
 .DS_Store
+
+# Original client media; only optimized web assets are published.
+/public/IMG_0135.MOV
+/public/IMG_6616.MOV
+/public/IMG_7335.HEIC
+/public/IMG_7336.HEIC
+/public/IMG_7338.HEIC

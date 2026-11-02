@@ -1,6 +1,6 @@
 import { Photo } from "@/components/photo";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight, Plus } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Plus, Play } from "lucide-react";
 import { projects, faqs } from "@/lib/content";
 export function SectionLabel({
   children,
@@ -39,6 +39,9 @@ export function ProjectCard({
           style={{ objectPosition: project.imagePosition }}
         />
         <span className="project-tag">{project.category}</span>
+        {project.video && (
+          <span className="project-film-badge"><Play size={12} fill="currentColor" /> Vidéo · {project.video.duration}</span>
+        )}
         {project.coverKind === "projet" && (
           <span className="project-cover-note">Vue du projet</span>
         )}

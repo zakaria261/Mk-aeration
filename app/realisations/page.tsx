@@ -6,7 +6,7 @@ import { ContactBanner } from "@/components/site-shell";
 export const metadata: Metadata = {
   title: "Chantiers & réalisations aérauliques",
   description:
-    "Forum de Grenoble, HTC La Boisse, tunnel du Mont-Blanc, Yottacity : découvrez nos gaines de ventilation, réseaux aérauliques et raccordements CTA et VMC.",
+    "Réhabilitation VMC de 3 immeubles et 21 appartements, pose de hotte, Forum de Grenoble, Mont-Blanc : les photos et vidéos des interventions MK Aération.",
 };
 export default function Realisations() {
   return (

@@ -22,3 +22,20 @@ https://www.linkedin.com/in/murat-kaya-1b8395223/recent-activity/all/
 - Publications sur la préparation du supportage et les interventions nocturnes dans les refuges.
 
 La fiche décrit le périmètre de MK Aération. Les travaux de production de froid d’autres entreprises ne lui sont pas attribués.
+
+## Réhabilitation VMC — 3 immeubles, 21 appartements
+
+Fichiers locaux fournis directement par le client le 2 novembre 2026 :
+
+- `IMG_0135.MOV` → `videos/rehabilitation-vmc.mp4`, film complet (environ 61 secondes), sans recadrage.
+- `IMG_7335.HEIC` → `images/vmc-equipements.webp`.
+- `IMG_7336.HEIC` → `images/vmc-reseaux.webp`.
+- `IMG_7338.HEIC` → `images/vmc-cheminements.webp`.
+
+Le périmètre, les étapes et les nombres de bâtiments et de logements sont repris des informations fournies par le client. Les légendes décrivent les éléments visibles ; aucune commune ni date de réception n’est inventée. L’affiche du film est extraite de la vidéo.
+
+## Pose de hotte de cuisine professionnelle
+
+`IMG_6616.MOV`, fourni directement par le client le 2 novembre 2026, devient `videos/pose-hotte-cuisine.mp4`. Le film complet conserve son cadrage vertical et son audio. L’affiche est extraite du film. Les textes décrivent le supportage, les fixations, la mise en place de la hotte et son raccordement au réseau d’extraction visibles dans la vidéo, sans inventer de dimensions, de débit ou de localisation.
+
+Les fichiers MOV et HEIC originaux ne sont pas publiés. Les médias web ne contiennent pas leurs métadonnées d’origine.

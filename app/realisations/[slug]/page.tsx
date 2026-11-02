@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { projects, projectMediaLabels } from "@/lib/content";
 import { ContactBanner } from "@/components/site-shell";
 import { SectionLabel } from "@/components/ui";
+import { ProjectVideo } from "@/components/project-video";
 type Props = { params: Promise<{ slug: string }> };
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -33,6 +34,7 @@ export default async function Project({ params }: Props) {
   if (!p) notFound();
   const next = projects[(projects.indexOf(p) + 1) % projects.length];
   const hero = p.media[0];
+  const photos = p.video ? p.media : p.media.slice(1);
   return (
     <main id="contenu">
       <section className="project-detail-intro container">
@@ -50,7 +52,27 @@ export default async function Project({ params }: Props) {
           <p>{p.place}</p>
         </div>
       </section>
-      <figure className="container project-main-media">
+      {p.video ? (
+        <section className="container project-film-lead">
+          <ProjectVideo video={p.video} />
+          <div className="project-film-intro">
+            <SectionLabel>EN DIRECT DU CHANTIER</SectionLabel>
+            <h2>{p.intro.toUpperCase()}</h2>
+            {p.figures && (
+              <dl className="project-figures">
+                {p.figures.map((figure) => (
+                  <div key={figure.label}><dt>{figure.value}</dt><dd>{figure.label}</dd></div>
+                ))}
+              </dl>
+            )}
+            <p>{p.description}</p>
+            <Link href={`/devis?service=${p.category === "Extraction" ? "extraction" : "vmc"}`} className="button">
+              Parlons de votre chantier <ArrowUpRight size={20} />
+            </Link>
+          </div>
+        </section>
+      ) : (
+        <figure className="container project-main-media">
         <Photo
           className={`project-detail-hero ${hero.height > hero.width ? "project-detail-portrait" : ""}`}
           sizes="(max-width: 1392px) 100vw, 1280px"
@@ -64,12 +86,13 @@ export default async function Project({ params }: Props) {
           <span>{projectMediaLabels[hero.kind]}</span>
           {hero.caption}
         </figcaption>
-      </figure>
+        </figure>
+      )}
       <section className="container project-story section-space">
         <div>
           <SectionLabel>LE CHANTIER</SectionLabel>
-          <h2>{p.intro.toUpperCase()}</h2>
-          <p>{p.description}</p>
+          <h2>{p.video ? "UNE POSE PRÉCISE. À CHAQUE ÉTAPE." : p.intro.toUpperCase()}</h2>
+          <p>{p.objective || p.description}</p>
         </div>
         <aside>
           <span className="eyebrow">NOTRE INTERVENTION</span>
@@ -86,11 +109,28 @@ export default async function Project({ params }: Props) {
           </Link>
         </aside>
       </section>
-      {p.media.length > 1 && (
+      {p.stages && (
+        <section className="project-stages section-space">
+          <div className="container">
+            <SectionLabel>LES ÉTAPES DE LA RÉHABILITATION</SectionLabel>
+            <h2>DE L’EXISTANT<br /><span className="text-blue">AUX NOUVEAUX RÉSEAUX.</span></h2>
+            <ol>
+              {p.stages.map((stage, index) => (
+                <li key={stage.title}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{stage.title}</h3>
+                  <p>{stage.description}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+      {photos.length > 0 && (
         <section className="container project-photo-section">
           <SectionLabel>LE CHANTIER EN IMAGES</SectionLabel>
-          <div className="project-photo-grid">
-            {p.media.slice(1).map((m) => (
+          <div className={`project-photo-grid${p.video ? " project-photo-grid-portrait" : ""}`}>
+            {photos.map((m) => (
               <figure key={m.src}>
                 <Photo
                   src={m.src}

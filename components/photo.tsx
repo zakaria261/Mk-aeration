@@ -1,5 +1,10 @@
 import type { ImgHTMLAttributes } from "react";
 const widths: Record<string, number> = {
+  "vmc-equipements": 1440,
+  "vmc-reseaux": 1440,
+  "vmc-cheminements": 1440,
+  "vmc-video-poster": 720,
+  "hotte-video-poster": 720,
   "annecy-panorama": 1800,
   "annecy-cta": 1200,
   "legumerie-ventilation": 1200,
