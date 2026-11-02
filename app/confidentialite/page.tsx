@@ -58,9 +58,20 @@ export default function Privacy() {
       </p>
       <h2>COOKIES</h2>
       <p>
+        L’espace équipe est réservé aux collaborateurs autorisés. Il utilise
+        leur nom, leur adresse e-mail et leur rôle pour gérer les publications
+        et les accès. Les brouillons, les photos privées et l’historique des
+        actions sont stockés sur Neon dans la région de Francfort. Les photos et
+        textes validés par un administrateur deviennent publics sur le site. Les
+        métadonnées d’origine des photos importées sont retirées lors de leur
+        préparation pour le web.
+      </p>
+      <p>
         Le site n’intègre pas de traceur publicitaire ni de module de mesure
         d’audience. L’hébergement privé peut utiliser les éléments techniques
-        nécessaires au contrôle de l’accès. Le formulaire ne conserve pas vos
+        nécessaires au contrôle de l’accès. La connexion de l’équipe utilise des
+        cookies de session et un code personnel envoyé par le service
+        d’authentification Neon. Le formulaire de devis ne conserve pas vos
         coordonnées dans le stockage local du navigateur.
       </p>
     </main>

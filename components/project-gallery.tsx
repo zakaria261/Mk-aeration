@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import { projects } from "@/lib/content";
+import type { ProjectCardData } from "@/lib/content";
 import { ProjectCard } from "./ui";
-export function ProjectGallery() {
+export function ProjectGallery({ projects }: { projects: ProjectCardData[] }) {
   const [filter, setFilter] = useState("Tous les chantiers");
   const visible = projects.filter(
     (p) => filter === "Tous les chantiers" || p.category === filter,

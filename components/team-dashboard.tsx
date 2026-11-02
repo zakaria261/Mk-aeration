@@ -1,0 +1,274 @@
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import {
+  Plus,
+  ArrowUpRight,
+  FileText,
+  Camera,
+  ArrowRight,
+  LoaderCircle,
+} from "lucide-react";
+import {
+  statusLabels,
+  type TeamMember,
+  type TeamPost,
+  type ContentKind,
+} from "@/lib/cms-types";
+
+export function TeamDashboard({
+  posts,
+  member,
+  all = false,
+}: {
+  posts: TeamPost[];
+  member: TeamMember;
+  all?: boolean;
+}) {
+  const [filter, setFilter] = useState("all");
+  const [pending, setPending] = useState<ContentKind | null>(null);
+  const [error, setError] = useState("");
+  const router = useRouter();
+  async function create(kind: ContentKind) {
+    setPending(kind);
+    setError("");
+    try {
+      const response = await fetch("/api/equipe/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kind }),
+      });
+      const result = (await response.json()) as {
+        post: TeamPost;
+        error?: string;
+      };
+      if (!response.ok) throw new Error(result.error);
+      router.push(`/equipe/publications/${result.post.id}`);
+    } catch (e) {
+      setError(
+        e instanceof Error ? e.message : "La création a échoué. Réessayez.",
+      );
+      setPending(null);
+    }
+  }
+  const visible = posts.filter((p) =>
+    filter === "all"
+      ? p.status !== "archived"
+      : filter === "realisation" || filter === "actualite"
+        ? p.kind === filter && p.status !== "archived"
+        : p.status === filter,
+  );
+  return (
+    <main className="team-main" id="contenu">
+      <div className="team-page-heading">
+        <div>
+          <span className="eyebrow">
+            {all ? "VOTRE BIBLIOTHÈQUE" : "L’ATELIER DES CHANTIERS"}
+          </span>
+          <h1>
+            {all
+              ? "Les publications."
+              : `Bonjour ${member.name.split(" ")[0]}.`}
+          </h1>
+          <p>
+            {all
+              ? "Préparez vos contenus, retrouvez vos brouillons et suivez leur publication."
+              : "Le chantier se termine. Le savoir-faire reste visible."}
+          </p>
+        </div>
+        <button
+          className="team-primary"
+          onClick={() => create("realisation")}
+          disabled={!!pending}
+        >
+          <Plus size={18} /> Nouvelle réalisation
+        </button>
+      </div>
+      {!all && (
+        <>
+          <div className="team-stats">
+            {[
+              [String(posts.filter((p) => p.published).length), "en ligne"],
+              [
+                String(posts.filter((p) => p.status === "draft").length),
+                "brouillons",
+              ],
+              [
+                String(posts.filter((p) => p.status === "review").length),
+                "à valider",
+              ],
+            ].map(([count, label]) => (
+              <div key={label}>
+                <strong>{count.padStart(2, "0")}</strong>
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="team-create-grid">
+            <button
+              type="button"
+              onClick={() => create("realisation")}
+              disabled={!!pending}
+            >
+              <Camera size={25} />
+              <span>
+                <strong>Montrer une réalisation</strong>
+                <small>Un chantier, ses contraintes, votre intervention.</small>
+              </span>
+              {pending === "realisation" ? (
+                <LoaderCircle className="spin" size={20} />
+              ) : (
+                <ArrowUpRight size={22} />
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => create("actualite")}
+              disabled={!!pending}
+            >
+              <FileText size={25} />
+              <span>
+                <strong>Partager une actualité</strong>
+                <small>Un avancement ou une nouvelle de l’équipe.</small>
+              </span>
+              {pending === "actualite" ? (
+                <LoaderCircle className="spin" size={20} />
+              ) : (
+                <ArrowUpRight size={22} />
+              )}
+            </button>
+          </div>
+        </>
+      )}
+      {error && (
+        <p role="alert" className="team-error">
+          {error}
+        </p>
+      )}
+      <section className="team-publications">
+        <div className="team-section-title">
+          <h2>{all ? "Tous les contenus" : "Les dernières publications"}</h2>
+          {!all && (
+            <Link href="/equipe/publications">
+              Tout voir <ArrowRight size={16} />
+            </Link>
+          )}
+          {all && (
+            <button
+              type="button"
+              className="team-secondary"
+              disabled={!!pending}
+              onClick={() => create("actualite")}
+            >
+              <Plus size={17} /> Actualité
+            </button>
+          )}
+        </div>
+        <div className="team-filters">
+          {[
+            ["all", "Tout"],
+            ["realisation", "Réalisations"],
+            ["actualite", "Actualités"],
+            ["draft", "Brouillons"],
+            ["review", "À valider"],
+            ["archived", "Archives"],
+          ].map(([value, label]) => (
+            <button
+              key={value}
+              aria-pressed={filter === value}
+              onClick={() => setFilter(value)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        {visible.length ? (
+          <div className="team-post-list">
+            {visible.slice(0, all ? 100 : 8).map((post) => {
+              const cover = post.draft.media.find(
+                (m) => m.id === post.draft.coverId,
+              );
+              return (
+                <Link
+                  key={post.id}
+                  href={`/equipe/publications/${post.id}`}
+                  className="team-post-row"
+                >
+                  <div className="team-post-thumb">
+                    {cover ? (
+                      <img
+                        src={`/media/${cover.id}?w=480`}
+                        alt=""
+                        width={80}
+                        height={80}
+                      />
+                    ) : (
+                      <Camera size={23} />
+                    )}
+                  </div>
+                  <div className="team-post-title">
+                    <small>
+                      {post.kind === "realisation"
+                        ? "Réalisation"
+                        : "Actualité"}
+                    </small>
+                    <strong>
+                      {post.draft.title || "Publication sans titre"}
+                    </strong>
+                    <span>
+                      Modifiée le{" "}
+                      {new Date(post.updated_at).toLocaleDateString("fr-FR")}
+                      {member.role === "admin" ? ` · ${post.owner_email}` : ""}
+                    </span>
+                  </div>
+                  <span className={`team-badge ${post.status}`}>
+                    {statusLabels[post.status]}
+                  </span>
+                  <ArrowUpRight size={20} />
+                </Link>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="team-empty">
+            <Camera size={30} />
+            <h3>
+              {filter === "all"
+                ? "Votre prochaine réalisation commence ici."
+                : "Aucune publication dans cette sélection."}
+            </h3>
+            <p>
+              Quelques photos, le contexte et les détails de l’intervention :
+              votre travail mérite d’être montré.
+            </p>
+            {filter === "all" && (
+              <button
+                onClick={() => create("realisation")}
+                className="team-primary"
+                disabled={!!pending}
+              >
+                Créer ma première réalisation <Plus size={17} />
+              </button>
+            )}
+          </div>
+        )}
+      </section>
+      {!all && (
+        <aside className="team-workflow-note">
+          <span>LE BON RÉFLEXE</span>
+          <p>
+            Choisissez une photo nette, décrivez le travail réalisé et
+            prévisualisez la fiche.{" "}
+            {member.role === "admin"
+              ? "Vous gardez la main sur la mise en ligne."
+              : "Votre responsable valide la publication avant sa mise en ligne."}
+          </p>
+          <Link href="/realisations/tunnel-du-mont-blanc" target="_blank">
+            Voir un exemple de fiche <ArrowUpRight size={16} />
+          </Link>
+        </aside>
+      )}
+    </main>
+  );
+}

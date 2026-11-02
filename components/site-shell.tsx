@@ -16,6 +16,7 @@ const nav = [
   ["/", "Accueil"],
   ["/expertises", "Expertises"],
   ["/realisations", "Réalisations"],
+  ["/actualites", "Actualités"],
   ["/entreprise", "L’entreprise"],
 ];
 export function Brand({ light = false }: { light?: boolean }) {
@@ -86,6 +87,7 @@ export function Header() {
       document.removeEventListener("keydown", key);
     };
   }, [open]);
+  if (pathname.startsWith("/equipe") || pathname === "/connexion") return null;
   return (
     <>
       <a href="#contenu" className="skip-link">
@@ -175,6 +177,7 @@ export function Header() {
 }
 export function Footer() {
   const pathname = usePathname();
+  if (pathname.startsWith("/equipe") || pathname === "/connexion") return null;
   return (
     <>
       <footer className="footer">
@@ -208,6 +211,7 @@ export function Footer() {
               <Link href="/">Accueil</Link>
               <Link href="/expertises">Nos expertises</Link>
               <Link href="/realisations">Nos réalisations</Link>
+              <Link href="/actualites">Les actualités</Link>
               <Link href="/entreprise">L’entreprise</Link>
             </div>
             <div>
@@ -235,6 +239,7 @@ export function Footer() {
             <div>
               <Link href="/mentions-legales">Mentions légales</Link>
               <Link href="/confidentialite">Confidentialité</Link>
+              <Link href="/connexion">Espace équipe</Link>
             </div>
           </div>
         </div>

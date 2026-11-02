@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { PageIntro, SectionLabel } from "@/components/ui";
 import { ProjectGallery } from "@/components/project-gallery";
-import { FeaturedProject } from "@/components/featured-project";
 import { ContactBanner } from "@/components/site-shell";
+import { allProjects, projectCardData } from "@/lib/cms-posts";
+import { MontBlancFeature } from "@/components/mont-blanc-feature";
 export const metadata: Metadata = {
   title: "Chantiers & réalisations aérauliques",
   description:
     "Réhabilitation VMC de 3 immeubles et 21 appartements, pose de hotte, Forum de Grenoble, Mont-Blanc : les photos et vidéos des interventions MK Aération.",
 };
-export default function Realisations() {
+export const revalidate = 60;
+export default async function Realisations() {
+  const projects = await allProjects();
   return (
     <main id="contenu">
       <PageIntro
@@ -26,11 +29,11 @@ export default function Realisations() {
         travail de nos équipes, en images.
       </PageIntro>
       <section className="container featured-case-section">
-        <FeaturedProject light />
+        <MontBlancFeature />
       </section>
       <section className="container gallery-section">
         <SectionLabel>TOUTES NOS RÉFÉRENCES</SectionLabel>
-        <ProjectGallery />
+        <ProjectGallery projects={projects.map(projectCardData)} />
       </section>
       <section className="project-commitment section-space">
         <div className="container">

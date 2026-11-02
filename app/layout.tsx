@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     type: "website",
     images: [
-      { url: "/images/annecy-panorama.webp", width: 1800, height: 1350 },
+      { url: "/images/mont-blanc-presentation.webp", width: 1461, height: 720 },
     ],
   },
   icons: {

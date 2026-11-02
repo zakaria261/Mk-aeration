@@ -83,6 +83,8 @@ export type Project = {
   sector: string;
   category: string;
   image: string;
+  imageWidth?: number;
+  imageHeight?: number;
   alt: string;
   coverKind: ProjectMedia["kind"];
   imagePosition?: string;
@@ -95,6 +97,20 @@ export type Project = {
   stages?: { title: string; description: string }[];
   objective?: string;
 };
+export type ProjectCardData = Pick<
+  Project,
+  | "slug"
+  | "title"
+  | "place"
+  | "sector"
+  | "category"
+  | "image"
+  | "imageWidth"
+  | "imageHeight"
+  | "alt"
+  | "coverKind"
+  | "imagePosition"
+> & { video?: { duration: string } };
 
 export const projectMediaLabels: Record<ProjectMedia["kind"], string> = {
   chantier: "PHOTO DE CHANTIER",
@@ -134,26 +150,31 @@ export const projects: Project[] = [
     stages: [
       {
         title: "Déposer l’existant",
-        description: "Démontage des anciens réseaux de ventilation et évacuation des installations déposées.",
+        description:
+          "Démontage des anciens réseaux de ventilation et évacuation des installations déposées.",
       },
       {
         title: "Préparer les passages",
-        description: "Préparation des cheminements et des passages nécessaires à la pose des nouveaux réseaux.",
+        description:
+          "Préparation des cheminements et des passages nécessaires à la pose des nouveaux réseaux.",
       },
       {
         title: "Installer et raccorder",
-        description: "Remontage des réseaux VMC, raccordement des équipements et pose des bouches d’extraction avec leurs accessoires.",
+        description:
+          "Remontage des réseaux VMC, raccordement des équipements et pose des bouches d’extraction avec leurs accessoires.",
       },
       {
         title: "Vérifier les installations",
-        description: "Vérification des raccordements et du bon fonctionnement des nouvelles installations de ventilation.",
+        description:
+          "Vérification des raccordements et du bon fonctionnement des nouvelles installations de ventilation.",
       },
     ],
     video: {
       src: "/videos/rehabilitation-vmc.mp4",
       poster: "/images/vmc-video-poster.webp",
       title: "Réhabilitation des réseaux VMC",
-      caption: "Les anciens réseaux en toiture, leur démontage et la mise en place des nouveaux conduits : l’avancement du chantier en vidéo.",
+      caption:
+        "Les anciens réseaux en toiture, leur démontage et la mise en place des nouveaux conduits : l’avancement du chantier en vidéo.",
       duration: "1 min 01",
       width: 720,
       height: 1280,
@@ -162,7 +183,8 @@ export const projects: Project[] = [
       {
         src: "/images/vmc-cheminements.webp",
         alt: "Cheminement des gaines de ventilation en partie haute dans les locaux en travaux",
-        caption: "Vue des cheminements et des raccordements des gaines de ventilation en partie haute.",
+        caption:
+          "Vue des cheminements et des raccordements des gaines de ventilation en partie haute.",
         kind: "chantier",
         width: 1440,
         height: 2560,
@@ -170,7 +192,8 @@ export const projects: Project[] = [
       {
         src: "/images/vmc-reseaux.webp",
         alt: "Gaines circulaires parallèles et dérivations du réseau de ventilation sous dalle",
-        caption: "Gaines circulaires, dérivations et supportage : le détail de l’implantation des réseaux.",
+        caption:
+          "Gaines circulaires, dérivations et supportage : le détail de l’implantation des réseaux.",
         kind: "chantier",
         width: 1440,
         height: 2560,
@@ -178,7 +201,8 @@ export const projects: Project[] = [
       {
         src: "/images/vmc-equipements.webp",
         alt: "Équipements de traitement d’air et gaines circulaires raccordées sous dalle",
-        caption: "Les équipements de ventilation et leurs liaisons avec les gaines circulaires.",
+        caption:
+          "Les équipements de ventilation et leurs liaisons avec les gaines circulaires.",
         kind: "chantier",
         width: 1440,
         height: 2560,
@@ -209,7 +233,8 @@ export const projects: Project[] = [
       src: "/videos/pose-hotte-cuisine.mp4",
       poster: "/images/hotte-video-poster.webp",
       title: "Pose d’une hotte de cuisine professionnelle",
-      caption: "Supportage, fixation et raccordement au conduit d’extraction : les gestes de pose de notre équipe.",
+      caption:
+        "Supportage, fixation et raccordement au conduit d’extraction : les gestes de pose de notre équipe.",
       duration: "48 s",
       width: 720,
       height: 1280,
@@ -312,7 +337,8 @@ export const projects: Project[] = [
       {
         src: "/images/htc-la-boisse-reseaux.webp",
         alt: "L’équipe MK Aération intervient sous les réseaux aérauliques circulaires du chantier HTC La Boisse",
-        caption: "Vue d’ensemble de la pose des gaines de ventilation sous la charpente métallique.",
+        caption:
+          "Vue d’ensemble de la pose des gaines de ventilation sous la charpente métallique.",
         kind: "chantier",
         width: 1152,
         height: 1536,
@@ -320,7 +346,8 @@ export const projects: Project[] = [
       {
         src: "/images/htc-la-boisse-descentes.webp",
         alt: "Descentes verticales et coudes des gaines circulaires à La Boisse",
-        caption: "Descentes verticales et changements de direction du réseau aéraulique.",
+        caption:
+          "Descentes verticales et changements de direction du réseau aéraulique.",
         kind: "chantier",
         width: 1152,
         height: 1536,
@@ -328,7 +355,8 @@ export const projects: Project[] = [
       {
         src: "/images/htc-la-boisse-derivations.webp",
         alt: "Dérivations du réseau de gaines circulaires dans les locaux du chantier HTC La Boisse",
-        caption: "Les dérivations distribuent le réseau à travers les différents volumes du bâtiment.",
+        caption:
+          "Les dérivations distribuent le réseau à travers les différents volumes du bâtiment.",
         kind: "chantier",
         width: 1152,
         height: 1536,
@@ -336,7 +364,8 @@ export const projects: Project[] = [
       {
         src: "/images/htc-la-boisse-raccordements.webp",
         alt: "Détail des raccordements et du cheminement des conduits de ventilation à La Boisse",
-        caption: "Détail des raccordements et du cheminement des gaines en partie haute.",
+        caption:
+          "Détail des raccordements et du cheminement des gaines en partie haute.",
         kind: "chantier",
         width: 1152,
         height: 1536,
@@ -375,7 +404,8 @@ export const projects: Project[] = [
       {
         src: "/images/mont-blanc-presentation.webp",
         alt: "Entrée du tunnel du Mont-Blanc et montagnes, sur le visuel de présentation fourni par MK Aération",
-        caption: "Tunnel du Mont-Blanc — visuel de présentation fourni par MK Aération.",
+        caption:
+          "Tunnel du Mont-Blanc — visuel de présentation fourni par MK Aération.",
         kind: "presentation",
         width: 1461,
         height: 720,

@@ -50,3 +50,5 @@ yarn-error.log*
 /public/IMG_7335.HEIC
 /public/IMG_7336.HEIC
 /public/IMG_7338.HEIC
+.neon
+.vercel

@@ -10,97 +10,78 @@ import {
   MapPin,
   Check,
 } from "lucide-react";
-import { services, projects, company } from "@/lib/content";
-import { FieldworkStories } from "@/components/fieldwork-stories";
+import { services, company } from "@/lib/content";
+import { MontBlancFeature } from "@/components/mont-blanc-feature";
+import { allProjects, publicNews } from "@/lib/cms-posts";
+import { NewsCard } from "@/components/news-card";
 import { ContactBanner } from "@/components/site-shell";
 import { SectionLabel, ProjectCard, FAQ } from "@/components/ui";
-export default function Home() {
+export const revalidate = 60;
+export default async function Home() {
+  const [references, news] = await Promise.all([allProjects(), publicNews()]);
   return (
     <main id="contenu">
-      <section className="hero">
-        <div className="container hero-grid">
-          <div className="hero-copy">
-            <div className="hero-eyebrow">
-              <span className="status-dot" /> RÉSEAUX AÉRAULIQUES · CTA · VMC
-            </div>
-            <h1>
-              L’AIR SAIN.
-              <br />
-              LE TRAVAIL
-              <br />
-              <span>BIEN FAIT.</span>
-            </h1>
-            <p>
-              <strong>
-                Réseaux aérauliques, gaines de ventilation, soufflage et
-                extraction.
-              </strong>{" "}
-              Raccordement de CTA et installation de VMC pour vos bâtiments
-              tertiaires et industriels.
-            </p>
-            <div className="hero-actions">
-              <Link href="/devis" className="button">
-                Parlons de votre projet <ArrowUpRight size={21} />
-              </Link>
-              <a
-                className="hero-phone"
-                href={company.tel}
-                aria-label={`Appelez MK Aération au ${company.phone}`}
-              >
-                <Phone size={19} />
+      <section className="hero signature-hero">
+        <div className="container">
+          <div className="signature-intro">
+            <div className="hero-copy">
+              <div className="hero-eyebrow">
+                <span className="status-dot" /> RÉSEAUX AÉRAULIQUES · CTA · VMC
+              </div>
+              <h1>
+                LE MÉTIER.
+                <br />
+                À GRANDE
+                <br />
+                <span>ÉCHELLE.</span>
+              </h1>
+              <p>
+                <strong>
+                  Réseaux aérauliques, gaines de ventilation, soufflage et
+                  extraction.
+                </strong>{" "}
+                Installation de CTA et VMC pour les bâtiments tertiaires,
+                industriels et les logements collectifs.
+              </p>
+              <div className="hero-actions">
+                <Link href="/devis" className="button">
+                  Parlons de votre projet <ArrowUpRight size={21} />
+                </Link>
+                <a
+                  className="hero-phone"
+                  href={company.tel}
+                  aria-label={`Appelez MK Aération au ${company.phone}`}
+                >
+                  <Phone size={19} />
+                  <span>
+                    Un contact direct<strong>{company.phone}</strong>
+                  </span>
+                </a>
+              </div>
+              <div className="hero-local">
+                <MapPin size={16} />
                 <span>
-                  Un contact direct<strong>{company.phone}</strong>
+                  De la Drôme aux Alpes.
+                  <br />
+                  <strong>Au plus près de vos chantiers.</strong>
                 </span>
+              </div>
+            </div>
+            <div className="signature-note">
+              <span className="eyebrow">NOTRE MÉTIER, SUR LE TERRAIN</span>
+              <p>
+                Des chantiers exigeants.
+                <br />
+                Des installations précises.
+                <br />
+                Une équipe engagée.
+              </p>
+              <a className="text-link" href="#realisations">
+                Découvrir notre travail <ArrowRight size={19} />
               </a>
             </div>
-            <div className="hero-local">
-              <MapPin size={16} />
-              <span>
-                De la Drôme aux Alpes.
-                <br />
-                <strong>Au plus près de vos chantiers.</strong>
-              </span>
-            </div>
           </div>
-          <div className="hero-visual">
-            <Photo
-              className="hero-photo"
-              sizes="(max-width: 600px) 100vw, (max-width: 1392px) 52vw, 720px"
-              src="/images/annecy-panorama.webp"
-              alt="Installation de ventilation et centrale double flux réalisée par MK Aération sur une toiture à Annecy"
-              width="1800"
-              height="1350"
-              fetchPriority="high"
-            />
-            <div className="hero-image-top">
-              <span>LE SAVOIR-FAIRE SUR LE TERRAIN</span>
-              <span className="cross-mark">+</span>
-            </div>
-            <svg
-              className="air-lines"
-              viewBox="0 0 700 600"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path d="M-40 460C110 460 70 190 250 190S410 470 740 300" />
-              <path d="M-40 484C130 484 85 214 250 214S425 494 740 324" />
-              <path d="M-40 508C150 508 100 238 250 238S440 518 740 348" />
-            </svg>
-            <div className="hero-project">
-              <div>
-                <small>CHANTIER À LA UNE</small>
-                <strong>FIER Annecy</strong>
-                <span>Raccordement CTA double flux</span>
-              </div>
-              <Link
-                href="/realisations/fier-annecy"
-                aria-label="Découvrir le chantier FIER Annecy"
-              >
-                <ArrowUpRight size={29} />
-              </Link>
-            </div>
-            <div className="hero-photo-index">INSTALLATION MK AÉRATION</div>
-          </div>
+          <MontBlancFeature hero />
         </div>
       </section>
       <div className="trade-strip">
@@ -170,7 +151,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="projects-home section-space">
+      <section className="projects-home section-space" id="realisations">
         <div className="container">
           <SectionLabel number="02 / 04" light>
             NOS RÉALISATIONS
@@ -191,18 +172,40 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <FieldworkStories />
           <div className="projects-grid">
-            {projects
-              .filter((p) =>
-                ["htc-la-boisse", "tunnel-du-mont-blanc", "yottacity"].includes(p.slug),
+            {references
+              .filter(
+                (p) =>
+                  p.slug !== "tunnel-du-mont-blanc" &&
+                  p.slug !== "pose-hotte-cuisine-professionnelle",
               )
+              .slice(0, 3)
               .map((p, i) => (
                 <ProjectCard key={p.slug} project={p} index={i + 1} />
               ))}
           </div>
         </div>
       </section>
+      {news.length > 0 && (
+        <section className="container section-space home-news">
+          <SectionLabel>LES NOUVELLES DE L’ÉQUIPE</SectionLabel>
+          <div className="section-heading">
+            <h2>
+              LA VIE
+              <br />
+              <span className="text-blue">DES CHANTIERS.</span>
+            </h2>
+            <Link href="/actualites" className="text-link">
+              Toutes les actualités <ArrowUpRight size={19} />
+            </Link>
+          </div>
+          <div className="news-grid">
+            {news.slice(0, 3).map((post) => (
+              <NewsCard key={post.id} post={post} />
+            ))}
+          </div>
+        </section>
+      )}
       <section className="about-home section-space">
         <div className="container about-home-grid">
           <div className="about-visual">

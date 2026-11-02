@@ -30,6 +30,7 @@ export function Photo({
   ...props
 }: ImgHTMLAttributes<HTMLImageElement> & { src: string; alt: string }) {
   const name = src.split("/").pop()?.replace(".webp", "") || "";
+  const uploadedWidth = src.startsWith("/media/") ? Number(props.width) : 0;
   return (
     <img
       {...props}
@@ -38,7 +39,9 @@ export function Photo({
       decoding="async"
       sizes={sizes}
       srcSet={
-        widths[name]
+        uploadedWidth
+          ? [480, 800].filter((w) => w < uploadedWidth).map((w) => `${src}?w=${w} ${w}w`).concat(`${src} ${uploadedWidth}w`).join(", ")
+          : widths[name]
           ? [
               ...[480, 800]
                 .filter((width) => width < widths[name])

@@ -1,7 +1,7 @@
 import { Photo } from "@/components/photo";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight, Plus, Play } from "lucide-react";
-import { projects, faqs } from "@/lib/content";
+import { faqs, type ProjectCardData } from "@/lib/content";
 export function SectionLabel({
   children,
   number,
@@ -23,24 +23,29 @@ export function ProjectCard({
   project,
   index = 0,
 }: {
-  project: (typeof projects)[number];
+  project: ProjectCardData;
   index?: number;
 }) {
   return (
     <Link href={`/realisations/${project.slug}`} className="project-card">
-      <div className={`project-image${project.coverKind === "presentation" ? " project-image-presentation" : ""}`}>
+      <div
+        className={`project-image${project.coverKind === "presentation" ? " project-image-presentation" : ""}`}
+      >
         <Photo
           sizes="(max-width: 600px) calc(100vw - 44px), (max-width: 1392px) 30vw, 400px"
           src={project.image}
           alt={project.alt}
-          width="900"
-          height="900"
+          width={project.imageWidth || 900}
+          height={project.imageHeight || 900}
           loading="lazy"
           style={{ objectPosition: project.imagePosition }}
         />
         <span className="project-tag">{project.category}</span>
         {project.video && (
-          <span className="project-film-badge"><Play size={12} fill="currentColor" /> Vidéo · {project.video.duration}</span>
+          <span className="project-film-badge">
+            <Play size={12} fill="currentColor" /> Vidéo ·{" "}
+            {project.video.duration}
+          </span>
         )}
         {project.coverKind === "projet" && (
           <span className="project-cover-note">Vue du projet</span>
@@ -59,7 +64,9 @@ export function ProjectCard({
           </small>
           <h3>{project.title}</h3>
         </div>
-        <span className="project-index">0{index + 1}</span>
+        <span className="project-index">
+          {String(index + 1).padStart(2, "0")}
+        </span>
       </div>
     </Link>
   );
