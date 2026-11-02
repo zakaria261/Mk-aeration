@@ -1,298 +1,258 @@
-import { Photo } from "@/components/photo";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  ArrowRight,
-  Phone,
-  Wind,
-  Fan,
-  CookingPot,
-  MapPin,
-  Check,
-} from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { Photo } from "@/components/photo";
 import { services, company } from "@/lib/content";
-import { MontBlancFeature } from "@/components/mont-blanc-feature";
-import { allProjects, publicNews } from "@/lib/cms-posts";
+import { allProjects, projectCardData, publicNews } from "@/lib/cms-posts";
 import { NewsCard } from "@/components/news-card";
 import { ContactBanner } from "@/components/site-shell";
 import { SectionLabel, ProjectCard, FAQ } from "@/components/ui";
+import { MontBlancSpecs } from "@/components/mont-blanc-feature";
+import { AirFlow, Cote, DuctSymbol } from "@/components/drawing";
+import { Rail } from "@/components/rail";
+
 export const revalidate = 60;
+
+/** Chantiers volontairement absents de la sélection d’accueil. */
+const notOnHome = new Set(["tunnel-du-mont-blanc", "pose-hotte-cuisine-professionnelle"]);
+
+const serviceSymbols = {
+  reseaux: "round",
+  vmc: "unit",
+  extraction: "supply",
+} as const;
+
 export default async function Home() {
   const [references, news] = await Promise.all([allProjects(), publicNews()]);
+  const selection = references.filter((p) => !notOnHome.has(p.slug)).slice(0, 6);
+
   return (
-    <main id="contenu">
-      <section className="hero signature-hero">
-        <div className="container">
-          <div className="signature-intro">
-            <div className="hero-copy">
-              <div className="hero-eyebrow">
-                <span className="status-dot" /> RÉSEAUX AÉRAULIQUES · CTA · VMC
-              </div>
-              <h1>
-                LE MÉTIER.
-                <br />
-                À GRANDE
-                <br />
-                <span>ÉCHELLE.</span>
-              </h1>
-              <p>
-                <strong>
-                  Réseaux aérauliques, gaines de ventilation, soufflage et
-                  extraction.
-                </strong>{" "}
-                Installation de CTA et VMC pour les bâtiments tertiaires,
-                industriels et les logements collectifs.
-              </p>
-              <div className="hero-actions">
-                <Link href="/devis" className="button">
-                  Parlons de votre projet <ArrowUpRight size={21} />
-                </Link>
-                <a
-                  className="hero-phone"
-                  href={company.tel}
-                  aria-label={`Appelez MK Aération au ${company.phone}`}
-                >
-                  <Phone size={19} />
-                  <span>
-                    Un contact direct<strong>{company.phone}</strong>
-                  </span>
-                </a>
-              </div>
-              <div className="hero-local">
-                <MapPin size={16} />
-                <span>
-                  De la Drôme aux Alpes.
-                  <br />
-                  <strong>Au plus près de vos chantiers.</strong>
-                </span>
-              </div>
-            </div>
-            <div className="signature-note">
-              <span className="eyebrow">NOTRE MÉTIER, SUR LE TERRAIN</span>
-              <p>
-                Des chantiers exigeants.
-                <br />
-                Des installations précises.
-                <br />
-                Une équipe engagée.
-              </p>
-              <a className="text-link" href="#realisations">
-                Découvrir notre travail <ArrowRight size={19} />
-              </a>
-            </div>
+    <main id="contenu" className="home">
+      {/* ───────────── Ouverture : le tunnel du Mont-Blanc ───────────── */}
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="wrap hero-head">
+          <p className="label hero-label">
+            <span className="label-num">01</span>
+            Chantier phare · France / Italie
+          </p>
+          <h1 id="hero-title">
+            Huit mois
+            <br />
+            sous le <span className="nowrap">Mont-Blanc.</span>
+          </h1>
+        </div>
+        <figure className="hero-figure">
+          <div className="wrap hero-figure-wrap">
+            <Cote className="hero-cote">Tunnel du Mont-Blanc · 11,6 km</Cote>
+            <Link
+              href="/realisations/tunnel-du-mont-blanc"
+              className="hero-media"
+              aria-label="Découvrir notre intervention au tunnel du Mont-Blanc"
+            >
+              <Photo
+                src="/images/mont-blanc-presentation.webp"
+                alt="Tunnel du Mont-Blanc — visuel de présentation MK Aération"
+                width={1461}
+                height={720}
+                sizes="(max-width: 1392px) 100vw, 1300px"
+                fetchPriority="high"
+                loading="eager"
+              />
+              <span className="hero-media-cta" aria-hidden="true">
+                <ArrowUpRight size={22} />
+              </span>
+            </Link>
+            <figcaption className="credit mono">
+              Visuel de présentation fourni par MK Aération
+            </figcaption>
           </div>
-          <MontBlancFeature hero />
+        </figure>
+        <div className="wrap hero-foot">
+          <p className="hero-lede">
+            Supportage, gaine carrée de 1 000 × 1 000 mm pour l’amenée d’air
+            d’un local électrique, réseau PVC dans les zones techniques,
+            interventions de nuit dans les refuges.{" "}
+            <strong>Le genre de chantier que MK Aération sait tenir.</strong>
+          </p>
+          <div className="hero-actions">
+            <Link href="/realisations/tunnel-du-mont-blanc" className="btn btn-primary btn-lg">
+              Voir le chantier <ArrowUpRight size={20} aria-hidden="true" />
+            </Link>
+            <Link href="/devis" className="btn btn-ghost btn-lg">
+              Demander un devis
+            </Link>
+          </div>
+        </div>
+        <div className="wrap">
+          <MontBlancSpecs className="hero-specs" />
         </div>
       </section>
-      <div className="trade-strip">
-        <div className="container">
-          <span>
-            <Wind />
-            Réseaux aérauliques
-          </span>
-          <span>
-            <Fan />
-            CTA & VMC
-          </span>
-          <span>
-            <CookingPot />
-            Soufflage & extraction
-          </span>
-          <span className="strip-last">
-            <MapPin />
-            26 · 38 · 69 · 74
-          </span>
-        </div>
+
+      <div className="wrap">
+        <AirFlow label="Soufflage" />
       </div>
-      <section className="expertise-home section-space">
-        <div className="container">
-          <SectionLabel number="01 / 04">NOTRE MÉTIER</SectionLabel>
-          <div className="section-heading">
-            <h2>
-              À CHAQUE BÂTIMENT,
-              <br />
-              SON <span className="text-blue">SOUFFLE.</span>
-            </h2>
-            <p>
-              Gaines circulaires et rectangulaires, réseaux de soufflage et
-              d’extraction, CTA et VMC : nous adaptons la pose aux contraintes
-              de chaque bâtiment tertiaire, industriel ou professionnel.
-            </p>
-          </div>
-          <div className="expertise-grid">
-            <div className="service-list">
+
+      {/* ───────────── Le métier ───────────── */}
+      <section className="trade section" aria-labelledby="trade-title">
+        <div className="wrap">
+          <SectionLabel number="02">Le métier</SectionLabel>
+          <h2 id="trade-title" className="statement">
+            Nous posons les réseaux aérauliques, raccordons les CTA et
+            installons les VMC{" "}
+            <span className="muted">
+              des bâtiments tertiaires, industriels et des logements
+              collectifs — de la Drôme aux Alpes.
+            </span>
+          </h2>
+          <div className="trade-grid">
+            <ol className="nomenclature">
               {services.map((s) => (
-                <Link key={s.id} href={`/expertises#${s.id}`}>
-                  <span className="service-number">{s.number}</span>
-                  <div>
-                    <h3>{s.title}</h3>
-                    <p>{s.short}</p>
-                  </div>
-                  <ArrowUpRight size={25} />
-                </Link>
+                <li key={s.id}>
+                  <Link href={`/expertises#${s.id}`}>
+                    <span className="nomen-symbol">
+                      <DuctSymbol kind={serviceSymbols[s.id as keyof typeof serviceSymbols]} />
+                    </span>
+                    <span className="nomen-ref mono">Rep. {s.number}</span>
+                    <span className="nomen-text">
+                      <strong>{s.title}</strong>
+                      <span>{s.short}</span>
+                    </span>
+                    <ArrowUpRight className="nomen-arrow" size={22} aria-hidden="true" />
+                  </Link>
+                </li>
               ))}
-              <Link href="/expertises" className="text-link all-services">
-                Découvrir nos expertises <ArrowRight size={19} />
-              </Link>
-            </div>
-            <div className="expertise-photo">
+            </ol>
+            <figure className="trade-photo">
               <Photo
                 src="/images/grenoble-gaines-rectangulaires.webp"
                 alt="Gaines aérauliques rectangulaires installées dans les réservations de la toiture à Grenoble"
-                width="1000"
-                height="1000"
+                width={800}
+                height={600}
                 loading="lazy"
+                sizes="(max-width: 1080px) 100vw, 40vw"
               />
-              <span>
-                <span className="status-dot" /> LA PRÉCISION, JUSQUE DANS LES
-                DÉTAILS.
-              </span>
-            </div>
+              <figcaption className="mono">
+                Photo de chantier · Forum de la Métropole, Grenoble — gaines
+                rectangulaires en toiture
+              </figcaption>
+            </figure>
           </div>
+          <Link href="/expertises" className="link-arrow">
+            Toutes nos expertises <ArrowRight size={18} aria-hidden="true" />
+          </Link>
         </div>
       </section>
-      <section className="projects-home section-space" id="realisations">
-        <div className="container">
-          <SectionLabel number="02 / 04" light>
-            NOS RÉALISATIONS
-          </SectionLabel>
-          <div className="section-heading">
-            <h2>
-              DU CONCRET.
-              <br />
-              SUR LE TERRAIN.
-            </h2>
+
+      {/* ───────────── Les chantiers ───────────── */}
+      <section className="works section" aria-labelledby="works-title" id="realisations">
+        <div className="wrap">
+          <div className="works-head">
             <div>
-              <p>
-                Des installations réelles. Des contraintes résolues. Découvrez
-                le travail de nos équipes sur les chantiers.
-              </p>
-              <Link className="text-link" href="/realisations">
-                Tous nos chantiers <ArrowUpRight size={19} />
+              <SectionLabel number="03" light>
+                Sur le terrain
+              </SectionLabel>
+              <h2 id="works-title">Les chantiers.</h2>
+            </div>
+            <p>
+              Des photos prises sur place, par l’équipe. Ce qui a été posé,
+              où, et comment.
+            </p>
+          </div>
+        </div>
+        <div className="wrap wrap-bleed">
+          <Rail label="Sélection de chantiers" count={selection.length + 1}>
+            {selection.map((p, i) => (
+              <div role="listitem" key={p.slug} className="rail-item">
+                <ProjectCard project={projectCardData(p)} index={i + 1} />
+              </div>
+            ))}
+            <div role="listitem" className="rail-item">
+              <Link href="/realisations" className="works-all">
+                <span className="mono">{String(references.length).padStart(2, "0")} chantiers</span>
+                <strong>
+                  Voir toutes
+                  <br />
+                  les réalisations
+                </strong>
+                <ArrowUpRight size={34} aria-hidden="true" />
               </Link>
             </div>
-          </div>
-          <div className="projects-grid">
-            {references
-              .filter(
-                (p) =>
-                  p.slug !== "tunnel-du-mont-blanc" &&
-                  p.slug !== "pose-hotte-cuisine-professionnelle",
-              )
-              .slice(0, 3)
-              .map((p, i) => (
-                <ProjectCard key={p.slug} project={p} index={i + 1} />
-              ))}
-          </div>
+          </Rail>
         </div>
       </section>
+
+      {/* ───────────── Carnet de chantier (publié par l’équipe) ───────────── */}
       {news.length > 0 && (
-        <section className="container section-space home-news">
-          <SectionLabel>LES NOUVELLES DE L’ÉQUIPE</SectionLabel>
-          <div className="section-heading">
-            <h2>
-              LA VIE
-              <br />
-              <span className="text-blue">DES CHANTIERS.</span>
-            </h2>
-            <Link href="/actualites" className="text-link">
-              Toutes les actualités <ArrowUpRight size={19} />
-            </Link>
-          </div>
-          <div className="news-grid">
-            {news.slice(0, 3).map((post) => (
-              <NewsCard key={post.id} post={post} />
-            ))}
+        <section className="logbook section" aria-labelledby="log-title">
+          <div className="wrap">
+            <div className="logbook-head">
+              <div>
+                <SectionLabel number="04">Carnet de chantier</SectionLabel>
+                <h2 id="log-title">Les nouvelles de l’équipe.</h2>
+              </div>
+              <Link href="/actualites" className="link-arrow">
+                Toutes les actualités <ArrowUpRight size={17} aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="log-list">
+              {news.slice(0, 3).map((post) => (
+                <NewsCard key={post.id} post={post} />
+              ))}
+            </div>
           </div>
         </section>
       )}
-      <section className="about-home section-space">
-        <div className="container about-home-grid">
-          <div className="about-visual">
+
+      {/* ───────────── L’entreprise et le terrain ───────────── */}
+      <section className="base section" aria-labelledby="base-title">
+        <div className="wrap base-grid">
+          <figure className="base-photo">
             <Photo
               src="/images/annecy-cta.webp"
-              alt="Réseau de ventilation installé en toiture par MK Aération"
-              width="1000"
-              height="1000"
+              alt="Réseau de ventilation installé en toiture par MK Aération à Annecy"
+              width={1200}
+              height={1200}
               loading="lazy"
+              sizes="(max-width: 1080px) 100vw, 45vw"
             />
-            <div className="about-photo-note">
-              <Wind size={32} />
-              <span>
-                LE GOÛT DU
-                <br />
-                <strong>TRAVAIL BIEN FAIT.</strong>
-              </span>
-            </div>
-          </div>
-          <div className="about-copy">
-            <SectionLabel number="03 / 04">L’ESPRIT MK AÉRATION</SectionLabel>
-            <h2>
-              UNE ÉQUIPE.
-              <br />
-              UN MÉTIER.
-              <br />
-              <span className="text-blue">DE L’ENGAGEMENT.</span>
+            <figcaption className="mono">Photo de chantier · FIER, Annecy</figcaption>
+          </figure>
+          <div className="base-copy">
+            <SectionLabel number={news.length ? "05" : "04"}>L’entreprise</SectionLabel>
+            <h2 id="base-title">
+              La qualité de l’air commence par la qualité de la pose.
             </h2>
             <p>
-              Chez MK Aération, la qualité de l’air commence par la qualité de
-              la pose. Nous mettons notre savoir-faire au service des projets de
-              ventilation, avec une attention portée à chaque raccordement.
+              Un réseau aéraulique, c’est une suite de détails qui comptent :
+              un passage à anticiper, une transition à adapter, un
+              raccordement à soigner. C’est là que se joue notre travail.
             </p>
-            <p>
-              Basés à Saint-Rambert-d’Albon, nous accompagnons vos chantiers
-              dans la Drôme, l’Isère, le Rhône et la Haute-Savoie.
-            </p>
-            <div className="about-points">
-              <span>
-                <Check size={17} /> Une expertise de terrain
-              </span>
-              <span>
-                <Check size={17} /> Un interlocuteur à votre écoute
-              </span>
-              <span>
-                <Check size={17} /> Des solutions adaptées au chantier
-              </span>
-            </div>
-            <Link href="/entreprise" className="text-link">
-              Découvrir l’entreprise <ArrowUpRight size={19} />
-            </Link>
-          </div>
-        </div>
-      </section>
-      <section className="region-section">
-        <div className="container region-layout">
-          <div>
-            <SectionLabel number="04 / 04">NOTRE TERRAIN D’ACTION</SectionLabel>
-            <h2>
-              ANCRÉS DANS LA DRÔME.
-              <br />
-              MOBILES DANS LA RÉGION.
-            </h2>
-            <p>
-              Votre chantier se situe dans l’un de ces départements ?<br />
-              Faisons le point sur vos besoins.
-            </p>
-            <Link className="text-link" href="/devis">
-              Étudier mon projet <ArrowUpRight size={19} />
-            </Link>
-          </div>
-          <div className="region-list">
-            {[
-              ["26", "Drôme"],
-              ["38", "Isère"],
-              ["69", "Rhône"],
-              ["74", "Haute-Savoie"],
-            ].map(([n, name]) => (
-              <div key={n}>
-                <span>{n}</span>
-                <strong>{name}</strong>
-                <ArrowUpRight size={20} />
+            <div className="base-map">
+              <div className="base-origin">
+                <span className="mono">Point de départ</span>
+                <strong>Saint-Rambert-d’Albon</strong>
+                <span>{company.address} · 26140</span>
               </div>
-            ))}
+              <ul className="base-depts">
+                {[
+                  ["26", "Drôme"],
+                  ["38", "Isère"],
+                  ["69", "Rhône"],
+                  ["74", "Haute-Savoie"],
+                ].map(([n, name]) => (
+                  <li key={n}>
+                    <span className="mono">{n}</span>
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <Link href="/entreprise" className="link-arrow">
+              Découvrir l’entreprise <ArrowUpRight size={17} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
+
       <FAQ />
       <ContactBanner />
     </main>

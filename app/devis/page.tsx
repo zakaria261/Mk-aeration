@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { QuoteForm } from "@/components/quote-form";
 import { SectionLabel } from "@/components/ui";
 export const metadata: Metadata = {
@@ -11,19 +10,19 @@ export const metadata: Metadata = {
 export default function Devis() {
   return (
     <main id="contenu" className="quote-page">
-      <div className="container">
+      <div className="wrap">
         <div className="quote-header">
-          <div className="breadcrumb">
+          <nav className="crumbs mono" aria-label="Fil d’Ariane">
             <Link href="/">Accueil</Link>
-            <ArrowRight size={12} />
-            <span>Demander un devis</span>
-          </div>
-          <SectionLabel>VOTRE PROJET COMMENCE ICI</SectionLabel>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Demander un devis</span>
+          </nav>
+          <SectionLabel>Votre projet commence ici</SectionLabel>
           <div className="quote-header-grid">
             <h1>
-              DONNONS DE L’AIR
+              Donnons de l’air
               <br />
-              <span className="text-blue">À VOTRE PROJET.</span>
+              <em>à votre projet.</em>
             </h1>
             <p>
               Quelques détails, vos coordonnées.

@@ -168,9 +168,9 @@ export function QuoteForm() {
               <Check size={31} />
             </span>
             <h2>
-              VOTRE PROJET
+              Votre projet
               <br />
-              EST BIEN ENREGISTRÉ.
+              est bien enregistré.
             </h2>
             <p>
               Merci {data.name.split(" ")[0]}. Les informations de votre
@@ -187,7 +187,7 @@ export function QuoteForm() {
                 <ArrowUpRight size={18} />
               </a>
               <button
-                className="button button-outline"
+                className="btn btn-ghost"
                 type="button"
                 onClick={async () => {
                   try {
@@ -239,10 +239,10 @@ export function QuoteForm() {
             </div>
             <h2 tabIndex={-1} ref={heading}>
               {step === 1
-                ? "DE QUOI AVEZ-VOUS BESOIN ?"
+                ? "De quoi avez-vous besoin ?"
                 : step === 2
-                  ? "PARLEZ-NOUS DU CHANTIER."
-                  : "FAISONS CONNAISSANCE."}
+                  ? "Parlez-nous du chantier."
+                  : "Faisons connaissance."}
             </h2>
             <p className="form-intro">
               {step === 1
@@ -468,7 +468,7 @@ export function QuoteForm() {
         )}
       </div>
       <aside className="quote-sidebar">
-        <SectionLabel>UN ÉCHANGE DIRECT</SectionLabel>
+        <SectionLabel>Un échange direct</SectionLabel>
         <h3>
           Le début d’un
           <br />

@@ -2,18 +2,16 @@
 import { useState } from "react";
 import type { ProjectCardData } from "@/lib/content";
 import { ProjectCard } from "./ui";
+
+const ALL = "Tous";
+
 export function ProjectGallery({ projects }: { projects: ProjectCardData[] }) {
-  const [filter, setFilter] = useState("Tous les chantiers");
-  const visible = projects.filter(
-    (p) => filter === "Tous les chantiers" || p.category === filter,
-  );
-  const filters = [
-    "Tous les chantiers",
-    ...new Set(projects.map((project) => project.category)),
-  ];
+  const [filter, setFilter] = useState(ALL);
+  const visible = projects.filter((p) => filter === ALL || p.category === filter);
+  const filters = [ALL, ...new Set(projects.map((p) => p.category))];
   return (
     <>
-      <div className="project-filters" aria-label="Filtrer les réalisations">
+      <div className="chips" role="group" aria-label="Filtrer les réalisations">
         {filters.map((f) => (
           <button
             key={f}
@@ -22,19 +20,20 @@ export function ProjectGallery({ projects }: { projects: ProjectCardData[] }) {
             onClick={() => setFilter(f)}
           >
             {f}
-            <span>
-              {String(
-                f === "Tous les chantiers"
-                  ? projects.length
-                  : projects.filter((project) => project.category === f).length,
-              ).padStart(2, "0")}
+            <span className="mono">
+              {f === ALL ? projects.length : projects.filter((p) => p.category === f).length}
             </span>
           </button>
         ))}
       </div>
       <div className="gallery-grid" aria-live="polite">
         {visible.map((p) => (
-          <ProjectCard key={p.slug} project={p} index={projects.indexOf(p)} />
+          <ProjectCard
+            key={p.slug}
+            project={p}
+            index={projects.indexOf(p) + 1}
+            sizes="(max-width: 720px) 100vw, (max-width: 1080px) 50vw, 33vw"
+          />
         ))}
       </div>
     </>

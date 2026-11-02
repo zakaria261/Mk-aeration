@@ -4,44 +4,50 @@ import { ProjectGallery } from "@/components/project-gallery";
 import { ContactBanner } from "@/components/site-shell";
 import { allProjects, projectCardData } from "@/lib/cms-posts";
 import { MontBlancFeature } from "@/components/mont-blanc-feature";
+
 export const metadata: Metadata = {
   title: "Chantiers & réalisations aérauliques",
   description:
-    "Réhabilitation VMC de 3 immeubles et 21 appartements, pose de hotte, Forum de Grenoble, Mont-Blanc : les photos et vidéos des interventions MK Aération.",
+    "Tunnel du Mont-Blanc, réhabilitation VMC de 3 immeubles et 21 appartements, Forum de Grenoble, HTC La Boisse : les photos et vidéos des interventions MK Aération.",
 };
 export const revalidate = 60;
+
 export default async function Realisations() {
   const projects = await allProjects();
+  const others = projects.filter((p) => p.slug !== "tunnel-du-mont-blanc");
   return (
     <main id="contenu">
       <PageIntro
         label="Réalisations"
         title={
           <>
-            CHANTIERS.
+            Les chantiers,
             <br />
-            <span className="text-blue">AÉRAULIQUES.</span>
+            <em>en images.</em>
           </>
         }
       >
         Du bâtiment tertiaire au site industriel : réseaux aérauliques, gaines
         de ventilation, soufflage, extraction et raccordements aux CTA. Le
-        travail de nos équipes, en images.
+        travail de nos équipes, tel qu’il a été posé.
       </PageIntro>
-      <section className="container featured-case-section">
+      <section className="wrap featured">
         <MontBlancFeature />
       </section>
-      <section className="container gallery-section">
-        <SectionLabel>TOUTES NOS RÉFÉRENCES</SectionLabel>
-        <ProjectGallery projects={projects.map(projectCardData)} />
+      <section className="wrap gallery section" aria-labelledby="gallery-title">
+        <SectionLabel number={String(others.length).padStart(2, "0")}>Toutes nos références</SectionLabel>
+        <h2 id="gallery-title" className="sr-only">
+          Toutes nos références
+        </h2>
+        <ProjectGallery projects={others.map(projectCardData)} />
       </section>
-      <section className="project-commitment section-space">
-        <div className="container">
-          <SectionLabel>CE QUE MONTRENT NOS CHANTIERS</SectionLabel>
-          <h2>
-            DU RÉSEAU PRINCIPAL
+      <section className="commitment section" aria-labelledby="commit-title">
+        <div className="wrap commitment-grid">
+          <SectionLabel light>Ce que montrent nos chantiers</SectionLabel>
+          <h2 id="commit-title">
+            Du réseau principal
             <br />
-            <span className="text-blue">AU DÉTAIL DE POSE.</span>
+            <em>au détail de pose.</em>
           </h2>
           <p>
             Colonnes aérauliques en terrasse, raccordements de CTA, transitions

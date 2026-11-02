@@ -17,6 +17,7 @@ import {
   LoaderCircle,
   ArrowUpRight,
   RotateCcw,
+  Camera,
 } from "lucide-react";
 import { PublicationView } from "./publication-view";
 import {
@@ -123,6 +124,7 @@ export function TeamEditor({
   const [activeTab, setActiveTab] = useState("text");
   const preview = useRef<HTMLDialogElement>(null);
   const picker = useRef<HTMLInputElement>(null);
+  const camera = useRef<HTMLInputElement>(null);
   const dirty = JSON.stringify(draft) !== JSON.stringify(post.draft);
   const locked = post.status === "archived";
   const issues = publicationIssues(draft);
@@ -504,19 +506,40 @@ export function TeamEditor({
                 hidden
                 onChange={addPhotos}
               />
-              <button
-                type="button"
-                className="team-dropzone"
-                onClick={() => picker.current?.click()}
-                disabled={draft.media.length >= 16}
-              >
-                <ImagePlus size={30} />
-                <strong>Ajouter des photos</strong>
-                <span>Depuis votre téléphone ou votre ordinateur</span>
-                <small>
-                  JPG, PNG, WebP · Les photos sont optimisées pour le site.
-                </small>
-              </button>
+              <input
+                ref={camera}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                capture="environment"
+                hidden
+                onChange={addPhotos}
+              />
+              <div className="team-capture">
+                <button
+                  type="button"
+                  className="team-capture-camera"
+                  onClick={() => camera.current?.click()}
+                  disabled={draft.media.length >= 16}
+                >
+                  <Camera size={26} />
+                  <strong>Prendre une photo</strong>
+                  <span>Directement sur le chantier</span>
+                </button>
+                <button
+                  type="button"
+                  className="team-dropzone"
+                  onClick={() => picker.current?.click()}
+                  disabled={draft.media.length >= 16}
+                >
+                  <ImagePlus size={26} />
+                  <strong>Choisir des photos</strong>
+                  <span>Pellicule, fichiers ou ordinateur</span>
+                </button>
+              </div>
+              <p className="team-capture-note">
+                {draft.media.length}/16 photos · JPG, PNG, WebP · optimisées
+                automatiquement pour le site.
+              </p>
               <div className="team-photo-list">
                 {draft.media.map((m, index) => (
                   <article className="team-photo-edit" key={m.id}>

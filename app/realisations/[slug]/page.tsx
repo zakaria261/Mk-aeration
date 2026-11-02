@@ -2,13 +2,15 @@ import { Photo } from "@/components/photo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { projects, projectMediaLabels } from "@/lib/content";
 import { ContactBanner } from "@/components/site-shell";
 import { SectionLabel } from "@/components/ui";
 import { ProjectVideo } from "@/components/project-video";
 import { allProjects, getPublicPosts } from "@/lib/cms-posts";
 import { PublicationView } from "@/components/publication-view";
+import { MontBlancSpecs } from "@/components/mont-blanc-feature";
+import { Cote } from "@/components/drawing";
 export const revalidate = 60;
 type Props = { params: Promise<{ slug: string }> };
 export function generateStaticParams() {
@@ -48,7 +50,7 @@ export default async function Project({ params }: Props) {
     if (!post) notFound();
     return (
       <main id="contenu">
-        <div className="container">
+        <div className="wrap">
           <PublicationView
             draft={post.published!}
             kind="realisation"
@@ -65,31 +67,32 @@ export default async function Project({ params }: Props) {
   const next = references[(references.indexOf(p) + 1) % references.length];
   const hero = p.media[0];
   const photos = p.video ? p.media : p.media.slice(1);
+  const ref = String(references.indexOf(p) + 1).padStart(2, "0");
   return (
-    <main id="contenu">
-      <section className="project-detail-intro container">
-        <Link href="/realisations" className="text-link">
-          <ArrowLeft size={17} />
-          Toutes les réalisations
-        </Link>
-        <div className="project-detail-heading">
-          <div>
-            <SectionLabel>
-              {p.sector.toUpperCase()} · {p.category.toUpperCase()}
-            </SectionLabel>
-            <h1>{p.title.toUpperCase()}</h1>
-          </div>
-          <p>{p.place}</p>
-        </div>
+    <main id="contenu" className="project">
+      <section className="wrap project-head">
+        <nav className="crumbs mono" aria-label="Fil d’Ariane">
+          <Link href="/">Accueil</Link>
+          <span aria-hidden="true">/</span>
+          <Link href="/realisations">Réalisations</Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{p.title}</span>
+        </nav>
+        <p className="label">
+          <span className="label-num">{ref}</span>
+          {p.sector} · {p.category}
+        </p>
+        <h1>{p.title}</h1>
+        <p className="project-place">{p.place}</p>
       </section>
       {p.video ? (
-        <section className="container project-film-lead">
+        <section className="wrap film-lead project-film">
           <ProjectVideo video={p.video} />
-          <div className="project-film-intro">
-            <SectionLabel>EN DIRECT DU CHANTIER</SectionLabel>
-            <h2>{p.intro.toUpperCase()}</h2>
+          <div className="film-copy">
+            <SectionLabel>En direct du chantier</SectionLabel>
+            <h2>{p.intro}</h2>
             {p.figures && (
-              <dl className="project-figures">
+              <dl className="figures">
                 {p.figures.map((figure) => (
                   <div key={figure.label}>
                     <dt>{figure.value}</dt>
@@ -101,67 +104,70 @@ export default async function Project({ params }: Props) {
             <p>{p.description}</p>
             <Link
               href={`/devis?service=${p.category === "Extraction" ? "extraction" : "vmc"}`}
-              className="button"
+              className="btn btn-primary"
             >
-              Parlons de votre chantier <ArrowUpRight size={20} />
+              Parlons de votre chantier <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           </div>
         </section>
       ) : (
-        <figure className="container project-main-media">
+        <figure className="wrap project-hero">
+          {p.slug === "tunnel-du-mont-blanc" && <Cote>Tunnel du Mont-Blanc · France / Italie</Cote>}
           <Photo
-            className={`project-detail-hero ${hero.height > hero.width ? "project-detail-portrait" : ""}`}
-            sizes="(max-width: 1392px) 100vw, 1280px"
+            className={hero.height > hero.width ? "is-portrait" : ""}
+            sizes="(max-width: 1392px) 100vw, 1300px"
             src={hero.src}
             alt={hero.alt}
             width={hero.width}
             height={hero.height}
             fetchPriority="high"
           />
-          <figcaption className="project-media-caption">
-            <span>{projectMediaLabels[hero.kind]}</span>
+          <figcaption className="media-caption">
+            <span className="mono">{projectMediaLabels[hero.kind]}</span>
             {hero.caption}
           </figcaption>
         </figure>
       )}
-      <section className="container project-story section-space">
-        <div>
-          <SectionLabel>LE CHANTIER</SectionLabel>
-          <h2>
-            {p.video
-              ? "UNE POSE PRÉCISE. À CHAQUE ÉTAPE."
-              : p.intro.toUpperCase()}
-          </h2>
-          <p>{p.objective || p.description}</p>
+      {p.slug === "tunnel-du-mont-blanc" && (
+        <div className="wrap">
+          <MontBlancSpecs />
         </div>
-        <aside>
-          <span className="eyebrow">NOTRE INTERVENTION</span>
-          <ul className="check-list">
+      )}
+      <section className="wrap story section">
+        <div className="story-main">
+          <SectionLabel>Le chantier</SectionLabel>
+          <h2>{p.video ? "Une pose précise, à chaque étape." : p.intro}</h2>
+          <p>{p.objective || p.description}</p>
+          {p.objective && !p.video && <p>{p.description}</p>}
+        </div>
+        <aside className="story-scope">
+          <p className="cartouche-key">Notre intervention</p>
+          <ul className="checks">
             {p.scope.map((s) => (
               <li key={s}>
-                <Check size={17} />
+                <Check size={17} aria-hidden="true" />
                 {s}
               </li>
             ))}
           </ul>
-          <Link className="button" href="/devis">
-            Un projet similaire ?<ArrowUpRight size={20} />
+          <Link className="btn btn-primary btn-block" href="/devis">
+            Un projet similaire ? <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
         </aside>
       </section>
       {p.stages && (
-        <section className="project-stages section-space">
-          <div className="container">
-            <SectionLabel>LES ÉTAPES DE LA RÉHABILITATION</SectionLabel>
+        <section className="stages section">
+          <div className="wrap">
+            <SectionLabel light>Les étapes de la réhabilitation</SectionLabel>
             <h2>
-              DE L’EXISTANT
+              De l’existant
               <br />
-              <span className="text-blue">AUX NOUVEAUX RÉSEAUX.</span>
+              <em>aux nouveaux réseaux.</em>
             </h2>
-            <ol>
+            <ol className="steps steps-dark">
               {p.stages.map((stage, index) => (
                 <li key={stage.title}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <span className="mono">Étape {String(index + 1).padStart(2, "0")}</span>
                   <h3>{stage.title}</h3>
                   <p>{stage.description}</p>
                 </li>
@@ -171,11 +177,9 @@ export default async function Project({ params }: Props) {
         </section>
       )}
       {photos.length > 0 && (
-        <section className="container project-photo-section">
-          <SectionLabel>LE CHANTIER EN IMAGES</SectionLabel>
-          <div
-            className={`project-photo-grid${p.video ? " project-photo-grid-portrait" : ""}`}
-          >
+        <section className="wrap photos section">
+          <SectionLabel number={String(photos.length).padStart(2, "0")}>Le chantier en images</SectionLabel>
+          <div className={`photo-grid ${p.video ? "is-portrait" : ""}`}>
             {photos.map((m) => (
               <figure key={m.src}>
                 <Photo
@@ -184,10 +188,10 @@ export default async function Project({ params }: Props) {
                   width={m.width}
                   height={m.height}
                   loading="lazy"
-                  sizes="(max-width: 600px) 100vw, 45vw"
+                  sizes="(max-width: 720px) 100vw, 50vw"
                 />
-                <figcaption className="project-media-caption">
-                  <span>{projectMediaLabels[m.kind]}</span>
+                <figcaption className="media-caption">
+                  <span className="mono">{projectMediaLabels[m.kind]}</span>
                   {m.caption}
                 </figcaption>
               </figure>
@@ -195,11 +199,11 @@ export default async function Project({ params }: Props) {
           </div>
         </section>
       )}
-      <div className="container next-project">
-        <span>LE CHANTIER SUIVANT</span>
+      <div className="wrap next-link">
         <Link href={`/realisations/${next.slug}`}>
-          {next.title}
-          <ArrowUpRight />
+          <span className="mono">Chantier suivant</span>
+          <strong>{next.title}</strong>
+          <ArrowRight size={28} aria-hidden="true" />
         </Link>
       </div>
       <ContactBanner />

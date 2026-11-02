@@ -19,35 +19,35 @@ export default async function News() {
         label="Actualités"
         title={
           <>
-            LE TERRAIN.
+            Le carnet
             <br />
-            <span className="text-blue">AU QUOTIDIEN.</span>
+            <em>de chantier.</em>
           </>
         }
       >
         L’avancement des chantiers, les gestes du métier et les nouvelles de
-        l’équipe MK Aération.
+        l’équipe, publiés directement depuis le terrain.
       </PageIntro>
-      <section className="container news-list-section">
+      <section className="wrap news-page section">
         {posts.length ? (
-          <div className="news-grid">
+          <div className="log-list">
             {posts.map((p) => (
               <NewsCard key={p.id} post={p} />
             ))}
           </div>
         ) : (
-          <div className="news-empty">
-            <span className="eyebrow">À SUIVRE</span>
+          <div className="empty-state">
+            <p className="label">À suivre</p>
             <h2>
-              LES PROCHAINES NOUVELLES
+              Les prochaines nouvelles
               <br />
-              ARRIVENT DU TERRAIN.
+              <em>arrivent du terrain.</em>
             </h2>
             <p>
               Retrouvez dès maintenant les photos et les interventions de notre
               équipe dans les réalisations.
             </p>
-            <Link href="/realisations" className="text-link">
+            <Link href="/realisations" className="link-arrow">
               Découvrir nos chantiers <ArrowUpRight size={19} />
             </Link>
           </div>

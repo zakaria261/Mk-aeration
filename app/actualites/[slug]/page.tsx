@@ -24,7 +24,7 @@ export default async function NewsArticle({ params }: Props) {
   if (!post) notFound();
   return (
     <main id="contenu">
-      <div className="container">
+      <div className="wrap">
         <PublicationView
           draft={post.published!}
           kind="actualite"

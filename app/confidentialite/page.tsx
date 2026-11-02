@@ -5,10 +5,10 @@ export const metadata: Metadata = {
 };
 export default function Privacy() {
   return (
-    <main id="contenu" className="container legal">
-      <span className="eyebrow">VOS INFORMATIONS</span>
-      <h1>CONFIDENTIALITÉ</h1>
-      <h2>LES DONNÉES DEMANDÉES</h2>
+    <main id="contenu" className="wrap legal">
+      <p className="label">Vos informations</p>
+      <h1>Confidentialité</h1>
+      <h2>Les données demandées</h2>
       <p>
         Le formulaire recueille le type de prestation, votre profil, la commune
         et le code postal du chantier, l’échéance, la description du projet,
@@ -16,7 +16,7 @@ export default function Privacy() {
         entreprise est facultatif. Les champs marqués d’un astérisque sont
         nécessaires au traitement de votre demande.
       </p>
-      <h2>LEUR UTILISATION</h2>
+      <h2>Leur utilisation</h2>
       <p>
         Ces informations permettent à MK Aération d’étudier votre projet et de
         vous recontacter dans le cadre de votre demande de devis. Elles ne sont
@@ -24,7 +24,7 @@ export default function Privacy() {
         recueilli à l’envoi du formulaire. Les données ne sont pas publiées sur
         le site.
       </p>
-      <h2>ENREGISTREMENT ET PROTECTION</h2>
+      <h2>Enregistrement et protection</h2>
       <p>
         Les demandes sont enregistrées dans une base de données liée au site,
         hébergée sur l’infrastructure Cloudflare via Sites d’OpenAI. Une
@@ -39,7 +39,7 @@ export default function Privacy() {
         bouton « Transmettre aussi par e-mail » utilise votre propre logiciel de
         messagerie et nécessite votre action pour envoyer le message.
       </p>
-      <h2>CONSERVATION</h2>
+      <h2>Conservation</h2>
       <p>
         Les informations doivent être conservées uniquement pendant le suivi du
         projet et la durée nécessaire aux obligations applicables. Pour cette
@@ -47,7 +47,7 @@ export default function Privacy() {
         suppression doivent être confirmées par l’éditeur avant ouverture au
         public.
       </p>
-      <h2>VOS DEMANDES</h2>
+      <h2>Vos demandes</h2>
       <p>
         Pour demander l’accès, la rectification ou la suppression des
         informations de votre demande, contactez{" "}
@@ -56,7 +56,7 @@ export default function Privacy() {
         traitement doit être complétée dans les mentions légales de la version
         publique.
       </p>
-      <h2>COOKIES</h2>
+      <h2>Cookies</h2>
       <p>
         L’espace équipe est réservé aux collaborateurs autorisés. Il utilise
         leur nom, leur adresse e-mail et leur rôle pour gérer les publications

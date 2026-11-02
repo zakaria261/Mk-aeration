@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import {
   Plus,
   ArrowUpRight,
@@ -14,8 +14,9 @@ import {
   statusLabels,
   type TeamMember,
   type TeamPost,
-  type ContentKind,
 } from "@/lib/cms-types";
+import { useCreatePost } from "./team-create";
+import { InstallHint } from "./app-runtime";
 
 export function TeamDashboard({
   posts,
@@ -27,31 +28,18 @@ export function TeamDashboard({
   all?: boolean;
 }) {
   const [filter, setFilter] = useState("all");
-  const [pending, setPending] = useState<ContentKind | null>(null);
-  const [error, setError] = useState("");
+  const { create, pending, error } = useCreatePost();
   const router = useRouter();
-  async function create(kind: ContentKind) {
-    setPending(kind);
-    setError("");
-    try {
-      const response = await fetch("/api/equipe/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind }),
-      });
-      const result = (await response.json()) as {
-        post: TeamPost;
-        error?: string;
-      };
-      if (!response.ok) throw new Error(result.error);
-      router.push(`/equipe/publications/${result.post.id}`);
-    } catch (e) {
-      setError(
-        e instanceof Error ? e.message : "La création a échoué. Réessayez.",
-      );
-      setPending(null);
-    }
-  }
+  const params = useSearchParams();
+  const launched = useRef(false);
+  // Raccourci de l’icône d’application : « Publier un chantier ».
+  useEffect(() => {
+    const kind = params.get("nouveau");
+    if (launched.current || (kind !== "realisation" && kind !== "actualite")) return;
+    launched.current = true;
+    router.replace("/equipe");
+    void create(kind);
+  }, [params, router, create]);
   const visible = posts.filter((p) =>
     filter === "all"
       ? p.status !== "archived"
@@ -63,9 +51,9 @@ export function TeamDashboard({
     <main className="team-main" id="contenu">
       <div className="team-page-heading">
         <div>
-          <span className="eyebrow">
-            {all ? "VOTRE BIBLIOTHÈQUE" : "L’ATELIER DES CHANTIERS"}
-          </span>
+          <p className="label">
+            {all ? "Votre bibliothèque" : "L’atelier des chantiers"}
+          </p>
           <h1>
             {all
               ? "Les publications."
@@ -77,16 +65,19 @@ export function TeamDashboard({
               : "Le chantier se termine. Le savoir-faire reste visible."}
           </p>
         </div>
-        <button
-          className="team-primary"
-          onClick={() => create("realisation")}
-          disabled={!!pending}
-        >
-          <Plus size={18} /> Nouvelle réalisation
-        </button>
+        {all && (
+          <button
+            className="team-primary"
+            onClick={() => create("realisation")}
+            disabled={!!pending}
+          >
+            <Plus size={18} /> Nouvelle réalisation
+          </button>
+        )}
       </div>
       {!all && (
         <>
+          <InstallHint />
           <div className="team-stats">
             {[
               [String(posts.filter((p) => p.published).length), "en ligne"],
@@ -256,7 +247,7 @@ export function TeamDashboard({
       </section>
       {!all && (
         <aside className="team-workflow-note">
-          <span>LE BON RÉFLEXE</span>
+          <span className="label">Le bon réflexe</span>
           <p>
             Choisissez une photo nette, décrivez le travail réalisé et
             prévisualisez la fiche.{" "}

@@ -9,6 +9,7 @@ import {
   LoaderCircle,
 } from "lucide-react";
 import { teamAuthClient } from "@/lib/auth/client";
+import { InstallHint } from "./app-runtime";
 
 export function TeamLogin({ enabled }: { enabled: boolean }) {
   const [email, setEmail] = useState("");
@@ -70,26 +71,23 @@ export function TeamLogin({ enabled }: { enabled: boolean }) {
       <div className="team-login-brand">
         <Link href="/" aria-label="MK Aération — accueil">
           <img
-            src="/images/logo-mk-aeration.jpg"
+            src="/brand/lockup.webp"
             alt="MK Aération"
-            width={108}
-            height={108}
+            width={552}
+            height={168}
           />
         </Link>
-        <Link href="/" className="text-link">
-          <ArrowLeft size={16} /> Revenir au site
+        <Link href="/" className="team-login-back">
+          <ArrowLeft size={16} /> Le site
         </Link>
       </div>
       <div className="team-login-layout">
         <div className="team-login-intro">
-          <span className="eyebrow">L’ESPACE MK AÉRATION</span>
+          <p className="label">Espace équipe</p>
           <h1>
-            VOTRE TRAVAIL.
+            Votre travail,
             <br />
-            <span>
-              SOUS SON <br />
-              MEILLEUR JOUR.
-            </span>
+            <em>sous son meilleur jour.</em>
           </h1>
           <p>
             Photos de chantier, nouvelles de l’équipe, réalisations : faites
@@ -108,6 +106,7 @@ export function TeamLogin({ enabled }: { enabled: boolean }) {
           </div>
         </div>
         <section className="team-login-panel">
+          <InstallHint />
           <span className="team-login-icon">
             <ShieldCheck size={25} />
           </span>
@@ -133,6 +132,7 @@ export function TeamLogin({ enabled }: { enabled: boolean }) {
                 className="team-otp"
                 autoComplete="one-time-code"
                 inputMode="numeric"
+                enterKeyHint="go"
                 pattern="[0-9]{6}"
                 maxLength={6}
                 value={code}
@@ -143,7 +143,7 @@ export function TeamLogin({ enabled }: { enabled: boolean }) {
                 placeholder="000000"
               />
               <button
-                className="button"
+                className="btn btn-primary btn-lg btn-block"
                 disabled={pending || code.length !== 6}
               >
                 {pending ? (
@@ -189,13 +189,17 @@ export function TeamLogin({ enabled }: { enabled: boolean }) {
                   type="email"
                   id="team-email"
                   autoComplete="email"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  enterKeyHint="send"
                   value={email}
                   required
                   placeholder="vous@exemple.fr"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <button className="button" disabled={pending}>
+              <button className="btn btn-primary btn-lg btn-block" disabled={pending}>
                 {pending ? (
                   <LoaderCircle className="spin" size={18} />
                 ) : (

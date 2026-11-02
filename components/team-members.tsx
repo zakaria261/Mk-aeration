@@ -133,6 +133,9 @@ export function TeamMembers({
               <input
                 type="email"
                 id="member-email"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 required
                 value={email}
                 maxLength={200}

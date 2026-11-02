@@ -17,16 +17,16 @@ export default function Entreprise() {
         label="L’entreprise"
         title={
           <>
-            LE SENS DU DÉTAIL.
+            Le sens du détail.
             <br />
-            <span className="text-blue">L’ESPRIT D’ÉQUIPE.</span>
+            <em>L’esprit d’équipe.</em>
           </>
         }
       >
         Nous sommes MK Aération. Une entreprise de réseaux aérauliques qui croit
         aux choses simples : écouter, bien préparer et bien poser.
       </PageIntro>
-      <section className="container company-photo">
+      <figure className="wrap company-photo">
         <Photo
           sizes="(max-width: 1392px) 100vw, 1280px"
           src="/images/annecy-panorama.webp"
@@ -35,18 +35,15 @@ export default function Entreprise() {
           height="1350"
           fetchPriority="high"
         />
-        <span>DE LA TECHNIQUE. ET UNE ÉQUIPE SUR LE TERRAIN.</span>
-      </section>
-      <section className="section-space">
-        <div className="container company-story">
-          <SectionLabel>NOTRE CONVICTION</SectionLabel>
+        <figcaption className="mono">Photo de chantier · FIER, Annecy</figcaption>
+      </figure>
+      <section className="section">
+        <div className="wrap company-story">
+          <SectionLabel>Notre conviction</SectionLabel>
           <div>
             <h2>
-              LA QUALITÉ DE L’AIR
-              <br />
-              COMMENCE PAR
-              <br />
-              <span className="text-blue">LA QUALITÉ DU GESTE.</span>
+              La qualité de l’air commence par{" "}
+              <em>la qualité du geste.</em>
             </h2>
             <div className="company-text">
               <p>
@@ -69,10 +66,10 @@ export default function Entreprise() {
           </div>
         </div>
       </section>
-      <section className="values-section surface section-space">
-        <div className="container">
-          <SectionLabel>CE QUI NOUS ANIME</SectionLabel>
-          <div className="values-grid">
+      <section className="values surface section">
+        <div className="wrap">
+          <SectionLabel>Ce qui nous anime</SectionLabel>
+          <ol className="steps">
             {[
               [
                 "01",
@@ -90,23 +87,23 @@ export default function Entreprise() {
                 "Un travail d’équipe, en lien avec les intervenants du projet, pour faire avancer le chantier.",
               ],
             ].map(([n, t, d]) => (
-              <div key={n}>
-                <span>{n}</span>
+              <li key={n}>
+                <span className="mono">{n}</span>
                 <h3>{t}</h3>
                 <p>{d}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
-      <section className="section-space" id="zone">
-        <div className="container zone-grid">
+      <section className="section" id="zone">
+        <div className="wrap zone-grid">
           <div>
-            <SectionLabel>PROCHES DE VOS CHANTIERS</SectionLabel>
+            <SectionLabel>Proches de vos chantiers</SectionLabel>
             <h2>
-              ICI, C’EST
+              Ici, c’est
               <br />
-              <span className="text-blue">NOTRE TERRAIN.</span>
+              <em>notre terrain.</em>
             </h2>
             <p>
               Depuis Saint-Rambert-d’Albon, nous intervenons dans quatre
@@ -114,7 +111,7 @@ export default function Entreprise() {
             </p>
             <a
               href={company.maps}
-              className="text-link"
+              className="link-arrow"
               target="_blank"
               rel="noreferrer"
             >
@@ -129,18 +126,18 @@ export default function Entreprise() {
               ["74", "Haute-Savoie", "Annecy et ses environs"],
             ].map(([n, t, d]) => (
               <div key={n}>
-                <span>{n}</span>
+                <span className="mono">{n}</span>
                 <div>
                   <h3>{t}</h3>
                   <p>{d}</p>
                 </div>
-                <Check size={20} />
+                <Check size={20} aria-hidden="true" />
               </div>
             ))}
           </div>
         </div>
       </section>
-      <section className="company-contact container">
+      <section className="company-contact wrap">
         <div>
           <MapPin />
           <span>

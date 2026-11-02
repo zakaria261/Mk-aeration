@@ -1,7 +1,8 @@
 import { Photo } from "@/components/photo";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight, Plus, Play } from "lucide-react";
+import { ArrowUpRight, Plus, Play } from "lucide-react";
 import { faqs, type ProjectCardData } from "@/lib/content";
+
 export function SectionLabel({
   children,
   number,
@@ -12,86 +13,87 @@ export function SectionLabel({
   light?: boolean;
 }) {
   return (
-    <div className={`section-label ${light ? "label-light" : ""}`}>
-      <span className="label-line" />
+    <p className={`label ${light ? "label-light" : ""}`}>
+      {number && <span className="label-num">{number}</span>}
       {children}
-      {number && <span className="section-number">{number}</span>}
-    </div>
+    </p>
   );
 }
+
 export function ProjectCard({
   project,
   index = 0,
+  priority = false,
+  sizes = "(max-width: 720px) 82vw, (max-width: 1080px) 46vw, 30vw",
 }: {
   project: ProjectCardData;
   index?: number;
+  priority?: boolean;
+  sizes?: string;
 }) {
   return (
-    <Link href={`/realisations/${project.slug}`} className="project-card">
+    <Link href={`/realisations/${project.slug}`} className="pcard">
       <div
-        className={`project-image${project.coverKind === "presentation" ? " project-image-presentation" : ""}`}
+        className={`pcard-media ${project.coverKind === "presentation" ? "is-presentation" : ""}`}
       >
         <Photo
-          sizes="(max-width: 600px) calc(100vw - 44px), (max-width: 1392px) 30vw, 400px"
+          sizes={sizes}
           src={project.image}
           alt={project.alt}
           width={project.imageWidth || 900}
           height={project.imageHeight || 900}
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
           style={{ objectPosition: project.imagePosition }}
         />
-        <span className="project-tag">{project.category}</span>
         {project.video && (
-          <span className="project-film-badge">
-            <Play size={12} fill="currentColor" /> Vidéo ·{" "}
+          <span className="pcard-chip">
+            <Play size={11} fill="currentColor" aria-hidden="true" /> Vidéo ·{" "}
             {project.video.duration}
           </span>
         )}
-        {project.coverKind === "projet" && (
-          <span className="project-cover-note">Vue du projet</span>
+        {project.coverKind !== "chantier" && (
+          <span className="pcard-note">
+            {project.coverKind === "projet" ? "Vue du projet" : "Visuel de présentation"}
+          </span>
         )}
-        {project.coverKind === "presentation" && (
-          <span className="project-cover-note">Visuel de présentation</span>
-        )}
-        <span className="project-arrow">
-          <ArrowUpRight size={23} />
-        </span>
       </div>
-      <div className="project-caption">
-        <div>
-          <small>
-            {project.sector} · {project.place}
-          </small>
-          <h3>{project.title}</h3>
-        </div>
-        <span className="project-index">
-          {String(index + 1).padStart(2, "0")}
+      <div className="pcard-body">
+        <span className="pcard-ref mono">
+          R-{String(index + 1).padStart(2, "0")} · {project.category}
+        </span>
+        <h3>{project.title}</h3>
+        <p>
+          {project.sector} · {project.place}
+        </p>
+        <span className="pcard-arrow" aria-hidden="true">
+          <ArrowUpRight size={20} />
         </span>
       </div>
     </Link>
   );
 }
+
 export function FAQ() {
   return (
-    <section className="faq-section section-space">
-      <div className="container faq-layout">
-        <div>
-          <SectionLabel>VOS QUESTIONS</SectionLabel>
-          <h2>TOUT SIMPLEMENT.</h2>
+    <section className="faq section" aria-labelledby="faq-title">
+      <div className="wrap faq-grid">
+        <div className="faq-head">
+          <SectionLabel>Questions fréquentes</SectionLabel>
+          <h2 id="faq-title">Avant de lancer le chantier.</h2>
           <p>
-            Une question sur votre chantier ?<br />
-            Nous sommes là pour en parler.
+            Une question qui n’est pas ici ? Le plus simple reste de nous
+            appeler.
           </p>
-          <a className="text-link" href="tel:+33768476126">
-            Appelez-nous <ArrowUpRight size={19} />
+          <a className="link-arrow" href="tel:+33768476126">
+            07 68 47 61 26 <ArrowUpRight size={17} aria-hidden="true" />
           </a>
         </div>
         <div className="faq-list">
           {faqs.map((f) => (
             <details key={f.q}>
               <summary>
-                {f.q}
-                <Plus size={21} />
+                <span>{f.q}</span>
+                <Plus size={20} aria-hidden="true" />
               </summary>
               <p>{f.a}</p>
             </details>
@@ -101,6 +103,7 @@ export function FAQ() {
     </section>
   );
 }
+
 export function PageIntro({
   label,
   title,
@@ -111,15 +114,14 @@ export function PageIntro({
   children: React.ReactNode;
 }) {
   return (
-    <section className="page-intro">
-      <div className="container">
-        <div className="breadcrumb">
+    <section className="intro">
+      <div className="wrap">
+        <nav className="crumbs mono" aria-label="Fil d’Ariane">
           <Link href="/">Accueil</Link>
-          <ArrowRight size={12} />
-          <span>{label}</span>
-        </div>
-        <SectionLabel>{label.toUpperCase()}</SectionLabel>
-        <div className="page-intro-grid">
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{label}</span>
+        </nav>
+        <div className="intro-grid">
           <h1>{title}</h1>
           <p>{children}</p>
         </div>

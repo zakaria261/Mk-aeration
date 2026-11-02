@@ -1,17 +1,20 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
-  LayoutDashboard,
+  LayoutGrid,
   Files,
   Users,
   ArrowUpRight,
   LogOut,
-  ShieldCheck,
+  Plus,
+  Globe,
 } from "lucide-react";
 import { teamAuthClient } from "@/lib/auth/client";
 import type { TeamMember } from "@/lib/cms-types";
+import { CreateSheet } from "./team-create";
+
 export function TeamShell({
   member,
   children,
@@ -21,103 +24,120 @@ export function TeamShell({
 }) {
   const path = usePathname();
   const [leaving, setLeaving] = useState(false);
+  const [sheet, setSheet] = useState(false);
+  const closeSheet = useCallback(() => setSheet(false), []);
+  // La feuille se referme dès qu’une page s’ouvre (ex. l’éditeur créé).
+  useEffect(() => setSheet(false), [path]);
+  const isAdmin = member.role === "admin";
+  const initials = member.name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
   async function logout() {
+    if (!window.confirm("Se déconnecter de l’espace équipe ?")) return;
     setLeaving(true);
     try {
       const { error } = await teamAuthClient.signOut();
       if (error) throw new Error();
       window.location.assign("/connexion");
     } catch {
-      window.alert(
-        "La déconnexion a échoué. Vérifiez votre connexion puis réessayez.",
-      );
+      window.alert("La déconnexion a échoué. Vérifiez votre connexion puis réessayez.");
       setLeaving(false);
     }
   }
+
+  const links = [
+    ["/equipe", "Accueil", LayoutGrid],
+    ["/equipe/publications", "Publications", Files],
+    ...(isAdmin ? ([["/equipe/membres", "Équipe", Users]] as const) : []),
+  ] as const;
+  const active = (href: string) =>
+    href === "/equipe" ? path === href : path.startsWith(href);
+  const inEditor = /^\/equipe\/publications\/[^/]+$/.test(path);
+
   return (
-    <div className="team-shell">
+    <div className={`team-shell ${inEditor ? "is-editing" : ""}`}>
       <aside className="team-sidebar">
         <Link href="/equipe" className="team-wordmark">
-          <img
-            src="/images/logo-mk-aeration.jpg"
-            alt="MK Aération"
-            width={78}
-            height={78}
-          />
+          <img src="/brand/emblem.webp" alt="" width={512} height={480} />
           <span>
-            ESPACE
-            <br />
-            <strong>ÉQUIPE</strong>
+            MK Aération
+            <strong>Espace équipe</strong>
           </span>
         </Link>
-        <span className="team-nav-label">L’ATELIER DES CHANTIERS</span>
+        <button type="button" className="team-new" onClick={() => setSheet(true)}>
+          <Plus size={18} aria-hidden="true" /> Nouvelle publication
+        </button>
         <nav aria-label="Navigation espace équipe">
-          {[
-            ["/equipe", "Vue d’ensemble", LayoutDashboard],
-            ["/equipe/publications", "Publications", Files],
-            ...(member.role === "admin"
-              ? [["/equipe/membres", "Équipe & accès", Users]]
-              : []),
-          ].map(([href, label, Icon]) => {
-            const I = Icon as typeof Files;
-            return (
-              <Link
-                key={String(href)}
-                href={String(href)}
-                className={
-                  path === href ||
-                  (href !== "/equipe" && path.startsWith(String(href)))
-                    ? "active"
-                    : ""
-                }
-              >
-                <I size={19} />
-                {String(label)}
-              </Link>
-            );
-          })}
-        </nav>
-        <div className="team-sidebar-bottom">
+          {links.map(([href, label, Icon]) => (
+            <Link key={href} href={href} aria-current={active(href) ? "page" : undefined}>
+              <Icon size={19} aria-hidden="true" />
+              {label}
+            </Link>
+          ))}
           <Link href="/" target="_blank">
-            Voir le site public <ArrowUpRight size={17} />
+            <Globe size={19} aria-hidden="true" />
+            Le site public
+            <ArrowUpRight size={15} className="team-ext" aria-hidden="true" />
           </Link>
-          <div className="team-profile">
-            <span>{member.name.slice(0, 2).toUpperCase()}</span>
-            <div>
-              <strong>{member.name}</strong>
-              <small>
-                {member.role === "admin" ? "Administrateur" : "Collaborateur"}
-              </small>
-            </div>
+        </nav>
+        <div className="team-profile">
+          <span className="team-avatar" aria-hidden="true">{initials}</span>
+          <div>
+            <strong>{member.name}</strong>
+            <small>{isAdmin ? "Administrateur" : "Collaborateur"}</small>
           </div>
-          <button type="button" disabled={leaving} onClick={logout}>
-            <LogOut size={17} />
-            Se déconnecter
+          <button type="button" disabled={leaving} onClick={logout} aria-label="Se déconnecter" title="Se déconnecter">
+            <LogOut size={18} aria-hidden="true" />
           </button>
         </div>
       </aside>
-      <div className="team-workspace">
-        <header className="team-topbar">
+
+      <header className="team-appbar">
+        <Link href="/equipe" className="team-appbar-brand" aria-label="Espace équipe — accueil">
+          <img src="/brand/emblem.webp" alt="" width={512} height={480} />
+          <span>Espace équipe</span>
+        </Link>
+        <button type="button" className="team-appbar-profile" onClick={logout} disabled={leaving} aria-label={`${member.name} — se déconnecter`}>
+          <span className="team-avatar" aria-hidden="true">{initials}</span>
+          <LogOut size={17} aria-hidden="true" />
+        </button>
+      </header>
+
+      <div className="team-workspace">{children}</div>
+
+      <nav className="team-tabbar" aria-label="Navigation de l’espace équipe">
+        <Link href="/equipe" aria-current={active("/equipe") ? "page" : undefined}>
+          <LayoutGrid size={23} aria-hidden="true" />
+          <span>Accueil</span>
+        </Link>
+        <Link href="/equipe/publications" aria-current={active("/equipe/publications") ? "page" : undefined}>
+          <Files size={23} aria-hidden="true" />
+          <span>Publications</span>
+        </Link>
+        <button type="button" className="team-tabbar-new" onClick={() => setSheet(true)} aria-label="Nouvelle publication">
           <span>
-            <ShieldCheck size={16} /> ESPACE PRIVÉ
+            <Plus size={26} strokeWidth={2.2} aria-hidden="true" />
           </span>
-          <div className="team-topbar-actions">
-            <Link href="/" target="_blank">
-              Le site <ArrowUpRight size={17} />
-            </Link>
-            <button
-              type="button"
-              aria-label="Se déconnecter"
-              title="Se déconnecter"
-              disabled={leaving}
-              onClick={logout}
-            >
-              <LogOut size={17} />
-            </button>
-          </div>
-        </header>
-        {children}
-      </div>
+        </button>
+        {isAdmin ? (
+          <Link href="/equipe/membres" aria-current={active("/equipe/membres") ? "page" : undefined}>
+            <Users size={23} aria-hidden="true" />
+            <span>Équipe</span>
+          </Link>
+        ) : (
+          <span className="team-tabbar-spacer" aria-hidden="true" />
+        )}
+        <Link href="/">
+          <Globe size={23} aria-hidden="true" />
+          <span>Le site</span>
+        </Link>
+      </nav>
+
+      <CreateSheet open={sheet} onClose={closeSheet} />
     </div>
   );
 }

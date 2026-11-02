@@ -2,15 +2,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 export default function NotFound() {
   return (
-    <main id="contenu" className="container not-found">
-      <span className="eyebrow">ERREUR 404</span>
+    <main id="contenu" className="wrap state-page">
+      <p className="label">Erreur 404</p>
       <h1>
-        UN PETIT
+        Un petit
         <br />
-        COURANT D’AIR.
+        <em>courant d’air.</em>
       </h1>
       <p>Cette page n’existe pas ou a changé d’adresse.</p>
-      <Link href="/" className="button">
+      <Link href="/" className="btn btn-primary btn-lg">
         Retour à l’accueil
         <ArrowRight size={19} />
       </Link>

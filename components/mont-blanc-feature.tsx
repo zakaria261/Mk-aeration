@@ -1,56 +1,66 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Photo } from "./photo";
+import { Cote } from "./drawing";
 
-export function MontBlancFeature({ hero = false }: { hero?: boolean }) {
+export const montBlancSpecs = [
+  { value: "8 mois", label: "de travaux, chantier terminé" },
+  { value: "1 000 × 1 000", unit: "mm", label: "gaine carrée · amenée d’air d’un local électrique" },
+  { value: "11,6", unit: "km", label: "de réseau PVC Ø125 dans les zones techniques" },
+  { value: "De nuit", label: "interventions dans les refuges du tunnel" },
+];
+
+export function MontBlancSpecs({ className = "" }: { className?: string }) {
   return (
-    <article className={`mont-feature ${hero ? "mont-feature-hero" : ""}`}>
+    <dl className={`specs ${className}`}>
+      {montBlancSpecs.map((s) => (
+        <div key={s.label}>
+          <dt>
+            {s.value}
+            {s.unit && <small> {s.unit}</small>}
+          </dt>
+          <dd>{s.label}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+/** Mise en avant du tunnel du Mont-Blanc (page Réalisations). */
+export function MontBlancFeature() {
+  return (
+    <article className="mb-feature">
       <Link
         href="/realisations/tunnel-du-mont-blanc"
-        className="mont-feature-image"
-        aria-label="Découvrir notre intervention au tunnel du Mont-Blanc"
+        className="mb-feature-media"
+        aria-label="Tunnel du Mont-Blanc — le détail de notre intervention"
       >
+        <Cote>Réf. 01 · Tunnel du Mont-Blanc</Cote>
         <Photo
           src="/images/mont-blanc-presentation.webp"
           alt="Tunnel du Mont-Blanc — visuel de présentation MK Aération"
           width={1461}
           height={720}
-          sizes="(max-width: 800px) 100vw, 1280px"
-          fetchPriority={hero ? "high" : undefined}
-          loading={hero ? "eager" : "lazy"}
+          sizes="(max-width: 1392px) 100vw, 1300px"
         />
-        <span className="mont-feature-corner">
-          <ArrowUpRight size={25} />
-        </span>
       </Link>
-      <div className="mont-feature-caption">
+      <div className="mb-feature-body">
         <div>
-          <span className="eyebrow">FRANCE · ITALIE / INFRASTRUCTURES</span>
-          <h2>TUNNEL DU MONT-BLANC</h2>
+          <p className="label">
+            <span className="label-num">01</span>Infrastructure · France / Italie
+          </p>
+          <h2>Tunnel du Mont-Blanc</h2>
           <p>
             Ventilation des locaux techniques, supportage et réseaux
-            hydrauliques.
+            hydrauliques. Huit mois de travaux, de jour comme de nuit.
           </p>
+          <Link href="/realisations/tunnel-du-mont-blanc" className="link-arrow">
+            Le détail de notre intervention <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
         </div>
-        <Link href="/realisations/tunnel-du-mont-blanc" className="text-link">
-          Le détail de notre intervention <ArrowUpRight size={19} />
-        </Link>
+        <MontBlancSpecs />
       </div>
-      <div className="mont-feature-facts">
-        <span>
-          <strong>8 mois</strong> d’intervention
-        </span>
-        <span>
-          <strong>1 000 × 1 000 mm</strong> de section de gaine
-        </span>
-        <span>
-          <strong>11,6 km</strong> de réseau PVC réparti dans les zones
-          techniques
-        </span>
-      </div>
-      <small className="mont-feature-credit">
-        Visuel de présentation fourni par MK Aération.
-      </small>
+      <p className="credit mono">Visuel de présentation fourni par MK Aération.</p>
     </article>
   );
 }
