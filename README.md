@@ -36,7 +36,7 @@ Appliquer la migration SQL `drizzle/0000_slimy_cyclops.sql` à cette base avant 
 
 ## Pages et contenu
 
-L’accueil met désormais le tunnel du Mont-Blanc en première position, avec son visuel complet. La pose de hotte reste accessible dans les réalisations et les expertises. L’espace équipe permet de créer des réalisations et des actualités avec photos, brouillons, prévisualisation et validation administrateur. Voir le [guide de l’équipe](docs/espace-equipe.md) et la [configuration du CMS](docs/cms-operations.md).
+L’accueil adopte une présentation de site vitrine : fond blanc, bleu profond, photographie de chantier à Annecy, trois expertises, référence Mont-Blanc avec son visuel complet, sélection de réalisations et présentation de l’entreprise. Son en-tête et son pied de page sont propres à l’accueil ; les styles sont isolés dans `app/styles/landing.css`. La navigation de l’application installée et l’espace équipe conservent leur fonctionnement. La pose de hotte reste accessible dans les réalisations et les expertises. L’espace équipe permet de créer des réalisations et des actualités avec photos, brouillons, prévisualisation et validation administrateur. Voir le [guide de l’équipe](docs/espace-equipe.md) et la [configuration du CMS](docs/cms-operations.md).
 
 Accueil, expertises, réalisations avec filtres, neuf fiches chantier historiques et nouvelles réalisations, actualités, entreprise et zone d’intervention, devis en trois étapes, espace équipe, confidentialité, mentions légales et page 404.
 
@@ -86,7 +86,7 @@ Les images sont locales, proposées en plusieurs tailles WebP avec `srcset`. La 
 
 ## Photos et vidéos de chantier
 
-Les deux films restent dans leurs fiches de réalisation et, pour la hotte, dans la page Expertises. L’accueil présente le Mont-Blanc en premier et une sélection de réalisations sans lecteur vidéo. La fiche de réhabilitation VMC présente les trois photographies et les étapes de l’intervention.
+Les deux films restent dans leurs fiches de réalisation et, pour la hotte, dans la page Expertises. L’accueil présente une sélection de réalisations sans lecteur vidéo et un encart consacré au Mont-Blanc. La fiche de réhabilitation VMC présente les trois photographies et les étapes de l’intervention.
 
 Le lecteur affiche une image d’aperçu ; la source vidéo n’est insérée qu’après une action sur le bouton de lecture. Les commandes natives permettent de mettre en pause, régler le son, avancer et passer en plein écran. La lecture reste intégrée sur mobile ; lancer un film met en pause les autres lecteurs de la page. Le cadrage vertical complet est conservé.
 

@@ -5,6 +5,7 @@ import "./styles/shell.css";
 import "./styles/home.css";
 import "./styles/pages.css";
 import "./styles/quote.css";
+import "./styles/landing.css";
 import { Header, Footer } from "@/components/site-shell";
 import { AppRuntime } from "@/components/app-runtime";
 import { startupImages } from "@/lib/pwa";
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   description:
     "Pose de réseaux aérauliques, gaines de ventilation, réseaux de soufflage et d’extraction, CTA et VMC. Chantiers tertiaires et industriels dans les départements 26, 38, 69 et 74.",
   openGraph: {
-    title: "MK Aération — Huit mois sous le Mont-Blanc",
+    title: "MK Aération — La qualité de l’air commence ici",
     description:
       "Réseaux aérauliques, gaines de ventilation, CTA, VMC, soufflage et extraction en Auvergne-Rhône-Alpes.",
     locale: "fr_FR",

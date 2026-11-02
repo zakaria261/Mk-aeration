@@ -59,6 +59,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
 
 export function Header() {
   const pathname = usePathname();
+  const marketing = pathname === "/";
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -120,10 +121,16 @@ export function Header() {
       <a href="#contenu" className="skip-link">
         Aller au contenu
       </a>
-      <header className={`site-header ${scrolled || open ? "is-raised" : ""}`}>
+      {marketing && (
+        <div className="lp-topbar">
+          <div className="lp-container"><span>Au service de la qualité de l’air.</span><a href={company.tel}><Phone size={13} aria-hidden="true" /> {company.phone}</a><a href={`mailto:${company.email}`}>{company.email}</a></div>
+        </div>
+      )}
+      <header className={`site-header ${marketing ? "site-header-marketing" : ""} ${scrolled || open ? "is-raised" : ""}`}>
         <div className="wrap site-header-inner">
           <Brand />
           <nav className="site-nav" aria-label="Navigation principale">
+            {marketing && <Link href="/" aria-current="page">Accueil</Link>}
             {nav.map(([href, label]) => (
               <Link
                 key={href}
@@ -140,7 +147,7 @@ export function Header() {
               {company.phone}
             </a>
             <Link className="btn btn-primary btn-sm header-devis" href="/devis">
-              Devis
+              {marketing ? "Demander un devis" : "Devis"}
               <ArrowUpRight size={16} aria-hidden="true" />
             </Link>
             <a
@@ -206,6 +213,22 @@ export function Footer() {
   const pathname = usePathname();
   if (hiddenShell(pathname)) return null;
   const year = new Date().getFullYear();
+  if (pathname === "/") return (
+    <>
+      <footer className="lp-footer">
+        <div className="lp-container">
+          <div className="lp-footer-grid">
+            <div className="lp-footer-brand"><Brand /><p>Réseaux aérauliques, ventilation<br />et qualité de l’air.<br />De la Drôme aux Alpes.</p></div>
+            <div><h2>Découvrir</h2><Link href="/expertises">Nos expertises</Link><Link href="/realisations">Nos réalisations</Link><Link href="/entreprise">L’entreprise</Link><Link href="/actualites">Actualités</Link></div>
+            <div><h2>Nous contacter</h2><a href={company.tel}>{company.phone}</a><a href={`mailto:${company.email}`}>{company.email}</a><a href={company.maps} target="_blank" rel="noreferrer">{company.address}<br />{company.city}</a></div>
+            <div><h2>Zone d’intervention</h2><p>Drôme · Isère<br />Rhône · Haute-Savoie</p><Link href="/devis" className="lp-footer-quote">Parlons de votre projet <ArrowUpRight size={16} aria-hidden="true" /></Link></div>
+          </div>
+          <div className="lp-footer-bottom"><span>© {year} MK Aération. Tous droits réservés.</span><div><Link href="/mentions-legales">Mentions légales</Link><Link href="/confidentialite">Confidentialité</Link><Link href="/connexion">Espace équipe</Link></div></div>
+        </div>
+      </footer>
+      <MobileDock pathname={pathname} />
+    </>
+  );
   return (
     <>
       <footer className="site-footer">
