@@ -3,7 +3,7 @@
  * - Polices, logos, images du site et fichiers statiques : cache d’abord.
  * - Jamais mis en cache : API, espace équipe, connexion, médias importés, vidéos.
  */
-const VERSION = "mk-v1";
+const VERSION = "mk-gestion-v2";
 const STATIC = `${VERSION}-static`;
 const PAGES = `${VERSION}-pages`;
 const OFFLINE = "/hors-ligne";

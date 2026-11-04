@@ -34,3 +34,11 @@ Si deux personnes modifient la même fiche, l’espace signale le conflit au lie
 ## Gérer les personnes
 
 Le rôle « Collaborateur » permet de préparer et soumettre ses propres publications. Le rôle « Administrateur » permet de publier et de gérer les accès. Désactiver une personne bloque les prochains accès à l’espace, y compris avec une session déjà ouverte. Les contenus restent disponibles pour les administrateurs.
+
+## Site public et application de gestion
+
+Le site public conserve une navigation web. L’application installable sur l’écran d’accueil de l’iPhone s’appelle **MK Gestion** et démarre sur `/equipe` (connexion nécessaire). Elle sert à gérer le site ; le lien « Le site » ouvre la vitrine dans une fenêtre distincte.
+
+Le dirigeant dispose de **Contenu** (`/equipe/contenu`) pour modifier les titres, la présentation, la photo d’accueil et les textes de contact. **Enregistrer le brouillon** conserve les changements privés ; **Publier sur le site** les rend visibles. Une protection de version empêche d’écraser une modification faite depuis un autre appareil. Les réalisations, leurs photos et les actualités se gèrent dans **Publications**.
+
+Sur iPhone, ouvrir `/connexion` dans Safari puis utiliser **Partager → Sur l’écran d’accueil**. Il s’agit d’une application web installable, sans publication sur l’App Store. Les modifications et l’import des photos nécessitent une connexion réseau.

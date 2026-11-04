@@ -5,10 +5,11 @@ import "./styles/shell.css";
 import "./styles/home.css";
 import "./styles/pages.css";
 import "./styles/quote.css";
+import "./styles/public-site.css";
 import "./styles/landing.css";
+import "./styles/public-refinement.css";
 import { Header, Footer } from "@/components/site-shell";
 import { AppRuntime } from "@/components/app-runtime";
-import { startupImages } from "@/lib/pwa";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -37,26 +38,19 @@ export const metadata: Metadata = {
     shortcut: "/favicon.png",
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
-  appleWebApp: {
-    capable: true,
-    title: "MK Aération",
-    statusBarStyle: "default",
-    startupImage: startupImages,
-  },
   formatDetection: { telephone: false, email: false, address: false },
-  other: { "apple-mobile-web-app-capable": "yes" },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#f4f3ef",
+  themeColor: "#102b46",
   colorScheme: "light",
 };
 
 /** Marque le mode application avant le premier rendu, pour éviter tout saut. */
-const standaloneScript = `try{if(matchMedia('(display-mode: standalone)').matches||navigator.standalone===true){document.documentElement.classList.add('is-standalone')}}catch(e){}`;
+const standaloneScript = `try{if(matchMedia('(display-mode: standalone)').matches||navigator.standalone===true){document.documentElement.classList.add('is-standalone');if(location.pathname==='/')location.replace('/equipe')}}catch(e){}`;
 
 export default function RootLayout({
   children,

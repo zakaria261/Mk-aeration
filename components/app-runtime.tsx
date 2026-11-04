@@ -12,6 +12,10 @@ export function AppRuntime() {
         media.matches || (navigator as Navigator & { standalone?: boolean }).standalone === true,
       );
     sync();
+    // Anciennes installations : l’icône doit ouvrir la gestion, pas la vitrine.
+    if ((media.matches || (navigator as Navigator & { standalone?: boolean }).standalone) && location.pathname === "/") {
+      location.replace("/equipe");
+    }
     media.addEventListener("change", sync);
 
     if (
@@ -51,7 +55,7 @@ export function InstallHint({ tone = "light" }: { tone?: "light" | "dark" }) {
     <aside className={`install-hint install-hint-${tone}`} aria-label="Installer l’application">
       <img src="/apple-touch-icon.png" alt="" width={48} height={48} />
       <div>
-        <strong>Installez l’app sur votre iPhone</strong>
+        <strong>Installez MK Gestion sur votre iPhone</strong>
         <p>
           Touchez <Share size={15} aria-label="Partager" /> puis{" "}
           <span className="nowrap">

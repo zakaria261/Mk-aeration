@@ -1641,3 +1641,45 @@
     padding: 36px;
   }
 }
+/* Édition du site : formulaires réservés au dirigeant. */
+.home-edit form { max-width: 880px; }
+.home-edit-section { margin: 0 0 22px; border: 1px solid var(--t-line,#dce2e8); border-radius: 18px; background: #fff; padding: 24px; min-width: 0; }
+.home-edit-section legend { padding: 0 8px; font-weight: 650; font-size: 17px; }
+.home-edit-field { display: grid; gap: 8px; margin-block: 18px; }
+.home-edit-field > span { font-size: 14px; font-weight: 600; }
+.home-edit-field input,.home-edit-field textarea { width: 100%; border: 1px solid #cdd5df; border-radius: 10px; padding: 14px; background: #f8fafc; color: #152434; font-size: 16px; line-height: 1.5; }
+.home-edit-field small { text-align: right; color: #647383; font-size: 11px; }
+.home-photo-picker > span { font-size: 14px; font-weight: 600; }
+.home-photo-picker > div { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+.home-photo-picker label { position: relative; display: grid; gap: 8px; border: 2px solid #e2e7ee; padding: 10px; border-radius: 12px; }
+.home-photo-picker label:has(input:checked) { border-color: #0672ee; background: #f0f6ff; }
+.home-photo-picker input { position: absolute; top: 16px; left: 16px; width: 20px; height: 20px; }
+.home-photo-picker img { width: 100%; aspect-ratio: 1.6; object-fit: cover; border-radius: 6px; }
+.home-photo-picker label > span { font-size: 12px; line-height: 1.5; }
+.home-edit-preview { border: 1px solid #dce2e8; border-radius: 14px; overflow: hidden; background: #fff; }
+.home-edit-preview summary { display: flex; gap: 10px; padding: 18px; font-size: 14px; cursor: pointer; }
+.home-edit-preview > div { padding: 32px 24px; color: #fff; background-size: cover; background-position: center; }
+.home-edit-preview strong { font-size: 28px; line-height: 1.1; }
+.home-edit-preview p { margin-top: 18px; font-size: 14px; line-height: 1.8; }
+.home-edit-help { margin: 22px 0; font-size: 13px; line-height: 1.8; color: #536474; }
+.home-edit-help a { text-decoration: underline; }
+.home-edit-actions { position: sticky; bottom: calc(78px + var(--safe-b)); display: flex; gap: 12px; padding: 16px; background: #ffffffed; backdrop-filter: blur(20px); border: 1px solid #dce2e8; border-radius: 16px; margin-top: 24px; z-index: 10; }
+.home-edit-success { display: flex; gap: 12px; align-items: center; padding: 18px; background: #e9f6ee; color: #176136; border-radius: 12px; }
+@media (min-width: 1080px) { .home-edit-actions { bottom: 20px; } }
+@media (max-width: 540px) { .home-edit-section { padding: 18px; } .home-edit-actions { flex-direction: column; padding: 12px; } .home-edit-actions button { width: 100%; min-height: 48px; } }
+
+/* Typographie et raccourcis propres à l’application de gestion. */
+body:has(.team-shell), body:has(.team-login) { background: #f2f2f7; }
+.team-shell, .team-login { --f-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; --t-bg: #f2f2f7; --t-line: #e1e2e8; --t-line-2: #c8cbd3; font-family: var(--f-sans); }
+.team-shell h1, .team-shell h2, .team-shell h3, .team-login h1, .team-login h2 { font-stretch: 100%; }
+.team-appbar { background: #f2f2f7ed; }
+.team-tabbar { background: #f9f9fbed; }
+.team-site-management { margin-bottom: 26px; }
+.team-site-management > a:first-child { display: flex; align-items: center; gap: 16px; padding: 22px; border: 1px solid var(--t-line); border-radius: 16px; background: #fff; }
+.team-site-management > a:first-child > svg:first-child { color: var(--blue); }
+.team-site-management span { flex: 1; }
+.team-site-management strong { display: block; font-size: 17px; }
+.team-site-management small { display: block; margin-top: 5px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+.team-site-management > a:last-child { display: inline-flex; align-items: center; gap: 8px; padding: 12px 3px; min-height: 44px; color: var(--blue); font-size: 13px; }
+.home-edit-preview strong span { color: #aad2ff; }
+.home-edit-section:disabled { opacity: .65; }

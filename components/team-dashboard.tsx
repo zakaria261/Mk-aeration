@@ -78,6 +78,7 @@ export function TeamDashboard({
       {!all && (
         <>
           <InstallHint />
+          {member.role === "admin" && <div className="team-site-management"><Link href="/equipe/contenu"><FileText size={25} aria-hidden="true" /><span><strong>Modifier la page d’accueil</strong><small>Textes, photo principale et publication sur le site.</small></span><ArrowRight size={20} aria-hidden="true" /></Link><Link href="/equipe/membres">Gérer les accès de l’équipe <ArrowUpRight size={15} aria-hidden="true" /></Link></div>}
           <div className="team-stats">
             {[
               [String(posts.filter((p) => p.published).length), "en ligne"],

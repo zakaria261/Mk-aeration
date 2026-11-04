@@ -72,6 +72,8 @@ async function login(email, wrongFirst = false) {
   assert(cookie.includes("session_token"));
   return cookie;
 }
+const previousHome = await sql`SELECT draft,published,version,updated_at FROM cms_pages WHERE key='home'`;
+let homeTouched = false;
 try {
   for (const [index, email] of emails.entries()) {
     await sql`INSERT INTO cms_members(email,name,role) VALUES(${email},${"Validation " + index},${index === 0 ? "admin" : "editor"}) ON CONFLICT(email) DO UPDATE SET active=true`;
@@ -289,6 +291,22 @@ try {
     },
     400,
   );
+  // La gestion de l’accueil est réservée au dirigeant, avec brouillon privé.
+  await json("/api/equipe/home", {}, 401);
+  await json("/api/equipe/home", { cookie: other }, 403);
+  let { page: home } = await json("/api/equipe/home", { cookie: admin });
+  const draftHome = { ...home.draft, heroTitle: "Un titre de contrôle privé" };
+  await json("/api/equipe/home", { cookie: admin, method: "PATCH", origin: "https://foreign.example", body: { action: "save", version: home.version, content: draftHome } }, 403);
+  const savedHome = await json("/api/equipe/home", { cookie: admin, method: "PATCH", body: { action: "save", version: home.version, content: draftHome } });
+  homeTouched = true;
+  assert(!(await (await request("/")).text()).includes(draftHome.heroTitle));
+  await json("/api/equipe/home", { cookie: admin, method: "PATCH", body: { action: "publish", version: home.version, content: draftHome } }, 409);
+  const liveHome = { ...draftHome, heroTitle: "Un titre de contrôle publié" };
+  await json("/api/equipe/home", { cookie: admin, method: "PATCH", body: { action: "publish", version: savedHome.version, content: liveHome } });
+  assert((await (await request("/")).text()).includes(liveHome.heroTitle));
+  await writeFile("/tmp/mk-refonte-admin-session.json", JSON.stringify({ cookies: admin }), { mode: 0o600 });
+  const { page: finalHome } = await json("/api/equipe/home", { cookie: admin });
+  await json("/api/equipe/home", { cookie: admin, method: "PATCH", body: { action: "publish", version: finalHome.version, content: previousHome[0]?.published || home.draft } });
   await json("/api/auth/sign-out", { cookie: admin, method: "POST", body: {} });
   // Keep an authorized editor fixture for visual QA; no real employee account is changed.
   await sql`UPDATE cms_members SET active=true WHERE email=${emails[1]}`;
@@ -301,6 +319,12 @@ try {
     "CMS integration passed: OTP, session, role checks, ownership, private photos, direct upload, validation, publish, live snapshot, conflict protection, unpublish, archive, restore, revocation and sign-out.",
   );
 } finally {
+  if (homeTouched) {
+    if (previousHome[0]) {
+      const h = previousHome[0];
+      await sql`UPDATE cms_pages SET draft=${JSON.stringify(h.draft)}::jsonb,published=${h.published ? JSON.stringify(h.published) : null}::jsonb,version=${h.version},updated_at=${h.updated_at} WHERE key='home'`;
+    } else await sql`DELETE FROM cms_pages WHERE key='home'`;
+  }
   if (posts.length) {
     const media =
       await sql`SELECT object_key FROM cms_media WHERE post_id=ANY(${posts}::uuid[])`;

@@ -83,7 +83,7 @@ export function TeamLogin({ enabled }: { enabled: boolean }) {
       </div>
       <div className="team-login-layout">
         <div className="team-login-intro">
-          <p className="label">Espace équipe</p>
+          <p className="label">Espace dirigeant · MK Gestion</p>
           <h1>
             Votre travail,
             <br />
@@ -101,7 +101,7 @@ export function TeamLogin({ enabled }: { enabled: boolean }) {
               <b>02</b> Illustrer
             </span>
             <span>
-              <b>03</b> Faire valider
+              <b>03</b> Publier
             </span>
           </div>
         </div>

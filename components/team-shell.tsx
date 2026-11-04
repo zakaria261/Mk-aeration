@@ -10,6 +10,7 @@ import {
   LogOut,
   Plus,
   Globe,
+  Settings2,
 } from "lucide-react";
 import { teamAuthClient } from "@/lib/auth/client";
 import type { TeamMember } from "@/lib/cms-types";
@@ -52,7 +53,7 @@ export function TeamShell({
   const links = [
     ["/equipe", "Accueil", LayoutGrid],
     ["/equipe/publications", "Publications", Files],
-    ...(isAdmin ? ([["/equipe/membres", "Équipe", Users]] as const) : []),
+    ...(isAdmin ? ([["/equipe/contenu", "Contenu du site", Settings2], ["/equipe/membres", "Équipe", Users]] as const) : []),
   ] as const;
   const active = (href: string) =>
     href === "/equipe" ? path === href : path.startsWith(href);
@@ -99,7 +100,7 @@ export function TeamShell({
       <header className="team-appbar">
         <Link href="/equipe" className="team-appbar-brand" aria-label="Espace équipe — accueil">
           <img src="/brand/emblem.webp" alt="" width={512} height={480} />
-          <span>Espace équipe</span>
+          <span>MK Gestion</span>
         </Link>
         <button type="button" className="team-appbar-profile" onClick={logout} disabled={leaving} aria-label={`${member.name} — se déconnecter`}>
           <span className="team-avatar" aria-hidden="true">{initials}</span>
@@ -124,14 +125,14 @@ export function TeamShell({
           </span>
         </button>
         {isAdmin ? (
-          <Link href="/equipe/membres" aria-current={active("/equipe/membres") ? "page" : undefined}>
-            <Users size={23} aria-hidden="true" />
-            <span>Équipe</span>
+          <Link href="/equipe/contenu" aria-current={active("/equipe/contenu") ? "page" : undefined}>
+            <Settings2 size={23} aria-hidden="true" />
+            <span>Contenu</span>
           </Link>
         ) : (
           <span className="team-tabbar-spacer" aria-hidden="true" />
         )}
-        <Link href="/">
+        <Link href="/" target="_blank" rel="noopener noreferrer">
           <Globe size={23} aria-hidden="true" />
           <span>Le site</span>
         </Link>
