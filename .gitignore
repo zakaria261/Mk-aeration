@@ -52,3 +52,6 @@ yarn-error.log*
 /public/IMG_7338.HEIC
 .neon
 .vercel
+
+# Original media preserved outside the public website.
+/assets-src/originaux/
