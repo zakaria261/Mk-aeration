@@ -8,7 +8,13 @@ import "./styles/quote.css";
 import "./styles/public-site.css";
 import "./styles/landing.css";
 import { Header, Footer } from "@/components/site-shell";
+import { SiteProvider } from "@/components/site-provider";
+import { ConversionListener } from "@/components/conversion-controls";
+import { publicSite } from "@/lib/site-content-server";
+import { companyLinks } from "@/lib/site-content";
 import { AppRuntime } from "@/components/app-runtime";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -51,28 +57,26 @@ export const viewport: Viewport = {
 /** Marque le mode application avant le premier rendu, pour éviter tout saut. */
 const standaloneScript = `try{if(matchMedia('(display-mode: standalone)').matches||navigator.standalone===true){document.documentElement.classList.add('is-standalone');if(location.pathname==='/')location.replace('/equipe')}}catch(e){}`;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await publicSite();
+  const company = companyLinks(settings.company);
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: standaloneScript }} />
-        <link
-          rel="preload"
-          href="/fonts/archivo-var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
       </head>
       <body>
-        <Header />
-        {children}
-        <Footer />
-        <AppRuntime />
+        <SiteProvider content={settings}>
+          <Header />
+          {children}
+          <Footer />
+          <AppRuntime />
+          <ConversionListener />
+        </SiteProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -80,20 +84,20 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "HVACBusiness",
               name: "MK Aération",
-              logo: `${siteUrl}/brand/logo-mk-aeration.png`,
+              logo: `${siteUrl}${settings.logo.src}`,
               image: `${siteUrl}/images/mont-blanc-presentation.webp`,
-              telephone: "+33768476126",
-              email: "mk.aeration@hotmail.com",
+              telephone: company.phone,
+              email: company.email,
               url: siteUrl,
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "2 route des Champs",
-                postalCode: "26140",
-                addressLocality: "Saint-Rambert-d’Albon",
+                streetAddress: company.address,
+                postalCode: company.city.match(/\b\d{5}\b/)?.[0],
+                addressLocality: company.city.replace(/\b\d{5}\b/, "").trim(),
                 addressCountry: "FR",
               },
-              areaServed: ["Drôme", "Isère", "Rhône", "Haute-Savoie"],
-            }),
+              areaServed: company.areas,
+            }).replace(/</g, "\\u003c"),
           }}
         />
       </body>

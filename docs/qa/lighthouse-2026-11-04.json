@@ -1,0 +1,134 @@
+[
+  {
+    "page": "http://127.0.0.1:3032/",
+    "measuredAt": "2026-11-04T14:15:41.017Z",
+    "lighthouseVersion": "13.6.0",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 903.4472000000001,
+        "display": "0.9 s"
+      },
+      "largest-contentful-paint": {
+        "value": 2255.1708,
+        "display": "2.3 s"
+      },
+      "total-blocking-time": {
+        "value": 4.5,
+        "display": "0 ms"
+      },
+      "cumulative-layout-shift": {
+        "value": 0.0005934217309059784,
+        "display": "0.001"
+      },
+      "speed-index": {
+        "value": 903.4472000000001,
+        "display": "0.9 s"
+      }
+    }
+  },
+  {
+    "page": "http://127.0.0.1:3032/contact",
+    "measuredAt": "2026-11-04T14:16:22.051Z",
+    "lighthouseVersion": "13.6.0",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 903.8030000000001,
+        "display": "0.9 s"
+      },
+      "largest-contentful-paint": {
+        "value": 903.8030000000001,
+        "display": "0.9 s"
+      },
+      "total-blocking-time": {
+        "value": 2,
+        "display": "0 ms"
+      },
+      "cumulative-layout-shift": {
+        "value": 4.508110398000072e-06,
+        "display": "0"
+      },
+      "speed-index": {
+        "value": 903.8030000000001,
+        "display": "0.9 s"
+      }
+    }
+  },
+  {
+    "page": "http://127.0.0.1:3032/expertises/reseaux",
+    "measuredAt": "2026-11-04T14:16:47.422Z",
+    "lighthouseVersion": "13.6.0",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "scores": {
+      "performance": 95,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 903.578,
+        "display": "0.9 s"
+      },
+      "largest-contentful-paint": {
+        "value": 2928.5780000000004,
+        "display": "2.9 s"
+      },
+      "total-blocking-time": {
+        "value": 2.5,
+        "display": "0 ms"
+      },
+      "cumulative-layout-shift": {
+        "value": 0,
+        "display": "0"
+      },
+      "speed-index": {
+        "value": 903.578,
+        "display": "0.9 s"
+      }
+    }
+  }
+]

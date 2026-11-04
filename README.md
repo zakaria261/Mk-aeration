@@ -26,13 +26,13 @@ npm run build:vercel
 npm run start:next
 ```
 
-Les pages de présentation sont pré-générées par Next.js. L’API de devis est une fonction serveur Node.js. Sur Sites, elle conserve sa liaison D1 native ; sur Vercel, elle utilise l’API REST D1 avec les variables **serveur uniquement** suivantes :
+Les pages publiques sont rendues côté serveur ; les données publiées sont mises en cache puis invalidées à chaque publication. L’API de devis est une fonction serveur Node.js. Sur Sites, elle conserve sa liaison D1 native ; sur Vercel, elle utilise l’API REST D1 avec les variables **serveur uniquement** suivantes :
 
 - `CLOUDFLARE_ACCOUNT_ID` : identifiant du compte Cloudflare propriétaire de la base.
 - `CLOUDFLARE_D1_DATABASE_ID` : identifiant de la base D1 contenant la table `quote_requests`.
 - `CLOUDFLARE_D1_API_TOKEN` : jeton limité à cette base avec accès D1 en lecture et écriture.
 
-Appliquer la migration SQL `drizzle/0000_slimy_cyclops.sql` à cette base avant réception des demandes. La base gérée par Sites n’est pas automatiquement transférée vers Vercel. Les variables doivent être configurées dans Vercel, puis un déploiement doit être relancé. Sans cette configuration, le site vitrine fonctionne mais l’API refuse explicitement les demandes ; le visiteur peut alors envoyer le récapitulatif par sa messagerie. Aucune confirmation de sauvegarde n’est simulée.
+Appliquer la migration SQL `drizzle/0000_slimy_cyclops.sql` à cette base avant réception des demandes. La base gérée par Sites n’est pas automatiquement transférée vers Vercel. Les variables doivent être configurées dans Vercel, puis un déploiement doit être relancé. Sans configuration D1, `DATABASE_URL` active le stockage des devis dans `cms_contacts` sur Neon, accessible dans l’espace Demandes. Sans aucune base configurée, l’API refuse explicitement les demandes. Aucune confirmation de sauvegarde n’est simulée.
 
 ## Pages et contenu
 
@@ -44,7 +44,7 @@ Les textes, contacts et références sont regroupés dans `lib/content.ts`. Les 
 
 ## Demandes de devis
 
-`POST /api/devis` valide les données côté serveur, refuse les origines étrangères, limite le volume envoyé, utilise un champ piège et limite les envois répétés. Les requêtes sont enregistrées en D1 dans `quote_requests`. L’identifiant de soumission évite une nouvelle création lors d’une reprise après coupure réseau. La confirmation contient la référence uniquement après sauvegarde. Aucun accès public en lecture aux demandes n’est exposé.
+`POST /api/devis` valide les données côté serveur, refuse les origines étrangères, limite le volume envoyé, utilise un champ piège et limite les envois répétés. Les requêtes sont enregistrées dans `quote_requests` lorsque D1 est configuré, sinon dans `cms_contacts` sur Neon. Le formulaire court `/api/contact` utilise Neon et la boîte privée `/equipe/demandes`. L’identifiant de soumission évite une nouvelle création lors d’une reprise après coupure réseau. La confirmation contient la référence uniquement après sauvegarde. Aucun accès public en lecture aux demandes n’est exposé.
 
 Les données du formulaire restent en mémoire pendant la navigation entre ses étapes. Elles ne sont pas stockées dans le navigateur. Recharger ou quitter la page efface la saisie en cours.
 
@@ -59,14 +59,18 @@ La publication Sites applique séparément les migrations sur la base hébergée
 
 ### Notifications par e-mail
 
-La sauvegarde des devis fonctionne sans fournisseur d’e-mail. Pour notifier automatiquement `mk.aeration@hotmail.com`, configurer **dans l’environnement serveur de l’hébergeur** :
+La sauvegarde des devis fonctionne sans fournisseur d’e-mail. Pour notifier automatiquement l’adresse publiée de l’entreprise avec le circuit D1, configurer **dans l’environnement serveur de l’hébergeur** :
 
 - `RESEND_API_KEY` : clé d’un compte Resend autorisé.
 - `QUOTE_EMAIL_FROM` : adresse d’expédition sur un domaine vérifié dans ce compte.
 
 Ne jamais placer ces valeurs dans le code ou dans une variable `NEXT_PUBLIC_*`. En cas d’échec de notification, le devis reste enregistré et `notified` reste à `0`. Le visiteur peut aussi ouvrir sa messagerie avec sa demande préremplie pour envoyer un e-mail et joindre ses plans ; cette action n’est jamais présentée comme un envoi automatique.
 
-## Vérifications
+## Livraison du 4 novembre 2026
+
+Voir le [compte rendu de refonte](docs/mission-2026-11-04.md) pour les vérifications actuelles, les scores Lighthouse mesurés, les fichiers modifiés et les limites. Les notes historiques ci-dessous décrivent les livraisons précédentes.
+
+## Vérifications historiques
 
 ```sh
 npx tsc --noEmit
@@ -80,9 +84,9 @@ Vérifications effectuées : réponses HTTP des seize pages, 404, sitemap et rob
 
 ## Avant ouverture au public
 
-La publication Sites est privée par défaut. Le domaine public définitif pourra ensuite être raccordé. Sur Vercel, les URL de référencement utilisent automatiquement `VERCEL_PROJECT_PRODUCTION_URL` ; définir `NEXT_PUBLIC_SITE_URL` pour imposer le domaine officiel. Sans ces variables, l’aperçu Sites conserve son URL actuelle. Compléter les informations juridiques réelles, la politique de conservation et la procédure de suppression, puis configurer les notifications d’e-mail avant une campagne de collecte publique. Les pages légales signalent les éléments manquants sans inventer de SIRET ou de dénomination juridique.
+La publication Sites est privée par défaut. Le domaine public définitif pourra ensuite être raccordé. Sur Vercel, les URL de référencement utilisent automatiquement `VERCEL_PROJECT_PRODUCTION_URL` ; définir `NEXT_PUBLIC_SITE_URL` pour imposer le domaine officiel. Sans ces variables, l’aperçu Sites conserve son URL actuelle. Les informations juridiques fournies et l’immatriculation vérifiée sont intégrées. Le dirigeant doit définir sa durée de conservation des demandes ; la suppression définitive est disponible dans la boîte privée. Appliquer la migration CMS `003_site_settings.sql` avant de déployer cette branche. Les notifications restent optionnelles et ne sont pas activées par cette refonte.
 
-Les images sont locales, proposées en plusieurs tailles WebP avec `srcset`. La police de titre est locale. Les mouvements sont limités aux transitions et respectent la préférence de réduction des animations.
+Les images sont locales, proposées en plusieurs tailles avec `srcset`, dont un hero AVIF avec repli WebP. La police de titre est locale. Les mouvements sont limités aux transitions et respectent la préférence de réduction des animations.
 
 ## Photos et vidéos de chantier
 

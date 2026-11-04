@@ -10,11 +10,7 @@ import {
   ArrowRight,
   LoaderCircle,
 } from "lucide-react";
-import {
-  statusLabels,
-  type TeamMember,
-  type TeamPost,
-} from "@/lib/cms-types";
+import { statusLabels, type TeamMember, type TeamPost } from "@/lib/cms-types";
 import { useCreatePost } from "./team-create";
 import { InstallHint } from "./app-runtime";
 
@@ -22,10 +18,14 @@ export function TeamDashboard({
   posts,
   member,
   all = false,
+  updates = [],
+  newContacts = 0,
 }: {
   posts: TeamPost[];
   member: TeamMember;
   all?: boolean;
+  updates?: { action: string; date: string }[];
+  newContacts?: number;
 }) {
   const [filter, setFilter] = useState("all");
   const { create, pending, error } = useCreatePost();
@@ -35,7 +35,8 @@ export function TeamDashboard({
   // Raccourci de l’icône d’application : « Publier un chantier ».
   useEffect(() => {
     const kind = params.get("nouveau");
-    if (launched.current || (kind !== "realisation" && kind !== "actualite")) return;
+    if (launched.current || (kind !== "realisation" && kind !== "actualite"))
+      return;
     launched.current = true;
     router.replace("/equipe");
     void create(kind);
@@ -78,7 +79,59 @@ export function TeamDashboard({
       {!all && (
         <>
           <InstallHint />
-          {member.role === "admin" && <div className="team-site-management"><Link href="/equipe/contenu"><FileText size={25} aria-hidden="true" /><span><strong>Modifier la page d’accueil</strong><small>Textes, photo principale et publication sur le site.</small></span><ArrowRight size={20} aria-hidden="true" /></Link><Link href="/equipe/membres">Gérer les accès de l’équipe <ArrowUpRight size={15} aria-hidden="true" /></Link></div>}
+          {member.role === "admin" && (
+            <section className="team-recent">
+              <Link href="/equipe/demandes">
+                <strong>
+                  {newContacts} demande{newContacts > 1 ? "s" : ""} à traiter
+                </strong>
+                <ArrowUpRight size={18} />
+              </Link>
+              {updates.length > 0 && (
+                <details>
+                  <summary>Dernières modifications du site</summary>
+                  <ul>
+                    {updates.map((u, i) => (
+                      <li key={i}>
+                        <span>
+                          {u.action.includes("publish")
+                            ? "Publication"
+                            : "Brouillon enregistré"}
+                        </span>
+                        <time dateTime={u.date}>
+                          {new Date(u.date).toLocaleString("fr-FR", {
+                            timeZone: "Europe/Paris",
+                          })}
+                        </time>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </section>
+          )}
+          {member.role === "admin" && (
+            <div className="team-site-management">
+              <Link href="/equipe/contenu">
+                <FileText size={25} aria-hidden="true" />
+                <span>
+                  <strong>Modifier la page d’accueil</strong>
+                  <small>
+                    Textes, photo principale et publication sur le site.
+                  </small>
+                </span>
+                <ArrowRight size={20} aria-hidden="true" />
+              </Link>
+              <Link href="/equipe/reglages">
+                Prestations, coordonnées et références
+              </Link>
+              <Link href="/equipe/demandes">Demandes reçues</Link>
+              <Link href="/equipe/membres">
+                Gérer les accès de l’équipe{" "}
+                <ArrowUpRight size={15} aria-hidden="true" />
+              </Link>
+            </div>
+          )}
           <div className="team-stats">
             {[
               [String(posts.filter((p) => p.published).length), "en ligne"],

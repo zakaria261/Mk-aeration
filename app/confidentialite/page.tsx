@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
+import { publicSite } from "@/lib/site-content-server";
 export const metadata: Metadata = {
   title: "Confidentialité",
+  description:
+    "Données des demandes de contact, accès, conservation et choix de mesure sur le site MK Aération.",
+  alternates: { canonical: "/confidentialite" },
   robots: { index: false, follow: true },
 };
-export default function Privacy() {
+export default async function Privacy() {
+  const company = (await publicSite()).company;
   return (
     <main id="contenu" className="wrap legal">
       <p className="label">Vos informations</p>
@@ -16,6 +21,12 @@ export default function Privacy() {
         entreprise est facultatif. Les champs marqués d’un astérisque sont
         nécessaires au traitement de votre demande.
       </p>
+      <p>
+        Le formulaire court de l’accueil et de la page Contact demande votre
+        nom, votre e-mail et une description du projet. Le téléphone y est
+        facultatif. Ces messages sont enregistrés sur Neon, à Francfort, et
+        consultables uniquement par les administrateurs autorisés.
+      </p>
       <h2>Leur utilisation</h2>
       <p>
         Ces informations permettent à MK Aération d’étudier votre projet et de
@@ -26,12 +37,12 @@ export default function Privacy() {
       </p>
       <h2>Enregistrement et protection</h2>
       <p>
-        Les demandes sont enregistrées dans une base de données liée au site,
-        hébergée sur l’infrastructure Cloudflare via Sites d’OpenAI. Une
-        référence permet d’identifier votre demande. Une empreinte technique de
-        l’adresse IP, renouvelée chaque jour, est utilisée pour limiter les
-        envois abusifs. L’adresse IP brute n’est pas enregistrée dans la base
-        des demandes.
+        Les contacts sont enregistrés sur Neon, à Francfort. Les devis détaillés
+        utilisent cette même base, ou Cloudflare D1 lorsque ce circuit est
+        configuré. Une référence permet d’identifier votre demande. Une
+        empreinte technique de l’adresse IP, renouvelée chaque jour, est
+        utilisée pour limiter les envois abusifs. L’adresse IP brute n’est pas
+        enregistrée dans la base des demandes.
       </p>
       <p>
         Si la notification par e-mail est activée, les données nécessaires sont
@@ -42,19 +53,19 @@ export default function Privacy() {
       <h2>Conservation</h2>
       <p>
         Les informations doivent être conservées uniquement pendant le suivi du
-        projet et la durée nécessaire aux obligations applicables. Pour cette
-        version de présentation, la politique de conservation et la procédure de
-        suppression doivent être confirmées par l’éditeur avant ouverture au
-        public.
+        projet et la durée nécessaire aux obligations applicables. Pour ce site,
+        le responsable du traitement définit la durée de conservation selon le
+        suivi du projet. Les demandes du formulaire court peuvent être
+        supprimées depuis sa gestion privée.
       </p>
       <h2>Vos demandes</h2>
       <p>
         Pour demander l’accès, la rectification ou la suppression des
         informations de votre demande, contactez{" "}
-        <a href="mailto:mk.aeration@hotmail.com">mk.aeration@hotmail.com</a> en
-        indiquant, si possible, sa référence. L’identité du responsable du
-        traitement doit être complétée dans les mentions légales de la version
-        publique.
+        <a href={`mailto:${company.email}`}>{company.email}</a> en indiquant, si
+        possible, sa référence. Le responsable du traitement est{" "}
+        {company.legalName}, dont les coordonnées figurent dans les mentions
+        légales.
       </p>
       <h2>Cookies</h2>
       <p>
@@ -67,12 +78,17 @@ export default function Privacy() {
         préparation pour le web.
       </p>
       <p>
-        Le site n’intègre pas de traceur publicitaire ni de module de mesure
-        d’audience. L’hébergement privé peut utiliser les éléments techniques
-        nécessaires au contrôle de l’accès. La connexion de l’équipe utilise des
-        cookies de session et un code personnel envoyé par le service
-        d’authentification Neon. Le formulaire de devis ne conserve pas vos
-        coordonnées dans le stockage local du navigateur.
+        Le site n’intègre pas de traceur publicitaire ni de service externe de
+        mesure d’audience. Le choix « Mesure d’audience » en pied de page permet
+        d’autoriser ou de refuser des événements locaux de conversion (clic
+        téléphone, devis, réalisation, ouverture et succès d’un formulaire). Ils
+        sont désactivés par défaut, sans identifiant visiteur ni donnée de
+        formulaire. Votre préférence est conservée dans le navigateur et peut
+        être retirée au même endroit. L’hébergement privé peut utiliser les
+        éléments techniques nécessaires au contrôle de l’accès. La connexion de
+        l’équipe utilise des cookies de session et un code personnel envoyé par
+        le service d’authentification Neon. Le formulaire de devis ne conserve
+        pas vos coordonnées dans le stockage local du navigateur.
       </p>
     </main>
   );

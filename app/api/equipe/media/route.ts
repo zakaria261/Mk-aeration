@@ -11,6 +11,7 @@ import { cmsDb } from "@/lib/cms-db";
 import { mediaStorage, MEDIA_BUCKET } from "@/lib/cms-storage";
 import {
   requireMember,
+  requireAdmin,
   checkMutationOrigin,
   readCmsJson,
   cmsErrorResponse,
@@ -24,8 +25,10 @@ export async function POST(request: Request) {
     checkMutationOrigin(request);
     const member = await requireMember();
     const data = await readCmsJson(request);
-    const post = await editablePost(String(data.postId), member);
-    if (post.status === "archived")
+    const site = data.scope === "site";
+    if (site) requireAdmin(member);
+    const post = site ? null : await editablePost(String(data.postId), member);
+    if (post?.status === "archived")
       throw new CmsError(400, "Cette publication est archivée.");
     const sql = cmsDb();
     if (data.action === "presign") {
@@ -47,8 +50,8 @@ export async function POST(request: Request) {
           "La limite quotidienne de photos est atteinte. Réessayez demain.",
         );
       const id = randomUUID();
-      const key = `incoming/${post.id}/${id}`;
-      await sql`INSERT INTO cms_media(id,post_id,owner_email,object_key,filename,mime,expected_size) VALUES(${id},${post.id},${member.email},${key},${String(data.filename || "photo").slice(0, 180)},${data.mime},${data.size})`;
+      const key = `incoming/${post?.id || "site"}/${id}`;
+      await sql`INSERT INTO cms_media(id,post_id,owner_email,object_key,filename,mime,expected_size) VALUES(${id},${post?.id || null},${member.email},${key},${String(data.filename || "photo").slice(0, 180)},${data.mime},${data.size})`;
       const command = new PutObjectCommand({
         Bucket: MEDIA_BUCKET,
         Key: key,
@@ -65,8 +68,9 @@ export async function POST(request: Request) {
     }
     if (data.action !== "complete" || !/^[\da-f-]{36}$/.test(data.id))
       throw new CmsError(400, "Import non reconnu.");
-    const rows =
-      await sql`SELECT * FROM cms_media WHERE id=${data.id} AND post_id=${post.id}`;
+    const rows = site
+      ? await sql`SELECT * FROM cms_media WHERE id=${data.id} AND post_id IS NULL`
+      : await sql`SELECT * FROM cms_media WHERE id=${data.id} AND post_id=${post!.id}`;
     const media = rows[0];
     if (!media) throw new CmsError(404, "Photo introuvable.");
     if (media.ready)
@@ -117,7 +121,7 @@ export async function POST(request: Request) {
         "Cette photo ne peut pas être lue. Exportez-la en JPG puis réessayez.",
       );
     }
-    const key = `photos/${post.id}/${media.id}.webp`;
+    const key = `photos/${post?.id || "site"}/${media.id}.webp`;
     await mediaStorage().send(
       new PutObjectCommand({
         Bucket: MEDIA_BUCKET,
@@ -160,6 +164,20 @@ export async function POST(request: Request) {
           caption: "",
         },
       },
+      { headers: { "Cache-Control": "no-store" } },
+    );
+  } catch (e) {
+    return cmsErrorResponse(e);
+  }
+}
+
+export async function GET() {
+  try {
+    requireAdmin(await requireMember());
+    const media =
+      await cmsDb()`SELECT id,width,height,filename FROM cms_media WHERE post_id IS NULL AND ready=true ORDER BY created_at DESC LIMIT 100`;
+    return Response.json(
+      { media },
       { headers: { "Cache-Control": "no-store" } },
     );
   } catch (e) {

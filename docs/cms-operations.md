@@ -2,7 +2,7 @@
 
 Le CMS fonctionne avec Next.js sur Vercel, Lakebase Postgres, Managed Better Auth et Object Storage sur Neon, dans la région AWS Francfort. Les neuf réalisations historiques restent dans `lib/content.ts`. Les nouveaux contenus sont lus en base ; aucune modification du dépôt ni reconstruction du site n’est nécessaire pour les publier.
 
-Projet Neon : `sweet-dust-35078066` (`mk-aeration`). Production : branche `main`, `br-muddy-moon-b9j6dnyo`. Développement isolé : `cms-development`, `br-dawn-glade-b9xwoysa`. Le stockage privé s’appelle `chantier-medias` sur chaque branche. Les demandes de devis conservent leur backend D1 existant.
+Projet Neon : `sweet-dust-35078066` (`mk-aeration`). Production : branche `main`, `br-muddy-moon-b9j6dnyo`. Développement isolé : `cms-development`, `br-dawn-glade-b9xwoysa`. Le stockage privé s’appelle `chantier-medias` sur chaque branche. Les demandes de devis conservent D1 lorsque configuré ; sinon elles rejoignent les contacts courts dans `cms_contacts` sur Neon. Les réglages du site et leur historique utilisent `cms_site_settings` et `cms_site_history`.
 
 ## Configuration serveur
 
@@ -17,7 +17,7 @@ node --env-file=.env.cms-production scripts/cms-migrate.mjs
 node --env-file=.env.cms-production scripts/cms-configure-vercel.mjs
 ```
 
-Le script de migration utilise la connexion directe et les migrations SQL suivies dans `db/cms/`, appliquées dans l’ordre (`001_content.sql`, puis `002_pages.sql`). Tester toute modification de schéma sur la branche de développement avant son application en production. Le script Vercel utilise la session CLI déjà connectée et transmet les valeurs dans le corps HTTPS de l’API officielle. Il ne les imprime pas et ne les place pas dans les arguments de commande.
+Le script de migration utilise la connexion directe et les migrations SQL suivies dans `db/cms/`, appliquées dans l’ordre (`001_content.sql`, `002_pages.sql`, puis `003_site_settings.sql`). Tester toute modification de schéma sur la branche de développement avant son application en production. Le script Vercel utilise la session CLI déjà connectée et transmet les valeurs dans le corps HTTPS de l’API officielle. Il ne les imprime pas et ne les place pas dans les arguments de commande.
 
 Le domaine de production doit être autorisé dans Neon Auth. Les règles CORS du bucket permettent les transferts depuis ce même domaine. Ajouter explicitement tout futur domaine officiel à ces deux configurations. La branche de développement autorise les aperçus locaux sur le port 3032.
 
@@ -47,3 +47,13 @@ La délivrabilité réelle du code dans la messagerie de l’administrateur se v
 `cms_pages` conserve les versions `draft` et `published` de l’accueil et un compteur de version. `/api/equipe/home` exige une session active et le rôle administrateur. Les mutations vérifient l’origine, limitent le volume et valident les champs et la photo choisie. Seule la publication invalide le cache de l’accueil. Les brouillons ne sont jamais utilisés pour le rendu public. Les chiffres des références restent établis dans la présentation des chantiers, sans champ de satisfaction inventé.
 
 Le scénario d’intégration contrôle aussi l’accès interdit aux collaborateurs, le refus d’une origine étrangère, la confidentialité du brouillon, le conflit de versions et la mise à jour publique après publication. Il restaure le contenu de développement après le test. La migration additive `002_pages.sql` a été vérifiée sur `cms-development` avant son application sur `main`.
+
+## Réglages et réception des demandes — refonte 2026-11
+
+`/equipe/contenu` édite les textes de l’accueil. `/equipe/reglages` édite les autres pages, prestations, coordonnées, logo, image d’accueil, références historiques, ordre des sections, chiffres sourcés, qualifications et témoignages autorisés. `/equipe/apercu` affiche les brouillons enregistrés, sans accès public. Les enregistrements et leur historique sont atomiques ; une version numérique bloque l’écrasement concurrent. La publication invalide les données publiques et le sitemap. Les justificatifs et les témoignages non publiés sont retirés du contexte public.
+
+Les images globales utilisent le même transfert privé et les mêmes variantes que les publications. Un média global n’est public que s’il est référencé par la version publiée. Les droits sont revérifiés côté serveur.
+
+`/equipe/demandes` est réservé aux administrateurs : coordonnées, message, statut de suivi, téléphone, e-mail et suppression définitive avec confirmation. Les contacts courts n’envoient pas de notification automatique. Les notifications D1 existantes restent conditionnelles à Resend. La durée de conservation doit être définie par le responsable ; aucun délai fictif ni purge automatique ne sont annoncés.
+
+La migration 003 a été exécutée et testée uniquement sur `cms-development` pendant cette mission. L’appliquer en production avant déploiement, après sauvegarde et contrôle de la branche cible. Aucun secret ni fichier d’environnement ne doit être commité. Voir le [rapport de livraison](mission-2026-11-04.md).

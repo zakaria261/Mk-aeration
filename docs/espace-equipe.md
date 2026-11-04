@@ -42,3 +42,11 @@ Le site public conserve une navigation web. L’application installable sur l’
 Le dirigeant dispose de **Contenu** (`/equipe/contenu`) pour modifier les titres, la présentation, la photo d’accueil et les textes de contact. **Enregistrer le brouillon** conserve les changements privés ; **Publier sur le site** les rend visibles. Une protection de version empêche d’écraser une modification faite depuis un autre appareil. Les réalisations, leurs photos et les actualités se gèrent dans **Publications**.
 
 Sur iPhone, ouvrir `/connexion` dans Safari puis utiliser **Partager → Sur l’écran d’accueil**. Il s’agit d’une application web installable, sans publication sur l’App Store. Les modifications et l’import des photos nécessitent une connexion réseau.
+
+## Modifier le site et recevoir les contacts
+
+Depuis **Contenu**, ouvrir les réglages du site : coordonnées, mentions légales, prestations, images, références historiques, chiffres et témoignages. Les textes détaillés de l’accueil restent accessibles par **Modifier les textes et la photo d’accueil**. Enregistrer un **Brouillon**, ouvrir **Aperçu du brouillon**, puis **Publier** pour rendre les changements visibles. Un chiffre publié doit être confirmé et accompagné d’un justificatif ; un témoignage doit être authentique et autorisé.
+
+La rubrique **Demandes** permet aux administrateurs de consulter les contacts, de rappeler ou d’ouvrir leur messagerie, de marquer une réponse et de supprimer définitivement une demande avec confirmation. Le circuit historique D1, s’il est configuré, conserve sa réception séparée.
+
+Sur iPhone : ouvrir `/equipe` dans **Safari**, se connecter, puis **Partager → Ajouter à l’écran d’accueil**. L’icône **MK Gestion** ouvre directement l’espace privé. Il s’agit d’une application web installable, sans publication sur l’App Store.

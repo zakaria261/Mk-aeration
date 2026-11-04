@@ -10,6 +10,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = (await publicNews()).find((p) => p.slug === slug);
   if (!post) return { title: "Actualité introuvable" };
   return {
+    alternates: { canonical: `/actualites/${slug}` },
     title: post.published!.title,
     description: post.published!.summary,
     openGraph: {

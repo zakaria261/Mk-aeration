@@ -17,7 +17,8 @@ import {
   LoaderCircle,
   Copy,
 } from "lucide-react";
-import { company } from "@/lib/content";
+import { useCompany } from "./site-provider";
+import { trackConversion } from "@/lib/conversion";
 import { quoteSchema, serviceNames } from "@/lib/quote-validation";
 import { SectionLabel } from "./ui";
 const options = [
@@ -27,6 +28,7 @@ const options = [
   { id: "autre", icon: Plus },
 ];
 export function QuoteForm() {
+  const company = useCompany();
   const [step, setStep] = useState(1);
   const [service, setService] = useState("");
   const [data, setData] = useState({
@@ -138,6 +140,7 @@ export function QuoteForm() {
             "La demande n’a pas pu être enregistrée. Réessayez ou contactez-nous directement.",
         );
       setReference(payload.reference);
+      trackConversion("contact_success", { form: "quote" });
       requestAnimationFrame(() =>
         panel.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
       );

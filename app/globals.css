@@ -6,8 +6,9 @@
 
 @font-face {
   font-family: "Archivo";
-  src: url("/fonts/archivo-var.woff2") format("woff2-variations"),
-    url("/fonts/archivo-var.woff2") format("woff2");
+  src:
+    url("/fonts/archivo-text.woff2") format("woff2-variations"),
+    url("/fonts/archivo-text.woff2") format("woff2");
   font-weight: 100 900;
   font-stretch: 62% 125%;
   font-style: normal;
@@ -15,7 +16,8 @@
 }
 @font-face {
   font-family: "Archivo";
-  src: url("/fonts/archivo-var-italic.woff2") format("woff2-variations"),
+  src:
+    url("/fonts/archivo-var-italic.woff2") format("woff2-variations"),
     url("/fonts/archivo-var-italic.woff2") format("woff2");
   font-weight: 100 900;
   font-stretch: 62% 125%;
@@ -420,7 +422,9 @@ h2 em {
   background-size: 100% 1px;
   background-position: 0 100%;
   background-repeat: no-repeat;
-  transition: background-size 0.4s var(--ease-out), color 0.2s;
+  transition:
+    background-size 0.4s var(--ease-out),
+    color 0.2s;
 }
 @media (hover: hover) {
   .link-arrow:hover,

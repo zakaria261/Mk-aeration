@@ -1,3 +1,4 @@
+import { publicSite, pageMetadata } from "@/lib/site-content-server";
 import type { Metadata } from "next";
 import { PageIntro, SectionLabel } from "@/components/ui";
 import { ProjectGallery } from "@/components/project-gallery";
@@ -5,37 +6,26 @@ import { ContactBanner } from "@/components/site-shell";
 import { allProjects, projectCardData } from "@/lib/cms-posts";
 import { MontBlancFeature } from "@/components/mont-blanc-feature";
 
-export const metadata: Metadata = {
-  title: "Chantiers & réalisations aérauliques",
-  description:
-    "Tunnel du Mont-Blanc, réhabilitation VMC de 3 immeubles et 21 appartements, Forum de Grenoble, HTC La Boisse : les photos et vidéos des interventions MK Aération.",
-};
+export const generateMetadata = () =>
+  pageMetadata("realisations", "/realisations");
 export const revalidate = 60;
 
 export default async function Realisations() {
+  const settings = await publicSite();
   const projects = await allProjects();
   const others = projects.filter((p) => p.slug !== "tunnel-du-mont-blanc");
   return (
     <main id="contenu">
-      <PageIntro
-        label="Réalisations"
-        title={
-          <>
-            Les chantiers,
-            <br />
-            <em>en images.</em>
-          </>
-        }
-      >
-        Du bâtiment tertiaire au site industriel : réseaux aérauliques, gaines
-        de ventilation, soufflage, extraction et raccordements aux CTA. Le
-        travail de nos équipes, tel qu’il a été posé.
+      <PageIntro label="Réalisations" title={settings.pages.realisations.title}>
+        {settings.pages.realisations.description}
       </PageIntro>
       <section className="wrap featured">
         <MontBlancFeature />
       </section>
       <section className="wrap gallery section" aria-labelledby="gallery-title">
-        <SectionLabel number={String(others.length).padStart(2, "0")}>Toutes nos références</SectionLabel>
+        <SectionLabel number={String(others.length).padStart(2, "0")}>
+          Toutes nos références
+        </SectionLabel>
         <h2 id="gallery-title" className="sr-only">
           Toutes nos références
         </h2>

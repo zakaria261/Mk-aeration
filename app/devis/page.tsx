@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-content-server";
 import Link from "next/link";
 import { QuoteForm } from "@/components/quote-form";
 import { SectionLabel } from "@/components/ui";
-export const metadata: Metadata = {
-  title: "Demander un devis",
-  description:
-    "Décrivez votre projet de ventilation en quelques étapes. Contactez MK Aération au 07 68 47 61 26 ou demandez un devis en ligne.",
-};
+export const generateMetadata = () => pageMetadata("contact", "/devis");
 export default function Devis() {
   return (
     <main id="contenu" className="quote-page">

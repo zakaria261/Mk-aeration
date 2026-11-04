@@ -1,30 +1,19 @@
+import { publicSite, pageMetadata } from "@/lib/site-content-server";
 import { Photo } from "@/components/photo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Phone, Check } from "lucide-react";
-import { company } from "@/lib/content";
+import { companyLinks } from "@/lib/site-content";
 import { PageIntro, SectionLabel } from "@/components/ui";
 import { ContactBanner } from "@/components/site-shell";
-export const metadata: Metadata = {
-  title: "L’entreprise",
-  description:
-    "Basée à Saint-Rambert-d’Albon, MK Aération installe vos systèmes de ventilation dans les départements 26, 38, 69 et 74.",
-};
-export default function Entreprise() {
+export const generateMetadata = () => pageMetadata("entreprise", "/entreprise");
+export default async function Entreprise() {
+  const settings = await publicSite();
+  const company = companyLinks(settings.company);
   return (
     <main id="contenu">
-      <PageIntro
-        label="L’entreprise"
-        title={
-          <>
-            Le sens du détail.
-            <br />
-            <em>L’esprit d’équipe.</em>
-          </>
-        }
-      >
-        Nous sommes MK Aération. Une entreprise de réseaux aérauliques qui croit
-        aux choses simples : écouter, bien préparer et bien poser.
+      <PageIntro label="L’entreprise" title={settings.pages.entreprise.title}>
+        {settings.pages.entreprise.description}
       </PageIntro>
       <figure className="wrap company-photo">
         <Photo
@@ -35,15 +24,16 @@ export default function Entreprise() {
           height="1350"
           fetchPriority="high"
         />
-        <figcaption className="mono">Photo de chantier · FIER, Annecy</figcaption>
+        <figcaption className="mono">
+          Photo de chantier · FIER, Annecy
+        </figcaption>
       </figure>
       <section className="section">
         <div className="wrap company-story">
           <SectionLabel>Notre conviction</SectionLabel>
           <div>
             <h2>
-              La qualité de l’air commence par{" "}
-              <em>la qualité du geste.</em>
+              La qualité de l’air commence par <em>la qualité du geste.</em>
             </h2>
             <div className="company-text">
               <p>
@@ -106,8 +96,8 @@ export default function Entreprise() {
               <em>notre terrain.</em>
             </h2>
             <p>
-              Depuis Saint-Rambert-d’Albon, nous intervenons dans quatre
-              départements d’Auvergne-Rhône-Alpes.
+              Notre équipe intervient dans les zones indiquées ci-dessous.
+              Contactez-nous pour confirmer la faisabilité de votre déplacement.
             </p>
             <a
               href={company.maps}
@@ -119,21 +109,18 @@ export default function Entreprise() {
             </a>
           </div>
           <div className="zone-departments">
-            {[
-              ["26", "Drôme", "Saint-Rambert-d’Albon · Valence"],
-              ["38", "Isère", "Grenoble · Vienne"],
-              ["69", "Rhône", "Lyon et son agglomération"],
-              ["74", "Haute-Savoie", "Annecy et ses environs"],
-            ].map(([n, t, d]) => (
-              <div key={n}>
-                <span className="mono">{n}</span>
-                <div>
-                  <h3>{t}</h3>
-                  <p>{d}</p>
+            {company.areas
+              .map((name, i) => [String(i + 1).padStart(2, "0"), name, ""])
+              .map(([n, t, d]) => (
+                <div key={n}>
+                  <span className="mono">{n}</span>
+                  <div>
+                    <h3>{t}</h3>
+                    <p>{d}</p>
+                  </div>
+                  <Check size={20} aria-hidden="true" />
                 </div>
-                <Check size={20} aria-hidden="true" />
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </section>

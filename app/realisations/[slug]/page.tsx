@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = (await allProjects()).find((p) => p.slug === slug);
   return {
+    alternates: { canonical: `/realisations/${slug}` },
     title: p ? `Chantier ${p.title}` : "Chantier introuvable",
     description: p
       ? (projects.some((original) => original.slug === slug)
@@ -106,13 +107,16 @@ export default async function Project({ params }: Props) {
               href={`/devis?service=${p.category === "Extraction" ? "extraction" : "vmc"}`}
               className="btn btn-primary"
             >
-              Parlons de votre chantier <ArrowUpRight size={18} aria-hidden="true" />
+              Parlons de votre chantier{" "}
+              <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           </div>
         </section>
       ) : (
         <figure className="wrap project-hero">
-          {p.slug === "tunnel-du-mont-blanc" && <Cote>Tunnel du Mont-Blanc · France / Italie</Cote>}
+          {p.slug === "tunnel-du-mont-blanc" && (
+            <Cote>Tunnel du Mont-Blanc · France / Italie</Cote>
+          )}
           <Photo
             className={hero.height > hero.width ? "is-portrait" : ""}
             sizes="(max-width: 1392px) 100vw, 1300px"
@@ -167,7 +171,9 @@ export default async function Project({ params }: Props) {
             <ol className="steps steps-dark">
               {p.stages.map((stage, index) => (
                 <li key={stage.title}>
-                  <span className="mono">Étape {String(index + 1).padStart(2, "0")}</span>
+                  <span className="mono">
+                    Étape {String(index + 1).padStart(2, "0")}
+                  </span>
                   <h3>{stage.title}</h3>
                   <p>{stage.description}</p>
                 </li>
@@ -178,7 +184,9 @@ export default async function Project({ params }: Props) {
       )}
       {photos.length > 0 && (
         <section className="wrap photos section">
-          <SectionLabel number={String(photos.length).padStart(2, "0")}>Le chantier en images</SectionLabel>
+          <SectionLabel number={String(photos.length).padStart(2, "0")}>
+            Le chantier en images
+          </SectionLabel>
           <div className={`photo-grid ${p.video ? "is-portrait" : ""}`}>
             {photos.map((m) => (
               <figure key={m.src}>

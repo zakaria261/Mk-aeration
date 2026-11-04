@@ -53,7 +53,9 @@ export function ProjectCard({
         )}
         {project.coverKind !== "chantier" && (
           <span className="pcard-note">
-            {project.coverKind === "projet" ? "Vue du projet" : "Visuel de présentation"}
+            {project.coverKind === "projet"
+              ? "Vue du projet"
+              : "Visuel de présentation"}
           </span>
         )}
       </div>
@@ -73,7 +75,13 @@ export function ProjectCard({
   );
 }
 
-export function FAQ() {
+export function FAQ({
+  phone = "07 68 47 61 26",
+  tel = "tel:+33768476126",
+}: {
+  phone?: string;
+  tel?: string;
+}) {
   return (
     <section className="faq section" aria-labelledby="faq-title">
       <div className="wrap faq-grid">
@@ -84,8 +92,8 @@ export function FAQ() {
             Une question qui n’est pas ici ? Le plus simple reste de nous
             appeler.
           </p>
-          <a className="link-arrow" href="tel:+33768476126">
-            07 68 47 61 26 <ArrowUpRight size={17} aria-hidden="true" />
+          <a className="link-arrow" href={tel}>
+            {phone} <ArrowUpRight size={17} aria-hidden="true" />
           </a>
         </div>
         <div className="faq-list">

@@ -1,5 +1,8 @@
 import { getServerEnv, getClientIp } from "../../../lib/server-env";
 import { quoteSchema, serviceNames } from "@/lib/quote-validation";
+import { CmsError } from "@/lib/cms-access";
+import { storeContact } from "@/lib/contact-store";
+import { publicSite } from "@/lib/site-content-server";
 import { isSameOrigin } from "@/lib/request-security";
 const json = (body: unknown, status = 200) =>
   Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
@@ -12,6 +15,7 @@ export async function POST(request: Request) {
     return json({ error: "La demande est trop volumineuse." }, 413);
   try {
     const env = getServerEnv();
+    const company = (await publicSite()).company;
     const reader = request.body?.getReader();
     if (!reader) return json({ error: "Demande vide." }, 400);
     const chunks: Uint8Array[] = [];
@@ -51,11 +55,24 @@ export async function POST(request: Request) {
         },
         400,
       );
+    if (!env.DB && process.env.DATABASE_URL) {
+      const saved = await storeContact(
+        {
+          id: d.id,
+          name: d.name,
+          email: d.email,
+          phone: d.phone,
+          message: `Demande de devis — ${serviceNames[d.service]}\n${d.profile}${d.company ? " — " + d.company : ""}\n${d.postcode} ${d.city}\nÉchéance : ${d.timing}\n\n${d.description}`,
+        },
+        getClientIp(request),
+        "D",
+      );
+      return json({ reference: saved.reference }, saved.created ? 201 : 200);
+    }
     if (!env.DB)
       return json(
         {
-          error:
-            "Le formulaire est momentanément indisponible. Appelez le 07 68 47 61 26 ou écrivez à mk.aeration@hotmail.com.",
+          error: `Le formulaire est momentanément indisponible. Appelez le ${company.phone} ou écrivez à ${company.email}.`,
         },
         503,
       );
@@ -121,7 +138,7 @@ export async function POST(request: Request) {
           },
           body: JSON.stringify({
             from: env.QUOTE_EMAIL_FROM,
-            to: ["mk.aeration@hotmail.com"],
+            to: [company.email],
             reply_to: d.email,
             subject: `Nouveau devis ${reference} — ${serviceNames[d.service]}`,
             text: `Référence : ${reference}\n\n${d.name}${d.company ? ` — ${d.company}` : ""}\n${d.email}\n${d.phone}\n\n${serviceNames[d.service]}\n${d.profile}\n${d.postcode} ${d.city}\nÉchéance : ${d.timing}\n\n${d.description}`,
@@ -139,7 +156,9 @@ export async function POST(request: Request) {
       }
     }
     return json({ reference }, 201);
-  } catch {
+  } catch (error) {
+    if (error instanceof CmsError)
+      return json({ error: error.message }, error.status);
     console.error("Quote request processing failed.");
     return json(
       {

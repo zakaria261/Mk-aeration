@@ -1,3 +1,4 @@
+import { publicSite, pageMetadata } from "@/lib/site-content-server";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -6,27 +7,14 @@ import { PageIntro } from "@/components/ui";
 import { NewsCard } from "@/components/news-card";
 import { ContactBanner } from "@/components/site-shell";
 export const revalidate = 60;
-export const metadata: Metadata = {
-  title: "Actualités des chantiers",
-  description:
-    "Les nouvelles de l’équipe MK Aération : avancement des chantiers, réalisations et vie de l’entreprise.",
-};
+export const generateMetadata = () => pageMetadata("actualites", "/actualites");
 export default async function News() {
+  const settings = await publicSite();
   const posts = await publicNews();
   return (
     <main id="contenu">
-      <PageIntro
-        label="Actualités"
-        title={
-          <>
-            Le carnet
-            <br />
-            <em>de chantier.</em>
-          </>
-        }
-      >
-        L’avancement des chantiers, les gestes du métier et les nouvelles de
-        l’équipe, publiés directement depuis le terrain.
+      <PageIntro label="Actualités" title={settings.pages.actualites.title}>
+        {settings.pages.actualites.description}
       </PageIntro>
       <section className="wrap news-page section">
         {posts.length ? (

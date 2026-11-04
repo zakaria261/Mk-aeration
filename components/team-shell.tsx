@@ -11,6 +11,7 @@ import {
   Plus,
   Globe,
   Settings2,
+  Inbox,
 } from "lucide-react";
 import { teamAuthClient } from "@/lib/auth/client";
 import type { TeamMember } from "@/lib/cms-types";
@@ -45,7 +46,9 @@ export function TeamShell({
       if (error) throw new Error();
       window.location.assign("/connexion");
     } catch {
-      window.alert("La déconnexion a échoué. Vérifiez votre connexion puis réessayez.");
+      window.alert(
+        "La déconnexion a échoué. Vérifiez votre connexion puis réessayez.",
+      );
       setLeaving(false);
     }
   }
@@ -53,7 +56,14 @@ export function TeamShell({
   const links = [
     ["/equipe", "Accueil", LayoutGrid],
     ["/equipe/publications", "Publications", Files],
-    ...(isAdmin ? ([["/equipe/contenu", "Contenu du site", Settings2], ["/equipe/membres", "Équipe", Users]] as const) : []),
+    ...(isAdmin
+      ? ([
+          ["/equipe/reglages", "Site & entreprise", Settings2],
+          ["/equipe/demandes", "Demandes reçues", Inbox],
+          ["/equipe/contenu", "Accueil du site", Files],
+          ["/equipe/membres", "Équipe", Users],
+        ] as const)
+      : []),
   ] as const;
   const active = (href: string) =>
     href === "/equipe" ? path === href : path.startsWith(href);
@@ -69,12 +79,20 @@ export function TeamShell({
             <strong>MK Gestion</strong>
           </span>
         </Link>
-        <button type="button" className="team-new" onClick={() => setSheet(true)}>
+        <button
+          type="button"
+          className="team-new"
+          onClick={() => setSheet(true)}
+        >
           <Plus size={18} aria-hidden="true" /> Nouvelle publication
         </button>
         <nav aria-label="Navigation espace équipe">
           {links.map(([href, label, Icon]) => (
-            <Link key={href} href={href} aria-current={active(href) ? "page" : undefined}>
+            <Link
+              key={href}
+              href={href}
+              aria-current={active(href) ? "page" : undefined}
+            >
               <Icon size={19} aria-hidden="true" />
               {label}
             </Link>
@@ -86,24 +104,44 @@ export function TeamShell({
           </Link>
         </nav>
         <div className="team-profile">
-          <span className="team-avatar" aria-hidden="true">{initials}</span>
+          <span className="team-avatar" aria-hidden="true">
+            {initials}
+          </span>
           <div>
             <strong>{member.name}</strong>
             <small>{isAdmin ? "Administrateur" : "Collaborateur"}</small>
           </div>
-          <button type="button" disabled={leaving} onClick={logout} aria-label="Se déconnecter" title="Se déconnecter">
+          <button
+            type="button"
+            disabled={leaving}
+            onClick={logout}
+            aria-label="Se déconnecter"
+            title="Se déconnecter"
+          >
             <LogOut size={18} aria-hidden="true" />
           </button>
         </div>
       </aside>
 
       <header className="team-appbar">
-        <Link href="/equipe" className="team-appbar-brand" aria-label="Espace équipe — accueil">
+        <Link
+          href="/equipe"
+          className="team-appbar-brand"
+          aria-label="Espace équipe — accueil"
+        >
           <img src="/brand/emblem.webp" alt="" width={512} height={480} />
           <span>MK Gestion</span>
         </Link>
-        <button type="button" className="team-appbar-profile" onClick={logout} disabled={leaving} aria-label={`${member.name} — se déconnecter`}>
-          <span className="team-avatar" aria-hidden="true">{initials}</span>
+        <button
+          type="button"
+          className="team-appbar-profile"
+          onClick={logout}
+          disabled={leaving}
+          aria-label={`${member.name} — se déconnecter`}
+        >
+          <span className="team-avatar" aria-hidden="true">
+            {initials}
+          </span>
           <LogOut size={17} aria-hidden="true" />
         </button>
       </header>
@@ -111,21 +149,35 @@ export function TeamShell({
       <div className="team-workspace">{children}</div>
 
       <nav className="team-tabbar" aria-label="Navigation de l’espace équipe">
-        <Link href="/equipe" aria-current={active("/equipe") ? "page" : undefined}>
+        <Link
+          href="/equipe"
+          aria-current={active("/equipe") ? "page" : undefined}
+        >
           <LayoutGrid size={23} aria-hidden="true" />
           <span>Accueil</span>
         </Link>
-        <Link href="/equipe/publications" aria-current={active("/equipe/publications") ? "page" : undefined}>
+        <Link
+          href="/equipe/publications"
+          aria-current={active("/equipe/publications") ? "page" : undefined}
+        >
           <Files size={23} aria-hidden="true" />
           <span>Publications</span>
         </Link>
-        <button type="button" className="team-tabbar-new" onClick={() => setSheet(true)} aria-label="Nouvelle publication">
+        <button
+          type="button"
+          className="team-tabbar-new"
+          onClick={() => setSheet(true)}
+          aria-label="Nouvelle publication"
+        >
           <span>
             <Plus size={26} strokeWidth={2.2} aria-hidden="true" />
           </span>
         </button>
         {isAdmin ? (
-          <Link href="/equipe/contenu" aria-current={active("/equipe/contenu") ? "page" : undefined}>
+          <Link
+            href="/equipe/reglages"
+            aria-current={active("/equipe/reglages") ? "page" : undefined}
+          >
             <Settings2 size={23} aria-hidden="true" />
             <span>Contenu</span>
           </Link>

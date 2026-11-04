@@ -1,49 +1,97 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { publicSite } from "@/lib/site-content-server";
+import { companyLinks } from "@/lib/site-content";
+import { siteUrl } from "@/lib/site-url";
 export const metadata: Metadata = {
   title: "Mentions légales",
+  description:
+    "Identité de l’éditeur MK Aération, coordonnées et hébergement du site.",
+  alternates: { canonical: "/mentions-legales" },
   robots: { index: false, follow: true },
 };
-export default function Mentions() {
+export default async function Legal() {
+  const c = companyLinks((await publicSite()).company);
   return (
     <main id="contenu" className="wrap legal">
-      <p className="label">Informations du site</p>
       <h1>Mentions légales</h1>
       <h2>Éditeur</h2>
       <p>
-        MK Aération
-        <br />2 route des Champs
+        {c.legalName}
         <br />
-        26140 Saint-Rambert-d’Albon, France
+        {c.legalForm}
         <br />
-        Téléphone : <a href="tel:+33768476126">07 68 47 61 26</a>
+        {c.address}
         <br />
-        E-mail :{" "}
-        <a href="mailto:mk.aeration@hotmail.com">mk.aeration@hotmail.com</a>
+        {c.city}, France
       </p>
-      <p className="legal-note">
-        Cette version de présentation doit être complétée avant son ouverture au
-        public avec la dénomination juridique exacte de l’éditeur, sa forme
-        juridique, son numéro d’immatriculation, les informations de TVA
-        applicables et le nom du directeur de la publication.
+      <dl className="legal-identifiers">
+        <div>
+          <dt>SIREN</dt>
+          <dd>{c.siren}</dd>
+        </div>
+        <div>
+          <dt>SIRET du siège</dt>
+          <dd>{c.siret}</dd>
+        </div>
+        <div>
+          <dt>TVA intracommunautaire</dt>
+          <dd>{c.vat}</dd>
+        </div>
+        <div>
+          <dt>Directeur de publication</dt>
+          <dd>{c.publisher}</dd>
+        </div>
+      </dl>
+      <p>
+        <a href={c.tel}>{c.phone}</a>
+        <br />
+        <a href={`mailto:${c.email}`}>{c.email}</a>
+      </p>
+      <p>
+        <a
+          href={`https://annuaire-entreprises.data.gouv.fr/entreprise/${c.siren}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Consulter l’immatriculation dans l’Annuaire des entreprises
+        </a>
       </p>
       <h2>Hébergement</h2>
-      <p>
-        Cette version est mise à disposition via le service Sites d’OpenAI et
-        s’appuie sur l’infrastructure technique de Cloudflare. Les coordonnées
-        légales de l’hébergeur devront être confirmées pour la version publique
-        définitive.
-      </p>
+      {siteUrl.includes("chatgpt.site") ? (
+        <p>
+          Cette version est hébergée par le service Sites d’OpenAI, sur
+          l’infrastructure de Cloudflare.{" "}
+          <a href="https://openai.com/policies/">
+            Informations sur l’hébergeur
+          </a>
+          .
+        </p>
+      ) : (
+        <p>
+          Vercel Inc.
+          <br />
+          440 N Barranca Avenue #4133
+          <br />
+          Covina, CA 91723, États-Unis.
+          <br />
+          <a href="https://vercel.com/legal/privacy-notice">
+            Coordonnées et informations de l’hébergeur
+          </a>
+          .
+        </p>
+      )}
       <h2>Contenus et photographies</h2>
       <p>
-        Les photographies de chantier et l’identité de MK Aération sont
-        utilisées pour présenter ses activités. Toute reproduction de ces
-        éléments doit faire l’objet d’une autorisation de leur titulaire.
+        Les photographies de chantier et l’identité de MK Aération présentent
+        ses activités. Leur reproduction nécessite l’autorisation du titulaire
+        des droits. Les vues de projet et visuels de présentation sont
+        identifiés comme tels.
       </p>
       <h2>Données personnelles</h2>
       <p>
-        Les modalités d’utilisation des données du formulaire sont décrites dans
-        notre <Link href="/confidentialite">page de confidentialité</Link>.
+        Les modalités de traitement des demandes sont décrites dans la{" "}
+        <Link href="/confidentialite">politique de confidentialité</Link>.
       </p>
     </main>
   );

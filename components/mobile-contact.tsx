@@ -1,40 +1,89 @@
 "use client";
-
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Phone } from "lucide-react";
-import { company } from "@/lib/content";
+import { useCompany } from "./site-provider";
 
-/** Contact rapide de la vitrine, indépendant des onglets de MK Gestion. */
+/** Barre web de contact, masquée lorsqu’un formulaire ou un CTA est déjà visible. */
 export function MobileContact() {
-  const [pastHero, setPastHero] = useState(false);
-  const [nearContact, setNearContact] = useState(false);
-  const [nearPrompt, setNearPrompt] = useState(false);
-
+  const path = usePathname(),
+    company = useCompany();
+  const [visible, setVisible] = useState(false);
+  const excluded =
+    path.startsWith("/equipe") ||
+    ["/connexion", "/contact", "/devis"].includes(path);
   useEffect(() => {
-    const hero = document.querySelector(".lp-hero");
-    const contact = document.querySelector(".lp-contact");
-    const prompt = document.querySelector(".lp-project-prompt");
-    if (!hero || !contact || !("IntersectionObserver" in window)) return;
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.target === hero) setPastHero(entry.boundingClientRect.bottom <= 0);
-        if (entry.target === contact) setNearContact(entry.isIntersecting || entry.boundingClientRect.top < 0);
-        if (entry.target === prompt) setNearPrompt(entry.isIntersecting);
-      }
-    }, { threshold: 0 });
-    observer.observe(hero);
-    observer.observe(contact);
-    if (prompt) observer.observe(prompt);
-    return () => observer.disconnect();
-  }, []);
-
-  const visible = pastHero && !nearContact && !nearPrompt;
+    if (excluded) {
+      setVisible(false);
+      return;
+    }
+    let frame = 0;
+    const compute = () => {
+      frame = 0;
+      const height = window.visualViewport?.height || window.innerHeight;
+      const hero = document.querySelector(".lp-hero,.intro,.project-head");
+      const passed = hero
+        ? hero.getBoundingClientRect().bottom < 80
+        : window.scrollY > 180;
+      const end = document.querySelector(
+        ".lp-contact,.public-contact,.public-footer",
+      );
+      const nearEnd =
+        !!end && end.getBoundingClientRect().top < window.innerHeight;
+      const inline = [
+        ...document.querySelectorAll(
+          ".lp-project-prompt,.service-actions,.story-scope,.quick-contact",
+        ),
+      ].some((e) => {
+        const r = e.getBoundingClientRect();
+        return r.top < height - 75 && r.bottom > 80;
+      });
+      const active = document.activeElement;
+      const editing =
+        active instanceof HTMLElement &&
+        active.matches("input,textarea,select,[contenteditable=true]");
+      const keyboard = window.innerHeight - height > 140;
+      setVisible(passed && !nearEnd && !inline && !editing && !keyboard);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(compute);
+    };
+    compute();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.visualViewport?.addEventListener("resize", schedule);
+    document.addEventListener("focusin", schedule);
+    document.addEventListener("focusout", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.visualViewport?.removeEventListener("resize", schedule);
+      document.removeEventListener("focusin", schedule);
+      document.removeEventListener("focusout", schedule);
+    };
+  }, [path, excluded]);
+  if (excluded) return null;
   return (
-    <aside className={`mobile-contact ${visible ? "is-visible" : ""}`} aria-label="Contact rapide" aria-hidden={!visible} inert={!visible}>
+    <aside
+      className={`mobile-contact ${visible ? "is-visible" : ""}`}
+      aria-label="Contact rapide"
+      aria-hidden={!visible}
+      inert={!visible}
+    >
       <div className="mobile-contact-inner">
-        <a href={company.tel} className="mobile-contact-call" aria-label={`Appeler MK Aération au ${company.phone}`}><Phone size={19} aria-hidden="true" /><span>Appeler</span></a>
-        <Link href="/devis" className="mobile-contact-quote">Demander un devis <ArrowUpRight size={20} aria-hidden="true" /></Link>
+        <a
+          href={company.tel}
+          className="mobile-contact-call"
+          aria-label={`Appeler MK Aération au ${company.phone}`}
+        >
+          <Phone size={19} aria-hidden="true" />
+          <span>Appeler</span>
+        </a>
+        <Link href="/devis" className="mobile-contact-quote">
+          Demander un devis <ArrowUpRight size={20} aria-hidden="true" />
+        </Link>
       </div>
     </aside>
   );

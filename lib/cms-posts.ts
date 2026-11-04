@@ -1,4 +1,5 @@
 import "server-only";
+import { publicSite } from "./site-content-server";
 import { unstable_cache } from "next/cache";
 import { cmsDb } from "./cms-db";
 import { CmsError } from "./cms-access";
@@ -86,8 +87,39 @@ export async function allProjects() {
   } catch {
     console.error("Published content is temporarily unavailable");
   }
-  const montBlanc = projects.find((p) => p.slug === "tunnel-du-mont-blanc")!;
-  return [montBlanc, ...added, ...projects.filter((p) => p !== montBlanc)];
+  const settings = await publicSite();
+  const historical = projects.flatMap((p) => {
+    const edit = settings.projectEdits.find((e) => e.slug === p.slug);
+    if (edit && !edit.published) return [];
+    if (!edit) return [p];
+    return [
+      {
+        ...p,
+        title: edit.title,
+        description: edit.description,
+        image: edit.image.src,
+        alt: edit.image.alt,
+        imageWidth: edit.image.width,
+        imageHeight: edit.image.height,
+        media: [
+          {
+            ...p.media[0],
+            src: edit.image.src,
+            alt: edit.image.alt,
+            width: edit.image.width,
+            height: edit.image.height,
+          },
+          ...p.media.slice(1),
+        ],
+      },
+    ];
+  });
+  const montBlanc = historical.find((p) => p.slug === "tunnel-du-mont-blanc");
+  return [
+    ...(montBlanc ? [montBlanc] : []),
+    ...added,
+    ...historical.filter((p) => p !== montBlanc),
+  ];
 }
 export async function publicNews() {
   try {
