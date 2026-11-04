@@ -1,0 +1,27 @@
+{
+  "page": "https://mk-aeration.vercel.app/",
+  "measuredAt": "2026-11-04T14:32:35.634Z",
+  "lighthouseVersion": "13.6.0",
+  "formFactor": "mobile",
+  "throttlingMethod": "simulate",
+  "scores": {
+    "performance": 98,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "largest-contentful-paint": {
+      "value": 2276.612,
+      "display": "2.3 s"
+    },
+    "total-blocking-time": {
+      "value": 6,
+      "display": "10 ms"
+    },
+    "cumulative-layout-shift": {
+      "value": 0.0005934217309059784,
+      "display": "0.001"
+    }
+  }
+}
