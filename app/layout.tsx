@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     type: "website",
     images: [
-      { url: "/images/mont-blanc-presentation.webp", width: 1461, height: 720 },
+      { url: "/images/annecy-panorama.webp", width: 1800, height: 1350 },
     ],
   },
   icons: {
@@ -50,7 +50,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#102b46",
+  themeColor: "#0b263a",
   colorScheme: "light",
 };
 
@@ -85,7 +85,7 @@ export default async function RootLayout({
               "@type": "HVACBusiness",
               name: "MK Aération",
               logo: `${siteUrl}${settings.logo.src}`,
-              image: `${siteUrl}/images/mont-blanc-presentation.webp`,
+              image: `${siteUrl}/images/annecy-panorama.webp`,
               telephone: company.phone,
               email: company.email,
               url: siteUrl,

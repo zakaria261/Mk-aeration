@@ -238,7 +238,16 @@ export const defaultSiteContent: SiteContent = {
     heroImage: null,
     primaryLabel: "Demander un devis",
     secondaryLabel: "Voir les réalisations",
-    sections: [...sectionKeys],
+    sections: [
+      "about",
+      "proof",
+      "flagship",
+      "projects",
+      "services",
+      "news",
+      "faq",
+      "contact",
+    ],
   },
   pages: {
     expertises: {
@@ -252,9 +261,9 @@ export const defaultSiteContent: SiteContent = {
         "Ventilation de bâtiments tertiaires, installations industrielles et réhabilitation de logements collectifs. Découvrez nos interventions.",
     },
     entreprise: {
-      title: "MK Aération, une équipe de terrain",
+      title: "La maîtrise de l’air depuis 2021",
       description:
-        "Basée à Saint-Rambert-d’Albon, notre entreprise pose des réseaux de ventilation dans la Drôme, l’Isère, le Rhône et la Haute-Savoie.",
+        "Concevoir, fournir et réaliser des installations de ventilation adaptées aux exigences de chaque projet : le savoir-faire MK Aération au service des professionnels.",
     },
     actualites: {
       title: "Le carnet de chantier",

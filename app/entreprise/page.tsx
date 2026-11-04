@@ -1,3 +1,4 @@
+import { companyPresentation, companySignature } from "@/lib/home-content";
 import { publicSite, pageMetadata } from "@/lib/site-content-server";
 import { Photo } from "@/components/photo";
 import type { Metadata } from "next";
@@ -36,21 +37,11 @@ export default async function Entreprise() {
               La qualité de l’air commence par <em>la qualité du geste.</em>
             </h2>
             <div className="company-text">
+              {companyPresentation.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
               <p>
-                Un réseau aéraulique, c’est une succession de détails qui
-                comptent. Un passage à anticiper. Une transition à adapter. Un
-                raccordement à réaliser avec précision.
-              </p>
-              <p>
-                Notre savoir-faire couvre la pose de gaines de ventilation
-                circulaires et rectangulaires, les réseaux de soufflage et
-                d’extraction, le raccordement des CTA et l’installation de VMC.
-                Nous entretenons cette expertise par la formation continue et le
-                travail sur le terrain.
-              </p>
-              <p>
-                Chaque projet est l’occasion de mettre cette expérience au
-                service du confort et de la qualité de l’air intérieur.
+                <strong>{companySignature}</strong>
               </p>
             </div>
           </div>

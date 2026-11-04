@@ -39,3 +39,15 @@ Le périmètre, les étapes et les nombres de bâtiments et de logements sont re
 `IMG_6616.MOV`, fourni directement par le client le 2 novembre 2026, devient `videos/pose-hotte-cuisine.mp4`. Le film complet conserve son cadrage vertical et son audio. L’affiche est extraite du film. Les textes décrivent le supportage, les fixations, la mise en place de la hotte et son raccordement au réseau d’extraction visibles dans la vidéo, sans inventer de dimensions, de débit ou de localisation.
 
 Les fichiers MOV et HEIC originaux ne sont pas publiés. Les médias web ne contiennent pas leurs métadonnées d’origine.
+
+## Refonte de la landing page — 4 novembre 2026
+
+- `mk-aeration-hero.webp` : fichier `IMG_9523.JPG` fourni par le client, 720 × 1278 px. Conversion WebP et variante 480 px ; image entière, textes et cadrage conservés. Le visuel est une création de communication fournie par MK Aération, pas une preuve photographique de chantier. Son lien mène aux expertises.
+- Présentation de l’entreprise : texte fourni par le client dans la conversation du 4 novembre 2026, repris dans l’accueil et la page entreprise.
+- `mont-blanc-entree.webp` : photographie réelle de l’entrée nord du tunnel, prise le 15 août 2023 par Rémih. Source : https://commons.wikimedia.org/wiki/File:Tunnel_du_Mont-Blanc_entr%C3%A9e_nord.jpg ; licence CC BY-SA 4.0 : https://creativecommons.org/licenses/by-sa/4.0/. Seuls le format et les dimensions sont optimisés ; cadrage d’affichage CSS. Crédit, source et licence figurent sous l’image. Cette vue de l’ouvrage n’est pas présentée comme une photographie des travaux MK Aération.
+- Les autres images de la landing page sont les photographies de chantier déjà disponibles dans le projet. Aucun visuel généré supplémentaire n’a été créé.
+- Références de structure étudiées : https://www.cisepz.fr/ et https://www.sfventil.fr/ ; aucun texte, logo ou visuel de ces entreprises n’est reproduit.
+
+### Héros en pleine largeur — adaptation paysage
+
+À la demande du client, le visuel n’est plus présenté dans un cadre à droite. `mk-aeration-hero-landscape.webp` reprend la partie paysage et installations de `IMG_9523.JPG` (recadrage x=0, y=550, 720 × 470 px, avec une variante 480 px). Les titres, la signature, le repère tricolore, le bouton et les courbes bleues sont recomposés en HTML/CSS/SVG sur la largeur du héros. Aucune extension de scène ou génération d’image n’est utilisée. Sur téléphone, le visuel portrait original est affiché bord à bord. Un véritable bouton HTML opaque recouvre le bouton imprimé dans l’image : largeur de 92 %, hauteur minimale de 56 px, libellé et flèche visibles, états d’appui et de focus, lien vers les expertises.

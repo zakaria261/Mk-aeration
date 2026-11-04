@@ -108,7 +108,13 @@ export function ContactForm({ preview = false }: { preview?: boolean }) {
           </label>
         </div>
         <label>
+<<<<<<< ours
           Téléphone <span>(facultatif)</span>
+=======
+          <span className="contact-phone-label">
+            Téléphone <span>(facultatif)</span>
+          </span>
+>>>>>>> theirs
           <input
             name="phone"
             type="tel"

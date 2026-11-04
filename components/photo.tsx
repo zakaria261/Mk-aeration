@@ -1,5 +1,8 @@
 import type { ImgHTMLAttributes } from "react";
 const widths: Record<string, number> = {
+  "mk-aeration-hero-landscape": 720,
+  "mk-aeration-hero": 720,
+  "mont-blanc-entree": 1600,
   "vmc-equipements": 1440,
   "vmc-reseaux": 1440,
   "vmc-cheminements": 1440,
@@ -40,18 +43,22 @@ export function Photo({
       sizes={sizes}
       srcSet={
         uploadedWidth
-          ? [480, 800].filter((w) => w < uploadedWidth).map((w) => `${src}?w=${w} ${w}w`).concat(`${src} ${uploadedWidth}w`).join(", ")
+          ? [480, 800]
+              .filter((w) => w < uploadedWidth)
+              .map((w) => `${src}?w=${w} ${w}w`)
+              .concat(`${src} ${uploadedWidth}w`)
+              .join(", ")
           : widths[name]
-          ? [
-              ...[480, 800]
-                .filter((width) => width < widths[name])
-                .map(
-                  (width) =>
-                    `${src.replace(".webp", `-${width}.webp`)} ${width}w`,
-                ),
-              `${src} ${widths[name]}w`,
-            ].join(", ")
-          : undefined
+            ? [
+                ...[480, 800]
+                  .filter((width) => width < widths[name])
+                  .map(
+                    (width) =>
+                      `${src.replace(".webp", `-${width}.webp`)} ${width}w`,
+                  ),
+                `${src} ${widths[name]}w`,
+              ].join(", ")
+            : undefined
       }
     />
   );

@@ -5,8 +5,16 @@ import { Cote } from "./drawing";
 
 export const montBlancSpecs = [
   { value: "8 mois", label: "de travaux, chantier terminé" },
-  { value: "1 000 × 1 000", unit: "mm", label: "gaine carrée · amenée d’air d’un local électrique" },
-  { value: "11,6", unit: "km", label: "de réseau PVC Ø125 dans les zones techniques" },
+  {
+    value: "1 000 × 1 000",
+    unit: "mm",
+    label: "gaine carrée · amenée d’air d’un local électrique",
+  },
+  {
+    value: "11,6",
+    unit: "km",
+    label: "de réseau PVC Ø125 dans les zones techniques",
+  },
   { value: "De nuit", label: "interventions dans les refuges du tunnel" },
 ];
 
@@ -37,30 +45,53 @@ export function MontBlancFeature() {
       >
         <Cote>Réf. 01 · Tunnel du Mont-Blanc</Cote>
         <Photo
-          src="/images/mont-blanc-presentation.webp"
-          alt="Tunnel du Mont-Blanc — visuel de présentation MK Aération"
-          width={1461}
-          height={720}
+          src="/images/mont-blanc-entree.webp"
+          alt="L’entrée nord du tunnel du Mont-Blanc à Chamonix — photographie de Rémih"
+          width={1600}
+          height={1200}
           sizes="(max-width: 1392px) 100vw, 1300px"
         />
       </Link>
       <div className="mb-feature-body">
         <div>
           <p className="label">
-            <span className="label-num">01</span>Infrastructure · France / Italie
+            <span className="label-num">01</span>Infrastructure · France /
+            Italie
           </p>
           <h2>Tunnel du Mont-Blanc</h2>
           <p>
             Ventilation des locaux techniques, supportage et réseaux
             hydrauliques. Huit mois de travaux, de jour comme de nuit.
           </p>
-          <Link href="/realisations/tunnel-du-mont-blanc" className="link-arrow">
-            Le détail de notre intervention <ArrowUpRight size={18} aria-hidden="true" />
+          <Link
+            href="/realisations/tunnel-du-mont-blanc"
+            className="link-arrow"
+          >
+            Le détail de notre intervention{" "}
+            <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
         </div>
         <MontBlancSpecs />
       </div>
-      <p className="credit mono">Visuel de présentation fourni par MK Aération.</p>
+      <p className="credit mono">
+        Vue de l’ouvrage ·{" "}
+        <a
+          href="https://commons.wikimedia.org/wiki/File:Tunnel_du_Mont-Blanc_entr%C3%A9e_nord.jpg"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Rémih
+        </a>{" "}
+        ·{" "}
+        <a
+          href="https://creativecommons.org/licenses/by-sa/4.0/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          CC BY-SA 4.0
+        </a>{" "}
+        · format optimisé.
+      </p>
     </article>
   );
 }
