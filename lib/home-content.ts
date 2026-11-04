@@ -22,7 +22,7 @@ export const defaultHomeContent: HomeContent = {
   heroTitle: "La ventilation,",
   heroAccent: "dans les règles du métier.",
   heroDescription: "Du logement collectif aux infrastructures d’envergure, MK Aération installe vos réseaux aérauliques, CTA et VMC. Une équipe de terrain, attentive à chaque détail de pose.",
-  heroImage: "/images/mont-blanc-presentation.webp",
+  heroImage: "/images/annecy-panorama.webp",
   benefitsTitle: "Des gens de métier. Le goût du travail bien fait.",
   benefitsIntro: "Un passage à anticiper, une gaine à ajuster, un raccordement à soigner. La qualité d’une installation se joue dans les détails. Nous y prêtons attention à chaque chantier.",
   contactTitle: "Un besoin en ventilation ? Parlons-en simplement.",

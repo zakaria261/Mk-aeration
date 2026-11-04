@@ -66,7 +66,7 @@ export function TeamShell({
           <img src="/brand/emblem.webp" alt="" width={512} height={480} />
           <span>
             MK Aération
-            <strong>Espace équipe</strong>
+            <strong>MK Gestion</strong>
           </span>
         </Link>
         <button type="button" className="team-new" onClick={() => setSheet(true)}>

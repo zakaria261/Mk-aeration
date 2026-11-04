@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Building2, Check, CheckCheck, Fan, HardHat, MapPin, Phone, Ruler, ShieldCheck, Wind } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, MapPin, Phone, Wind, Fan, MoveUpRight } from "lucide-react";
 import { Photo } from "./photo";
 import { FAQ } from "./ui";
 import { NewsCard } from "./news-card";
@@ -7,93 +7,97 @@ import { company, services, type Project } from "@/lib/content";
 import { homePhotos, type HomeContent } from "@/lib/home-content";
 import type { TeamPost } from "@/lib/cms-types";
 
-const benefits = [
-  { icon: ShieldCheck, title: "Le soin de la pose", text: "Supportage, transitions et raccordements : une attention portée à chaque détail de l’installation." },
-  { icon: HardHat, title: "Un chantier coordonné", text: "Des passages anticipés et une intervention en lien avec les autres corps de métier." },
-  { icon: Building2, title: "Neuf & rénovation", text: "Du logement collectif au bâtiment industriel, un savoir-faire adapté aux contraintes du terrain." },
-  { icon: Ruler, title: "La bonne adaptation", text: "Gaines circulaires ou rectangulaires, CTA, VMC : des réseaux intégrés à la configuration des lieux." },
-];
-const steps = [
-  ["01", "On échange", "Votre bâtiment, vos plans, vos contraintes. Nous commençons par comprendre votre besoin."],
-  ["02", "On prépare", "Cheminements, supportage, coordination : nous préparons les conditions de l’intervention."],
-  ["03", "On installe", "Pose des réseaux et raccordements. Le soin du métier, jusque dans les finitions."],
+const icons = [Wind, Fan, MoveUpRight];
+const serviceCopy = [
+  "Gaines circulaires et rectangulaires, cheminements et raccordements adaptés à votre bâtiment.",
+  "Ventilation mécanique, double flux et raccordement des centrales de traitement d’air.",
+  "Diffusion de l’air, réseaux d’extraction et rejets en toiture. Une pose intégrée à votre chantier.",
 ];
 
 export function PublicHome({ content, references, news }: { content: HomeContent; references: Project[]; news: TeamPost[] }) {
-  const photo = homePhotos.find((item) => item.src === content.heroImage) || homePhotos[0];
-  const selection = references.filter((project) => project.coverKind === "chantier" && project.slug !== "pose-hotte-cuisine-professionnelle").slice(0, 3);
-  const photoRate = selection.length ? 100 : 0;
+  const photo = homePhotos.find((item) => item.src === content.heroImage) || homePhotos[1];
+  const selection = references.filter((p) => p.coverKind === "chantier" && p.slug !== "pose-hotte-cuisine-professionnelle").slice(0, 3);
   return (
     <main id="contenu" className="landing">
-      <section className="lp-hero" aria-labelledby="hero-title">
-        <div className="lp-container lp-hero-grid">
+      <section className={`lp-hero ${photo.src.includes("mont-blanc") ? "lp-hero-presentation" : ""}`} aria-labelledby="hero-title">
+        <Photo className="lp-hero-background" src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="eager" fetchPriority="high" sizes="100vw" />
+        <div className="lp-container lp-hero-inner">
           <div className="lp-hero-copy">
-            <p className="lp-eyebrow lp-eyebrow-light">Ventilation · Réseaux aérauliques · Qualité de l’air</p>
+            <p className="lp-eyebrow">MK Aération · De la Drôme aux Alpes</p>
             <h1 id="hero-title">{content.heroTitle}<br /><span>{content.heroAccent}</span></h1>
             <p className="lp-hero-description">{content.heroDescription}</p>
             <div className="lp-actions">
               <Link href="/devis" className="lp-button">Parlons de votre projet <ArrowUpRight size={19} aria-hidden="true" /></Link>
-              <Link href="#realisations" className="lp-text-link">Voir nos réalisations <ArrowRight size={18} aria-hidden="true" /></Link>
+              <Link href="#realisations" className="lp-hero-link">Notre travail en images <ArrowRight size={18} aria-hidden="true" /></Link>
             </div>
-            <p className="lp-hero-location"><MapPin size={15} aria-hidden="true" /> Saint-Rambert-d’Albon · Auvergne-Rhône-Alpes</p>
+            <div className="lp-hero-sectors"><span>Tertiaire</span><span>Industrie</span><span>Logement collectif</span></div>
           </div>
-          <figure className={`lp-hero-photo ${photo.src.includes("mont-blanc") ? "is-presentation" : ""}`}>
-            <Photo src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="eager" fetchPriority="high" sizes="(max-width: 767px) calc(100vw - 40px), 50vw" />
-            <figcaption><span>Notre référence à la une</span><strong>{photo.src.includes("mont-blanc") ? "Tunnel du Mont-Blanc" : photo.label}</strong><Link href={photo.src.includes("mont-blanc") ? "/realisations/tunnel-du-mont-blanc" : "/realisations"}>Explorer le chantier <ArrowUpRight size={18} aria-hidden="true" /></Link><small>{photo.src.includes("mont-blanc") ? "Visuel de présentation fourni par MK Aération" : "Photographie de chantier MK Aération"}</small></figcaption>
-          </figure>
+          <div className="lp-hero-caption"><span>{photo.src.includes("mont-blanc") ? "Visuel de présentation" : "Photo de chantier"}</span><strong>{photo.label}</strong></div>
         </div>
       </section>
 
       <section className="lp-proof" aria-label="Des références concrètes">
         <div className="lp-container lp-proof-grid">
-          <Link href="/realisations/tunnel-du-mont-blanc"><strong>8 <span>mois</span></strong><span>au tunnel du Mont-Blanc</span><small>Une intervention d’envergure <ArrowUpRight size={13} aria-hidden="true" /></small></Link>
-          <Link href="/realisations/rehabilitation-vmc-21-appartements"><strong>21</strong><span>appartements en réhabilitation VMC</span><small>Un chantier de logement collectif <ArrowUpRight size={13} aria-hidden="true" /></small></Link>
-          <a href="#realisations"><strong>{photoRate} <span>%</span></strong><span>de photos de chantier dans cette sélection</span><small>Des photos de chantier à découvrir <ArrowRight size={13} aria-hidden="true" /></small></a>
-          <Link href="/entreprise#zone"><strong>4</strong><span>départements d’intervention</span><small>Drôme · Isère · Rhône · Haute-Savoie <ArrowUpRight size={13} aria-hidden="true" /></small></Link>
+          <Link href="/realisations/tunnel-du-mont-blanc"><strong>8 <span>mois</span></strong><span>au tunnel du Mont-Blanc</span><small>Une intervention d’envergure <ArrowUpRight size={14} aria-hidden="true" /></small></Link>
+          <Link href="/realisations/rehabilitation-vmc-21-appartements"><strong>21</strong><span>appartements en réhabilitation VMC</span><small>Un chantier à découvrir <ArrowUpRight size={14} aria-hidden="true" /></small></Link>
+          <a href="#realisations"><strong>100 <span>%</span></strong><span>photos de chantier dans notre sélection</span><small>Le travail de nos équipes <ArrowRight size={14} aria-hidden="true" /></small></a>
+          <Link href="/entreprise#zone"><strong>4</strong><span>départements d’intervention</span><small>Drôme · Isère · Rhône · Haute-Savoie</small></Link>
         </div>
       </section>
 
-      <section className="lp-section lp-services" id="expertises" aria-labelledby="services-title">
+      <section className="lp-flagship lp-section" aria-labelledby="mont-title">
+        <div className="lp-container lp-flagship-grid">
+          <figure className="lp-flagship-photo">
+            <Photo src="/images/mont-blanc-presentation.webp" alt="Tunnel du Mont-Blanc — visuel de présentation fourni par MK Aération" width={1461} height={720} loading="lazy" sizes="(max-width: 767px) calc(100vw - 40px), 57vw" />
+            <figcaption>Visuel de présentation fourni par MK Aération.</figcaption>
+          </figure>
+          <div className="lp-flagship-copy">
+            <p className="lp-eyebrow">Notre référence à la une · France / Italie</p>
+            <h2 id="mont-title">Un chantier à part.<br />Au cœur du Mont-Blanc.</h2>
+            <p>Huit mois d’intervention entre la France et l’Italie. Amenée d’air d’un local électrique, conduites PVC, supportage et travaux de nuit : notre métier prend ici une autre dimension.</p>
+            <dl className="lp-flagship-facts"><div><dt>1 000 × 1 000 <span>mm</span></dt><dd>section de la gaine de ventilation</dd></div><div><dt>Ø 125 <span>mm</span></dt><dd>conduites PVC pour la récupération des eaux</dd></div></dl>
+            <Link href="/realisations/tunnel-du-mont-blanc" className="lp-text-link">Découvrir notre intervention <ArrowUpRight size={18} aria-hidden="true" /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="lp-services lp-section" id="expertises" aria-labelledby="services-title">
         <div className="lp-container">
-          <div className="lp-section-head"><div><p className="lp-eyebrow">Trois expertises. Un même niveau d’attention.</p><h2 id="services-title">Faire circuler l’air.<br />Bien faire notre métier.</h2></div><p>Des réseaux aérauliques aux équipements de traitement d’air, nous réalisons les installations qui font respirer vos bâtiments.</p></div>
-          <div className="lp-service-grid">
-            {services.map((service, index) => {
-              const Icon = [Wind, Fan, Building2][index];
-              return <Link href={`/expertises#${service.id}`} className="lp-service" key={service.id}>
-                <div className="lp-service-photo"><Photo src={service.image} alt={service.alt} width={800} height={600} loading="lazy" sizes="(max-width: 767px) calc(100vw - 40px), 33vw" /><span>0{index + 1}</span></div>
-                <div className="lp-service-body"><Icon size={27} strokeWidth={1.6} aria-hidden="true" /><h3>{service.title}</h3><p>{["Pose de gaines circulaires et rectangulaires, cheminements et raccordements adaptés à votre chantier.", "Ventilation mécanique, double flux et raccordement des centrales de traitement d’air.", "Réseaux de soufflage et d’extraction, diffusion de l’air et rejets en toiture."][index]}</p><span className="lp-card-link">Découvrir l’expertise <ArrowRight size={17} aria-hidden="true" /></span></div>
-              </Link>;
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="lp-section lp-benefits" id="pourquoi-mk-aeration" aria-labelledby="benefits-title">
-        <div className="lp-container lp-benefits-grid">
-          <div className="lp-benefits-copy"><p className="lp-eyebrow">Pourquoi choisir MK Aération</p><h2 id="benefits-title">{content.benefitsTitle}</h2><p className="lp-benefits-intro">{content.benefitsIntro}</p>
-            <ul className="lp-benefits-list">{benefits.map(({ icon: Icon, title, text }) => <li key={title}><span className="lp-benefit-icon"><Icon size={23} strokeWidth={1.7} aria-hidden="true" /></span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ul>
-            <Link href="/devis" className="lp-text-link">Étudions votre chantier <ArrowRight size={20} aria-hidden="true" /></Link>
-          </div>
-          <figure className="lp-benefits-photo"><Photo src="/images/htc-la-boisse-descentes.webp" alt="Gaines circulaires et descentes de ventilation posées sur le chantier HTC La Boisse" width={1152} height={1536} loading="lazy" sizes="(max-width: 767px) calc(100vw - 40px), 46vw" /><figcaption><span><Wind size={25} aria-hidden="true" /></span><div><strong>Le savoir-faire en action.</strong><p>Réseaux aérauliques · HTC La Boisse</p></div></figcaption></figure>
+          <div className="lp-section-head"><div><p className="lp-eyebrow">Nos expertises</p><h2 id="services-title">L’air circule.<br />Le savoir-faire aussi.</h2></div><p>Des réseaux aux équipements, une même attention à la qualité de pose et aux contraintes de votre bâtiment.</p></div>
+          <div className="lp-service-grid">{services.map((s, i) => {
+            const Icon = icons[i];
+            return <Link className="lp-service" href={`/expertises#${s.id}`} key={s.id}>
+              <div className="lp-service-photo"><Photo src={s.image} alt={s.alt} width={800} height={600} sizes="(max-width: 767px) 120px, 33vw" loading="lazy" /></div>
+              <div className="lp-service-body"><div className="lp-service-heading"><Icon size={24} strokeWidth={1.5} aria-hidden="true" /><span>0{i + 1}</span></div><h3>{s.title}</h3><p>{serviceCopy[i]}</p><span className="lp-card-link">Découvrir <ArrowUpRight size={18} aria-hidden="true" /></span></div>
+            </Link>;
+          })}</div>
         </div>
       </section>
 
       <section className="lp-section lp-projects" id="realisations" aria-labelledby="projects-title">
         <div className="lp-container">
-          <div className="lp-section-head"><div><p className="lp-eyebrow">Nos réalisations</p><h2 id="projects-title">Du travail concret.<br />Des preuves en images.</h2></div><Link href="/realisations" className="lp-text-link">Toutes nos réalisations <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
-          <div className="lp-montblanc"><figure><Photo src="/images/mont-blanc-presentation.webp" alt="Tunnel du Mont-Blanc — visuel de présentation fourni par MK Aération" width={1461} height={720} loading="lazy" sizes="(max-width: 899px) calc(100vw - 40px), 52vw" /><figcaption>Visuel de présentation fourni par MK Aération.</figcaption></figure><div><p className="lp-eyebrow lp-eyebrow-light">Une référence à part · France / Italie</p><h2>Huit mois au cœur<br />du Mont-Blanc.</h2><p>Ventilation d’un local électrique, réseaux PVC, supportage et interventions nocturnes. Une intervention à découvrir dans le détail.</p><Link href="/realisations/tunnel-du-mont-blanc" className="lp-text-link">Explorer notre intervention <ArrowUpRight size={18} aria-hidden="true" /></Link></div></div>
-          <div className="lp-project-grid">{selection.map((project) => <Link href={`/realisations/${project.slug}`} className="lp-project" key={project.slug}><div className="lp-project-photo"><Photo src={project.image} alt={project.alt} width={project.imageWidth || 900} height={project.imageHeight || 900} loading="lazy" sizes="(max-width: 767px) calc(100vw - 40px), 33vw" style={{ objectPosition: project.imagePosition }} /><span>Photo de chantier</span></div><div className="lp-project-body"><p>{project.category}</p><h3>{project.title}</h3><span>{project.place}</span><ArrowUpRight size={21} aria-hidden="true" /></div></Link>)}</div>
-
+          <div className="lp-section-head"><div><p className="lp-eyebrow">Sur le terrain</p><h2 id="projects-title">Du travail concret.<br />Des preuves en images.</h2></div><Link href="/realisations" className="lp-text-link">Toutes nos réalisations <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
+          <div className="lp-project-grid">{selection.map((p) => <Link className="lp-project" href={`/realisations/${p.slug}`} key={p.slug}>
+            <div className="lp-project-photo"><Photo src={p.image} alt={p.alt} width={p.imageWidth || 900} height={p.imageHeight || 900} loading="lazy" sizes="(max-width: 767px) calc(100vw - 40px), 33vw" style={{ objectPosition: p.imagePosition }} /><span>Photo de chantier</span></div>
+            <div className="lp-project-body"><p>{p.category}</p><h3>{p.title}</h3><span>{p.place}</span><ArrowUpRight size={23} aria-hidden="true" /></div>
+          </Link>)}</div>
         </div>
       </section>
 
-      <section className="lp-section lp-method" aria-labelledby="method-title">
-        <div className="lp-container"><div className="lp-section-head"><div><p className="lp-eyebrow">Un interlocuteur. Un projet qui avance.</p><h2 id="method-title">Simple dans les échanges.<br />Précis dans l’exécution.</h2></div><p>Une équipe de terrain à vos côtés, du premier échange à la pose de vos réseaux.</p></div><ol className="lp-method-grid">{steps.map(([number, title, text]) => <li key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></li>)}</ol><div className="lp-region"><div><MapPin size={23} aria-hidden="true" /><p><strong>Ancrés dans la Drôme.</strong><span>Basés à Saint-Rambert-d’Albon, présents sur vos chantiers de la région.</span></p></div><ul>{[["26", "Drôme"], ["38", "Isère"], ["69", "Rhône"], ["74", "Haute-Savoie"]].map(([number, name]) => <li key={number}><strong>{number}</strong>{name}</li>)}</ul><Link href="/entreprise#zone" aria-label="Découvrir notre zone d’intervention"><ArrowUpRight size={23} aria-hidden="true" /></Link></div></div>
+      <section className="lp-about lp-section" aria-labelledby="about-title">
+        <div className="lp-container lp-about-grid">
+          <figure className="lp-about-photo"><Photo src="/images/htc-la-boisse-descentes.webp" alt="Réseaux de ventilation posés sur le chantier HTC La Boisse" width={1152} height={1536} loading="lazy" sizes="(max-width: 767px) calc(100vw - 40px), 45vw" /><figcaption>HTC La Boisse · Réseaux aérauliques</figcaption></figure>
+          <div className="lp-about-copy"><p className="lp-eyebrow">L’esprit MK Aération</p><h2 id="about-title">{content.benefitsTitle}</h2><p>{content.benefitsIntro}</p>
+            <ul className="lp-about-points"><li><Check size={19} aria-hidden="true" /><span><strong>Le soin du détail</strong>Supportage, transitions et raccordements soignés.</span></li><li><Check size={19} aria-hidden="true" /><span><strong>Un chantier coordonné</strong>Une intervention en lien avec les autres corps de métier.</span></li><li><Check size={19} aria-hidden="true" /><span><strong>Un contact direct</strong>Des échanges simples pour faire avancer votre projet.</span></li></ul>
+            <Link href="/entreprise" className="lp-text-link">Découvrir l’entreprise <ArrowUpRight size={18} aria-hidden="true" /></Link>
+            <div className="lp-about-location"><MapPin size={19} aria-hidden="true" /><p><strong>Saint-Rambert-d’Albon, Drôme</strong>Au plus près de vos chantiers en région.</p></div>
+          </div>
+        </div>
       </section>
 
       {news.length > 0 && <section className="lp-section lp-news" aria-labelledby="news-title"><div className="lp-container"><div className="lp-section-head"><div><p className="lp-eyebrow">La vie de l’entreprise</p><h2 id="news-title">Les nouvelles du terrain.</h2></div><Link href="/actualites" className="lp-text-link">Toutes les actualités <ArrowUpRight size={18} aria-hidden="true" /></Link></div><div className="log-list">{news.slice(0, 2).map((post) => <NewsCard post={post} key={post.id} />)}</div></div></section>}
       <FAQ />
-      <section className="lp-contact" aria-labelledby="contact-title"><div className="lp-container lp-contact-grid"><div><p className="lp-eyebrow lp-eyebrow-light">Votre prochain chantier commence par un échange</p><h2 id="contact-title">{content.contactTitle}</h2><p>{content.contactDescription}</p><div className="lp-contact-checks"><span><CheckCheck size={17} aria-hidden="true" /> Un échange direct</span><span><Check size={17} aria-hidden="true" /> Un besoin étudié</span></div></div><div className="lp-contact-actions"><Link href="/devis" className="lp-button lp-button-white">Demander un devis <ArrowUpRight size={19} aria-hidden="true" /></Link><a href={company.tel}><Phone size={19} aria-hidden="true" /> {company.phone}</a><span>MK Aération · Saint-Rambert-d’Albon</span></div></div></section>
+      <section className="lp-contact" aria-labelledby="contact-title"><div className="lp-container lp-contact-grid"><div><p className="lp-eyebrow">Votre prochain chantier commence ici</p><h2 id="contact-title">{content.contactTitle}</h2><p>{content.contactDescription}</p></div><div className="lp-contact-actions"><Link className="lp-button lp-button-white" href="/devis">Demander un devis <ArrowUpRight size={19} aria-hidden="true" /></Link><a href={company.tel}><Phone size={20} aria-hidden="true" />{company.phone}</a><span>Un échange direct avec MK Aération</span></div></div></section>
     </main>
   );
 }
