@@ -171,3 +171,24 @@
   .lp-contact-actions { justify-items: start; gap: 18px; }
 }
 @media (prefers-reduced-motion:reduce) { .lp-service,.lp-service img,.lp-project img { transition: none; } }
+/* Trois moments de contact : ouverture, expertises, fin de page. */
+.lp-proof-grid > a { min-height: 106px; justify-content: center; }
+.lp-proof-grid > a > span { max-width: 24ch; }
+.lp-project-prompt { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 30px; margin-top: 32px; border-top: 1px solid var(--lp-line); }
+.lp-project-prompt > p { font-size: 21px; font-weight: 550; letter-spacing: -.02em; }
+.lp-project-prompt > div { display: flex; align-items: center; gap: 26px; }
+.lp-prompt-phone { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; white-space: nowrap; }
+.lp-hero-inner { min-height: 590px; padding-block: 72px 84px; }
+.lp-about-points { gap: 16px; }
+.lp-about-points li { align-items: center; font-size: 14px; color: var(--lp-navy); }
+.lp-about-points svg { margin-top: 0; }
+.lp-service-body > h3 { margin-top: 0; }
+@media (max-width:767px) {
+  .lp-hero-inner { min-height: 510px; padding-block: 44px; }
+  .lp-proof-grid > a,.lp-proof-grid > a:first-child,.lp-proof-grid > a:last-child { min-height: 132px; }
+  .lp-service-photo img { min-height: 190px; }
+  .lp-project-prompt { display: grid; gap: 18px; margin-top: 26px; padding-top: 26px; }
+  .lp-project-prompt > p { font-size: 20px; }
+  .lp-project-prompt > div { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+  .lp-about-points li { font-size: 13px; }
+}

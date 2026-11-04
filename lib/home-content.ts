@@ -19,14 +19,14 @@ export const homeContentSchema = z.object({
 export type HomeContent = z.infer<typeof homeContentSchema>;
 export type HomePageRecord = { draft: HomeContent; published: HomeContent | null; version: number; updated_at: string | null };
 export const defaultHomeContent: HomeContent = {
-  heroTitle: "La ventilation,",
-  heroAccent: "dans les règles du métier.",
-  heroDescription: "Du logement collectif aux infrastructures d’envergure, MK Aération installe vos réseaux aérauliques, CTA et VMC. Une équipe de terrain, attentive à chaque détail de pose.",
+  heroTitle: "Ventilation &",
+  heroAccent: "réseaux aérauliques.",
+  heroDescription: "Pose de gaines de ventilation, CTA et VMC pour les bâtiments tertiaires, industriels et les logements collectifs.",
   heroImage: "/images/annecy-panorama.webp",
-  benefitsTitle: "Des gens de métier. Le goût du travail bien fait.",
-  benefitsIntro: "Un passage à anticiper, une gaine à ajuster, un raccordement à soigner. La qualité d’une installation se joue dans les détails. Nous y prêtons attention à chaque chantier.",
-  contactTitle: "Un besoin en ventilation ? Parlons-en simplement.",
-  contactDescription: "Décrivez-nous votre chantier. Nous étudierons ensemble votre besoin et les contraintes de votre bâtiment.",
+  benefitsTitle: "Une équipe de terrain.",
+  benefitsIntro: "Basés à Saint-Rambert-d’Albon, nous posons vos réseaux de ventilation dans la Drôme, l’Isère, le Rhône et la Haute-Savoie.",
+  contactTitle: "Parlons de votre projet.",
+  contactDescription: "Transmettez-nous vos plans ou appelez-nous pour étudier votre chantier.",
 };
 export function readHomeContent(value: unknown): HomeContent {
   const parsed = homeContentSchema.safeParse(value);
