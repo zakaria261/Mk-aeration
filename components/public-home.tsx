@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, MapPin, Phone } from "lucide-react";
 import { Photo } from "./photo";
+import { MobileContact } from "./mobile-contact";
 import { FAQ } from "./ui";
 import { NewsCard } from "./news-card";
 import { company, services, type Project } from "@/lib/content";
@@ -99,6 +100,7 @@ export function PublicHome({ content, references, news }: { content: HomeContent
       {news.length > 0 && <section className="lp-section lp-news" aria-labelledby="news-title"><div className="lp-container"><div className="lp-section-head"><div><h2 id="news-title">Actualités</h2></div><Link href="/actualites" className="lp-text-link">Toutes les actualités <ArrowUpRight size={18} aria-hidden="true" /></Link></div><div className="log-list">{news.slice(0, 2).map((post) => <NewsCard post={post} key={post.id} />)}</div></div></section>}
       <FAQ />
       <section className="lp-contact" aria-labelledby="contact-title"><div className="lp-container lp-contact-grid"><div><h2 id="contact-title">{content.contactTitle}</h2><p>{content.contactDescription}</p></div><div className="lp-contact-actions"><Link className="lp-button lp-button-white" href="/devis">Demander un devis <ArrowUpRight size={19} aria-hidden="true" /></Link><a href={company.tel}><Phone size={20} aria-hidden="true" />{company.phone}</a></div></div></section>
+      <MobileContact />
     </main>
   );
 }
