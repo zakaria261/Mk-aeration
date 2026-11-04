@@ -37,7 +37,7 @@ export function PublicHome({ content, references, news }: { content: HomeContent
             </div>
             <p className="lp-hero-location"><MapPin size={15} aria-hidden="true" /> Saint-Rambert-d’Albon · Auvergne-Rhône-Alpes</p>
           </div>
-          <figure className="lp-hero-photo">
+          <figure className={`lp-hero-photo ${photo.src.includes("mont-blanc") ? "is-presentation" : ""}`}>
             <Photo src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="eager" fetchPriority="high" sizes="(max-width: 767px) calc(100vw - 40px), 50vw" />
             <figcaption><span>Notre référence à la une</span><strong>{photo.src.includes("mont-blanc") ? "Tunnel du Mont-Blanc" : photo.label}</strong><Link href={photo.src.includes("mont-blanc") ? "/realisations/tunnel-du-mont-blanc" : "/realisations"}>Explorer le chantier <ArrowUpRight size={18} aria-hidden="true" /></Link><small>{photo.src.includes("mont-blanc") ? "Visuel de présentation fourni par MK Aération" : "Photographie de chantier MK Aération"}</small></figcaption>
           </figure>

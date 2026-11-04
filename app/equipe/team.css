@@ -1683,3 +1683,8 @@ body:has(.team-shell), body:has(.team-login) { background: #f2f2f7; }
 .team-site-management > a:last-child { display: inline-flex; align-items: center; gap: 8px; padding: 12px 3px; min-height: 44px; color: var(--blue); font-size: 13px; }
 .home-edit-preview strong span { color: #aad2ff; }
 .home-edit-section:disabled { opacity: .65; }
+.home-edit-preview .home-edit-snapshot { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 28px; padding: 26px; background: #f4f7fa; color: #132e43; }
+.home-edit-snapshot strong span { color: #0757c9; }
+.home-edit-snapshot p { color: #576b79; }
+.home-edit-snapshot > img { width: 100%; height: auto; border-radius: 6px; }
+@media (max-width: 600px) { .home-edit-preview .home-edit-snapshot { grid-template-columns: 1fr; padding: 20px; } }

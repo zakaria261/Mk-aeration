@@ -17,7 +17,7 @@ node --env-file=.env.cms-production scripts/cms-migrate.mjs
 node --env-file=.env.cms-production scripts/cms-configure-vercel.mjs
 ```
 
-Le script de migration utilise la connexion directe et la migration SQL suivie dans `db/cms/001_content.sql`. Tester toute modification de schéma sur la branche de développement avant son application en production. Le script Vercel utilise la session CLI déjà connectée et transmet les valeurs dans le corps HTTPS de l’API officielle. Il ne les imprime pas et ne les place pas dans les arguments de commande.
+Le script de migration utilise la connexion directe et les migrations SQL suivies dans `db/cms/`, appliquées dans l’ordre (`001_content.sql`, puis `002_pages.sql`). Tester toute modification de schéma sur la branche de développement avant son application en production. Le script Vercel utilise la session CLI déjà connectée et transmet les valeurs dans le corps HTTPS de l’API officielle. Il ne les imprime pas et ne les place pas dans les arguments de commande.
 
 Le domaine de production doit être autorisé dans Neon Auth. Les règles CORS du bucket permettent les transferts depuis ce même domaine. Ajouter explicitement tout futur domaine officiel à ces deux configurations. La branche de développement autorise les aperçus locaux sur le port 3032.
 
@@ -41,3 +41,9 @@ node --env-file=.env.local tests/cms-integration.mjs
 Le test d’intégration refuse la production et toute URL extérieure à la machine locale. Il utilise des adresses fictives sur la branche de développement, prépare ses propres codes de test sans envoyer d’e-mail et nettoie les publications et photos créées. Il vérifie la connexion, la session, les rôles, la propriété des contenus, l’import, la confidentialité, la publication, les actualités, la conservation de la version publique, les conflits, le retrait, les archives, la révocation et la déconnexion.
 
 La délivrabilité réelle du code dans la messagerie de l’administrateur se vérifie lors de sa première connexion. Le service SMTP partagé Neon est utilisé pour les codes ; un expéditeur SMTP de marque peut être configuré dans Neon sans modifier l’application.
+
+## Textes et photo de la page d’accueil
+
+`cms_pages` conserve les versions `draft` et `published` de l’accueil et un compteur de version. `/api/equipe/home` exige une session active et le rôle administrateur. Les mutations vérifient l’origine, limitent le volume et valident les champs et la photo choisie. Seule la publication invalide le cache de l’accueil. Les brouillons ne sont jamais utilisés pour le rendu public. Les chiffres des références restent établis dans la présentation des chantiers, sans champ de satisfaction inventé.
+
+Le scénario d’intégration contrôle aussi l’accès interdit aux collaborateurs, le refus d’une origine étrangère, la confidentialité du brouillon, le conflit de versions et la mise à jour publique après publication. Il restaure le contenu de développement après le test. La migration additive `002_pages.sql` a été vérifiée sur `cms-development` avant son application sur `main`.

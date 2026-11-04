@@ -39,3 +39,10 @@ body:has(.public-header) { --dock-h: 0px; }
 .public-footer h2 { color: var(--lp-navy); }
 .public-footer-grid a:hover,.public-footer-bottom a:hover { color: var(--lp-blue); }
 .public-footer-brand > div { padding: 0; }
+
+/* Le visuel Mont-Blanc conserve intégralement son logo et ses textes. */
+.lp-hero-photo > img { aspect-ratio: 4 / 3; object-fit: cover; }
+.lp-hero-photo.is-presentation > img { aspect-ratio: 1461 / 720; object-fit: contain; }
+.lp-benefits-photo > img { height: 100%; border-radius: 0; }
+@media (max-width: 1079px) { .public-menu.is-open { top: calc(76px + env(safe-area-inset-top,0px)); } }
+@media (max-width: 767px) { .public-menu.is-open { top: calc(72px + env(safe-area-inset-top,0px)); } }
