@@ -107,7 +107,7 @@ export function HomeContentEditor({ initial }: { initial: HomePageRecord }) {
       <div className="team-page-heading">
         <div>
           <p className="label">Le site public</p>
-          <h1>Votre page d’accueil.</h1>
+          <h1>Page d’accueil</h1>
           <p>
             Modifiez vos textes, choisissez votre photo et publiez quand tout
             est prêt.

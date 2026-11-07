@@ -54,7 +54,7 @@ export function TeamMembers({
       <div className="team-page-heading">
         <div>
           <span className="eyebrow">LES PERSONNES, LES RESPONSABILITÉS</span>
-          <h1>Une équipe. Des accès personnels.</h1>
+          <h1>Équipe</h1>
           <p>
             Chaque collaborateur prépare ses publications. Les administrateurs
             valident la mise en ligne.

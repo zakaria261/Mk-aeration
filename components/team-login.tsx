@@ -83,27 +83,11 @@ export function TeamLogin({ enabled }: { enabled: boolean }) {
       </div>
       <div className="team-login-layout">
         <div className="team-login-intro">
-          <p className="label">Espace dirigeant · MK Gestion</p>
-          <h1>
-            Votre travail,
-            <br />
-            <em>sous son meilleur jour.</em>
-          </h1>
+          <h1>MK Gestion</h1>
           <p>
-            Photos de chantier, nouvelles de l’équipe, réalisations : faites
-            vivre notre savoir-faire.
+            Ajoutez vos réalisations, vos photos et vos actualités, et modifiez
+            le site MK Aération directement depuis votre iPhone.
           </p>
-          <div className="team-login-steps">
-            <span>
-              <b>01</b> Préparer
-            </span>
-            <span>
-              <b>02</b> Illustrer
-            </span>
-            <span>
-              <b>03</b> Publier
-            </span>
-          </div>
         </div>
         <section className="team-login-panel">
           <InstallHint />
@@ -199,7 +183,10 @@ export function TeamLogin({ enabled }: { enabled: boolean }) {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <button className="btn btn-primary btn-lg btn-block" disabled={pending}>
+              <button
+                className="btn btn-primary btn-lg btn-block"
+                disabled={pending}
+              >
                 {pending ? (
                   <LoaderCircle className="spin" size={18} />
                 ) : (

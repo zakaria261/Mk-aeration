@@ -121,7 +121,7 @@ export function SiteSettingsEditor({ initial }: { initial: SiteRecord }) {
       <div className="team-page-heading">
         <div>
           <p className="label">Administration</p>
-          <h1>Le site & l’entreprise.</h1>
+          <h1>Site & entreprise</h1>
           <p>
             Coordonnées, pages, prestations et références. Préparez vos
             changements avant de publier.

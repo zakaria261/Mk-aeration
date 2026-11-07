@@ -4,12 +4,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import {
   Plus,
-  ArrowUpRight,
   FileText,
   Camera,
   ArrowRight,
   LoaderCircle,
+  ChevronRight,
+  House,
+  Inbox,
+  Settings2,
 } from "lucide-react";
+import { haptic } from "@/lib/haptics";
 import { statusLabels, type TeamMember, type TeamPost } from "@/lib/cms-types";
 import { useCreatePost } from "./team-create";
 import { InstallHint } from "./app-runtime";
@@ -56,9 +60,7 @@ export function TeamDashboard({
             {all ? "Votre bibliothèque" : "L’atelier des chantiers"}
           </p>
           <h1>
-            {all
-              ? "Les publications."
-              : `Bonjour ${member.name.split(" ")[0]}.`}
+            {all ? "Publications" : `Bonjour ${member.name.split(" ")[0]}`}
           </h1>
           <p>
             {all
@@ -79,111 +81,115 @@ export function TeamDashboard({
       {!all && (
         <>
           <InstallHint />
-          {member.role === "admin" && (
-            <section className="team-recent">
-              <Link href="/equipe/demandes">
-                <strong>
-                  {newContacts} demande{newContacts > 1 ? "s" : ""} à traiter
-                </strong>
-                <ArrowUpRight size={18} />
-              </Link>
-              {updates.length > 0 && (
-                <details>
-                  <summary>Dernières modifications du site</summary>
-                  <ul>
-                    {updates.map((u, i) => (
-                      <li key={i}>
-                        <span>
-                          {u.action.includes("publish")
-                            ? "Publication"
-                            : "Brouillon enregistré"}
-                        </span>
-                        <time dateTime={u.date}>
-                          {new Date(u.date).toLocaleString("fr-FR", {
-                            timeZone: "Europe/Paris",
-                          })}
-                        </time>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              )}
-            </section>
-          )}
-          {member.role === "admin" && (
-            <div className="team-site-management">
-              <Link href="/equipe/contenu">
-                <FileText size={25} aria-hidden="true" />
-                <span>
-                  <strong>Modifier la page d’accueil</strong>
-                  <small>
-                    Textes, photo principale et publication sur le site.
-                  </small>
-                </span>
-                <ArrowRight size={20} aria-hidden="true" />
-              </Link>
-              <Link href="/equipe/reglages">
-                Prestations, coordonnées et références
-              </Link>
-              <Link href="/equipe/demandes">Demandes reçues</Link>
-              <Link href="/equipe/membres">
-                Gérer les accès de l’équipe{" "}
-                <ArrowUpRight size={15} aria-hidden="true" />
-              </Link>
-            </div>
-          )}
-          <div className="team-stats">
+          <div className="ios-stats" aria-label="Vos publications">
             {[
-              [String(posts.filter((p) => p.published).length), "en ligne"],
-              [
-                String(posts.filter((p) => p.status === "draft").length),
-                "brouillons",
-              ],
-              [
-                String(posts.filter((p) => p.status === "review").length),
-                "à valider",
-              ],
+              [posts.filter((p) => p.published).length, "En ligne"],
+              [posts.filter((p) => p.status === "draft").length, "Brouillons"],
+              [posts.filter((p) => p.status === "review").length, "À valider"],
             ].map(([count, label]) => (
               <div key={label}>
-                <strong>{count.padStart(2, "0")}</strong>
+                <strong>{count}</strong>
                 <span>{label}</span>
               </div>
             ))}
           </div>
-          <div className="team-create-grid">
+          <h2 className="ios-group-header">Publier sur le site</h2>
+          <div className="ios-group">
             <button
               type="button"
-              onClick={() => create("realisation")}
+              className="ios-row"
+              onClick={() => {
+                haptic("selection");
+                void create("realisation");
+              }}
               disabled={!!pending}
             >
-              <Camera size={25} />
-              <span>
-                <strong>Montrer une réalisation</strong>
-                <small>Un chantier, ses contraintes, votre intervention.</small>
+              <span className="ios-row-icon is-blue">
+                {pending === "realisation" ? (
+                  <LoaderCircle className="spin" size={18} />
+                ) : (
+                  <Camera size={18} />
+                )}
               </span>
-              {pending === "realisation" ? (
-                <LoaderCircle className="spin" size={20} />
-              ) : (
-                <ArrowUpRight size={22} />
-              )}
+              <span className="ios-row-text">
+                <strong>Nouvelle réalisation</strong>
+                <small>Un chantier, ses photos, votre intervention</small>
+              </span>
+              <ChevronRight className="ios-chevron" size={18} />
             </button>
             <button
               type="button"
-              onClick={() => create("actualite")}
+              className="ios-row"
+              onClick={() => {
+                haptic("selection");
+                void create("actualite");
+              }}
               disabled={!!pending}
             >
-              <FileText size={25} />
-              <span>
-                <strong>Partager une actualité</strong>
-                <small>Un avancement ou une nouvelle de l’équipe.</small>
+              <span className="ios-row-icon is-orange">
+                {pending === "actualite" ? (
+                  <LoaderCircle className="spin" size={18} />
+                ) : (
+                  <FileText size={18} />
+                )}
               </span>
-              {pending === "actualite" ? (
-                <LoaderCircle className="spin" size={20} />
-              ) : (
-                <ArrowUpRight size={22} />
-              )}
+              <span className="ios-row-text">
+                <strong>Nouvelle actualité</strong>
+                <small>Un avancement, une nouvelle de l’équipe</small>
+              </span>
+              <ChevronRight className="ios-chevron" size={18} />
             </button>
           </div>
+          {member.role === "admin" && (
+            <>
+              <h2 className="ios-group-header">Modifier le site</h2>
+              <div className="ios-group">
+                <Link href="/equipe/contenu" className="ios-row">
+                  <span className="ios-row-icon is-indigo">
+                    <House size={18} />
+                  </span>
+                  <span className="ios-row-text">
+                    <strong>Page d’accueil</strong>
+                    <small>Textes et photo principale</small>
+                  </span>
+                  <ChevronRight className="ios-chevron" size={18} />
+                </Link>
+                <Link href="/equipe/reglages" className="ios-row">
+                  <span className="ios-row-icon is-gray">
+                    <Settings2 size={18} />
+                  </span>
+                  <span className="ios-row-text">
+                    <strong>Site & entreprise</strong>
+                    <small>Prestations, photos, coordonnées</small>
+                  </span>
+                  <ChevronRight className="ios-chevron" size={18} />
+                </Link>
+                <Link href="/equipe/demandes" className="ios-row">
+                  <span className="ios-row-icon is-green">
+                    <Inbox size={18} />
+                  </span>
+                  <span className="ios-row-text">
+                    <strong>Demandes reçues</strong>
+                  </span>
+                  {newContacts > 0 && (
+                    <span className="ios-count">{newContacts}</span>
+                  )}
+                  <ChevronRight className="ios-chevron" size={18} />
+                </Link>
+              </div>
+              {updates.length > 0 && (
+                <p className="ios-group-footer">
+                  Dernière modification du site le{" "}
+                  {new Date(updates[0].date).toLocaleString("fr-FR", {
+                    timeZone: "Europe/Paris",
+                    dateStyle: "long",
+                    timeStyle: "short",
+                  })}
+                  .
+                </p>
+              )}
+            </>
+          )}
         </>
       )}
       {error && (
@@ -193,7 +199,7 @@ export function TeamDashboard({
       )}
       <section className="team-publications">
         <div className="team-section-title">
-          <h2>{all ? "Tous les contenus" : "Les dernières publications"}</h2>
+          <h2>{all ? "Tous les contenus" : "Récentes"}</h2>
           {!all && (
             <Link href="/equipe/publications">
               Tout voir <ArrowRight size={16} />
@@ -270,7 +276,7 @@ export function TeamDashboard({
                   <span className={`team-badge ${post.status}`}>
                     {statusLabels[post.status]}
                   </span>
-                  <ArrowUpRight size={20} />
+                  <ChevronRight className="ios-chevron" size={18} />
                 </Link>
               );
             })}
@@ -300,19 +306,13 @@ export function TeamDashboard({
         )}
       </section>
       {!all && (
-        <aside className="team-workflow-note">
-          <span className="label">Le bon réflexe</span>
-          <p>
-            Choisissez une photo nette, décrivez le travail réalisé et
-            prévisualisez la fiche.{" "}
-            {member.role === "admin"
-              ? "Vous gardez la main sur la mise en ligne."
-              : "Votre responsable valide la publication avant sa mise en ligne."}
-          </p>
-          <Link href="/realisations/tunnel-du-mont-blanc" target="_blank">
-            Voir un exemple de fiche <ArrowUpRight size={16} />
-          </Link>
-        </aside>
+        <p className="ios-group-footer ios-tip">
+          Choisissez une photo nette, décrivez le travail réalisé et
+          prévisualisez la fiche.{" "}
+          {member.role === "admin"
+            ? "Vous gardez la main sur la mise en ligne."
+            : "Votre responsable valide la publication avant sa mise en ligne."}
+        </p>
       )}
     </main>
   );

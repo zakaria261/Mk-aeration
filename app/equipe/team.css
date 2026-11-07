@@ -395,7 +395,7 @@
   padding: 12px 14px;
   border: 0;
   border-radius: 16px;
-  background: #fff;
+  background: var(--t-card);
   text-align: left;
   touch-action: manipulation;
   transition: transform 0.15s;
@@ -432,7 +432,7 @@
   margin-top: 4px;
   border: 0;
   border-radius: 16px;
-  background: #fff;
+  background: var(--t-card);
   color: var(--blue);
   font-weight: 650;
   font-size: 17px;
@@ -942,7 +942,7 @@
   font-size: 11px;
 }
 .team-editor-tabs button[aria-selected="true"] {
-  background: #fff;
+  background: var(--t-card);
   color: var(--ink);
   box-shadow: 0 1px 3px rgb(12 23 32 / 0.12);
 }
@@ -991,7 +991,7 @@
   padding: 12px 14px;
   border: 1px solid var(--t-line-2);
   border-radius: 12px;
-  background: #fff;
+  background: var(--t-card);
   font-size: 16px;
   line-height: 1.45;
   -webkit-appearance: none;
@@ -1162,7 +1162,7 @@
   min-height: 44px;
   border: 1px solid var(--t-line-2);
   border-radius: 12px;
-  background: #fff;
+  background: var(--t-card);
   font-size: 14.5px;
   font-weight: 600;
 }
@@ -1663,7 +1663,7 @@
   margin: 0 0 22px;
   border: 1px solid var(--t-line, #dce2e8);
   border-radius: 18px;
-  background: #fff;
+  background: var(--t-card);
   padding: 24px;
   min-width: 0;
 }
@@ -1740,7 +1740,7 @@
   border: 1px solid #dce2e8;
   border-radius: 14px;
   overflow: hidden;
-  background: #fff;
+  background: var(--t-card);
 }
 .home-edit-preview summary {
   display: flex;
@@ -1850,7 +1850,7 @@ body:has(.team-login) {
   padding: 22px;
   border: 1px solid var(--t-line);
   border-radius: 16px;
-  background: #fff;
+  background: var(--t-card);
 }
 .team-site-management > a:first-child > svg:first-child {
   color: var(--blue);
@@ -2071,7 +2071,7 @@ body:has(.team-login) {
 }
 .team-recent {
   margin-bottom: 22px;
-  background: #fff;
+  background: var(--t-card);
   border: 1px solid var(--t-line);
   border-radius: 16px;
   padding: 18px 20px;

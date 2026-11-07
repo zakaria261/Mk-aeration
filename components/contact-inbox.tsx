@@ -61,7 +61,7 @@ export function ContactInbox({ initial }: { initial: ContactEntry[] }) {
       <div className="team-page-heading">
         <div>
           <p className="label">Contacts du site</p>
-          <h1>Les demandes.</h1>
+          <h1>Demandes</h1>
           <p>
             Consultez les demandes reçues, recontactez vos clients et suivez les
             réponses.

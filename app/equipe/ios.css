@@ -1,0 +1,1039 @@
+/* ==========================================================================
+   MK Gestion — interface iPhone (recommandations d’interface d’Apple)
+   Police système (San Francisco sur iPhone), couleurs système claires et
+   sombres, barre de navigation à grand titre, barre d’onglets translucide,
+   feuilles modales, listes groupées et retours tactiles.
+   Aucun chargement de police : uniquement les polices du système.
+   ========================================================================== */
+
+/* ---------- Couleurs et polices système ---------- */
+html:has(.team-shell),
+html:has(.team-login) {
+  --ios-font:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui,
+    "Helvetica Neue", Arial, sans-serif;
+  --ios-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --ios-bg: #f2f2f7;
+  --ios-card: #ffffff;
+  --ios-card-2: #f2f2f7;
+  --ios-fill: rgb(120 120 128 / 0.12);
+  --ios-fill-2: rgb(120 120 128 / 0.2);
+  --ios-label: #000000;
+  --ios-label-2: rgb(60 60 67 / 0.6);
+  --ios-label-3: rgb(60 60 67 / 0.3);
+  --ios-sep: rgb(60 60 67 / 0.29);
+  --ios-blue: #007aff;
+  --ios-red: #ff3b30;
+  --ios-green: #34c759;
+  --ios-orange: #ff9500;
+  --ios-indigo: #5856d6;
+  --ios-teal: #30b0c7;
+  --ios-gray: #8e8e93;
+  --ios-bar: rgb(249 249 249 / 0.94);
+  --ios-nav: rgb(242 242 247 / 0.86);
+  --ios-action-bg: rgb(255 255 255 / 0.86);
+  --ios-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --f-sans: var(--ios-font);
+  --f-mono: var(--ios-mono);
+  color-scheme: light;
+  background: var(--ios-bg);
+}
+@media (prefers-color-scheme: dark) {
+  html:has(.team-shell),
+  html:has(.team-login) {
+    --ios-bg: #000000;
+    --ios-card: #1c1c1e;
+    --ios-card-2: #2c2c2e;
+    --ios-fill: rgb(118 118 128 / 0.24);
+    --ios-fill-2: rgb(118 118 128 / 0.36);
+    --ios-label: #ffffff;
+    --ios-label-2: rgb(235 235 245 / 0.6);
+    --ios-label-3: rgb(235 235 245 / 0.3);
+    --ios-sep: rgb(84 84 88 / 0.65);
+    --ios-blue: #0a84ff;
+    --ios-red: #ff453a;
+    --ios-green: #30d158;
+    --ios-orange: #ff9f0a;
+    --ios-indigo: #5e5ce6;
+    --ios-teal: #40c8e0;
+    --ios-gray: #8e8e93;
+    --ios-bar: rgb(22 22 23 / 0.88);
+    --ios-nav: rgb(0 0 0 / 0.82);
+    --ios-action-bg: rgb(44 44 46 / 0.88);
+    color-scheme: dark;
+  }
+}
+html:has(.team-shell) body,
+html:has(.team-login) body {
+  background: var(--ios-bg);
+  color: var(--ios-label);
+  font-family: var(--ios-font);
+}
+
+/* Les variables de l’ancienne interface pointent vers les couleurs système. */
+.team-shell,
+.team-login {
+  --ink: var(--ios-label);
+  --ink-2: var(--ios-label);
+  --muted: var(--ios-label-2);
+  --blue: var(--ios-blue);
+  --blue-ink: var(--ios-blue);
+  --blue-soft: color-mix(in srgb, var(--ios-blue) 14%, transparent);
+  --card: var(--ios-card);
+  --paper: var(--ios-bg);
+  --paper-2: var(--ios-fill);
+  --rule: var(--ios-sep);
+  --rule-2: var(--ios-sep);
+  --t-bg: var(--ios-bg);
+  --t-card: var(--ios-card);
+  --t-line: var(--ios-sep);
+  --t-line-2: var(--ios-sep);
+  --t-tab-h: calc(49px + var(--safe-b));
+  background: var(--ios-bg);
+  color: var(--ios-label);
+  font-family: var(--ios-font);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Taille du texte réglée par l’utilisateur dans iOS (Taille du texte). */
+@supports (font: -apple-system-body) {
+  .team-shell,
+  .team-login {
+    font: -apple-system-body;
+    font-family: var(--ios-font);
+  }
+}
+.team-shell :is(h1, h2, h3, h4, strong, p, span, small, label, button, a),
+.team-login :is(h1, h2, h3, p, label, button, a) {
+  letter-spacing: normal;
+  font-stretch: 100%;
+}
+.team-shell :is(.mono, .label, .eyebrow, code, kbd) {
+  font-family: var(--ios-mono);
+}
+.team-shell :is(.label, .eyebrow) {
+  font-family: var(--ios-font);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  color: var(--ios-label-2);
+}
+.team-shell :is(button, a, summary, label) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.team-shell :is(button, a, summary) {
+  -webkit-touch-callout: none;
+}
+.team-shell :is(input, textarea, select) {
+  color: var(--ios-label);
+  background-color: var(--ios-card);
+  border-color: var(--ios-sep);
+  accent-color: var(--ios-blue);
+  caret-color: var(--ios-blue);
+}
+.team-shell :is(input, textarea)::placeholder {
+  color: var(--ios-label-3);
+}
+.team-shell :is(input, textarea, select):focus-visible {
+  outline: 0;
+  border-color: var(--ios-blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ios-blue) 28%, transparent);
+}
+
+/* ---------- Grand titre et échelle typographique ---------- */
+.team-page-heading .label,
+.team-page-heading .eyebrow {
+  display: none;
+}
+.team-page-heading h1 {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 41px;
+  letter-spacing: 0.01em;
+}
+.team-page-heading p:not(.label) {
+  margin-top: 6px;
+  color: var(--ios-label-2);
+  font-size: 15px;
+  line-height: 20px;
+}
+.team-shell h2 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+}
+.team-shell h3 {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+/* ---------- Barre de navigation ---------- */
+.team-appbar {
+  display: none;
+}
+.ios-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  height: calc(44px + var(--safe-t));
+  padding: var(--safe-t) 8px 0;
+  background: transparent;
+  border-bottom: 0.5px solid transparent;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s;
+}
+.ios-navbar.is-scrolled {
+  background: var(--ios-nav);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom-color: var(--ios-sep);
+}
+.ios-navbar-title {
+  max-width: 62vw;
+  margin: 0;
+  overflow: hidden;
+  color: var(--ios-label);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.2s,
+    transform 0.3s var(--ios-spring);
+}
+.ios-navbar.is-compact .ios-navbar-title {
+  opacity: 1;
+  transform: none;
+}
+.ios-navbar-side {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.ios-navbar-side.is-trailing {
+  justify-content: flex-end;
+}
+.ios-navbar-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-left: -6px;
+  padding-right: 8px;
+  color: var(--ios-blue);
+  font-size: 17px;
+  line-height: 22px;
+  white-space: nowrap;
+}
+.ios-navbar-back span {
+  margin-left: -3px;
+}
+.ios-navbar-action {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 22px;
+  background: none;
+  color: var(--ios-blue);
+}
+.ios-navbar-back:active,
+.ios-navbar-action:active {
+  opacity: 0.35;
+}
+/* L’éditeur a son propre bouton retour dans la barre : on masque le doublon. */
+.team-shell .team-editor-main > .team-back {
+  display: none;
+}
+
+/* ---------- Écrans ---------- */
+.team-shell .team-main {
+  padding: 2px 16px 32px;
+}
+.team-shell .team-page-heading {
+  margin-bottom: 22px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ios-screen {
+    animation: ios-screen-in 0.32s ease-out both;
+  }
+}
+@keyframes ios-screen-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Barre d’onglets translucide ---------- */
+.team-tabbar {
+  display: none;
+}
+.ios-tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  height: var(--t-tab-h);
+  padding: 0 2px var(--safe-b);
+  background: var(--ios-bar);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-top: 0.5px solid var(--ios-sep);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  transition:
+    transform 0.32s var(--ios-spring),
+    opacity 0.2s;
+}
+.ios-tabbar a {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 0;
+  padding-top: 5px;
+  color: var(--ios-gray);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px;
+  touch-action: manipulation;
+}
+.ios-tabbar a[aria-current="page"] {
+  color: var(--ios-blue);
+}
+.ios-tabbar svg {
+  transition: transform 0.18s var(--ios-spring);
+}
+.ios-tabbar a:active svg {
+  transform: scale(0.86);
+}
+.team-shell.has-keyboard .ios-tabbar {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+.team-shell.has-keyboard {
+  padding-bottom: 0;
+}
+.team-shell.is-editing .ios-tabbar {
+  display: none;
+}
+
+/* ---------- Listes groupées (style Réglages) ---------- */
+.ios-group {
+  margin: 0 0 28px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--ios-card);
+}
+.ios-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 0;
+  background: none;
+  color: var(--ios-label);
+  font: inherit;
+  text-align: left;
+  transition: background-color 0.18s;
+}
+.ios-row + .ios-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 60px;
+  height: 0.5px;
+  background: var(--ios-sep);
+}
+.ios-row:active {
+  background: var(--ios-fill-2);
+  transition: none;
+}
+.ios-row:disabled {
+  opacity: 0.5;
+}
+.ios-row-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  color: #fff;
+}
+.ios-row-icon.is-blue {
+  background: var(--ios-blue);
+}
+.ios-row-icon.is-orange {
+  background: var(--ios-orange);
+}
+.ios-row-icon.is-green {
+  background: var(--ios-green);
+}
+.ios-row-icon.is-red {
+  background: var(--ios-red);
+}
+.ios-row-icon.is-indigo {
+  background: var(--ios-indigo);
+}
+.ios-row-icon.is-teal {
+  background: var(--ios-teal);
+}
+.ios-row-icon.is-gray {
+  background: var(--ios-gray);
+}
+.ios-row-text {
+  display: grid;
+  flex: 1;
+  gap: 1px;
+  min-width: 0;
+}
+.ios-row-text strong {
+  overflow: hidden;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 22px;
+  text-overflow: ellipsis;
+}
+.ios-row-text small {
+  color: var(--ios-label-2);
+  font-size: 13px;
+  line-height: 18px;
+}
+.ios-row.is-destructive strong {
+  color: var(--ios-red);
+}
+.ios-chevron {
+  flex-shrink: 0;
+  color: var(--ios-label-3);
+}
+.ios-group-header {
+  margin: 0 16px 7px;
+  color: var(--ios-label-2);
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 18px !important;
+  text-transform: uppercase;
+}
+.ios-group-footer {
+  margin: -20px 16px 28px;
+  color: var(--ios-label-2);
+  font-size: 13px;
+  line-height: 18px;
+}
+.ios-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--ios-card);
+}
+.ios-profile-avatar {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #a5abb8, #858994);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+}
+.ios-profile > div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.ios-profile strong {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 25px;
+}
+.ios-profile small {
+  overflow: hidden;
+  color: var(--ios-label-2);
+  font-size: 15px;
+  line-height: 20px;
+  text-overflow: ellipsis;
+}
+.ios-settings .install-hint {
+  margin-bottom: 28px;
+  border-radius: 10px;
+}
+
+/* ---------- Feuilles modales ---------- */
+html.ios-sheet-open,
+html.ios-sheet-open body {
+  overflow: hidden;
+}
+.team-sheet {
+  display: none;
+}
+.ios-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  visibility: hidden;
+  transition: visibility 0s linear 0.5s;
+}
+.ios-sheet.is-open {
+  visibility: visible;
+  transition: none;
+}
+.ios-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgb(0 0 0 / 0.4);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.ios-sheet.is-open .ios-sheet-backdrop {
+  opacity: 1;
+}
+.ios-sheet-panel {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100dvh - var(--safe-t) - 32px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 6px 16px calc(16px + var(--safe-b));
+  border-radius: 12px 12px 0 0;
+  background: var(--ios-bg);
+  color: var(--ios-label);
+  font-family: var(--ios-font);
+  transform: translateY(100%);
+  transition: transform 0.5s var(--ios-spring);
+  touch-action: none;
+}
+.ios-sheet.is-open .ios-sheet-panel {
+  transform: none;
+}
+.ios-sheet-panel.is-dragging,
+.ios-sheet-backdrop[style] {
+  transition: none;
+}
+.ios-sheet-grabber {
+  display: block;
+  width: 36px;
+  height: 5px;
+  margin: 0 auto 14px;
+  border-radius: 3px;
+  background: var(--ios-label-3);
+}
+.ios-sheet-title {
+  margin: 4px 0 2px;
+  color: var(--ios-label);
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  line-height: 22px !important;
+  text-align: center;
+}
+.ios-sheet-subtitle {
+  margin: 0 0 18px;
+  color: var(--ios-label-2);
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+}
+.ios-sheet .ios-group {
+  margin-bottom: 12px;
+}
+.ios-sheet-cancel {
+  width: 100%;
+  min-height: 50px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--ios-card);
+  color: var(--ios-blue);
+  font: inherit;
+  font-size: 17px;
+  font-weight: 600;
+}
+.ios-sheet-cancel:active,
+.ios-action:active {
+  background: var(--ios-fill-2);
+}
+/* Feuille d’action (choix destructif) */
+.ios-sheet-action .ios-sheet-panel {
+  padding: 0 8px calc(8px + var(--safe-b));
+  background: transparent;
+}
+.ios-sheet-action .ios-sheet-grabber {
+  display: none;
+}
+.ios-action-group {
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--ios-action-bg);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.ios-action-message {
+  margin: 0;
+  padding: 14px 16px;
+  border-bottom: 0.5px solid var(--ios-sep);
+  color: var(--ios-label-2);
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+}
+.ios-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 57px;
+  border: 0;
+  background: transparent;
+  color: var(--ios-blue);
+  font: inherit;
+  font-size: 20px;
+}
+.ios-action.is-destructive {
+  color: var(--ios-red);
+}
+.ios-action.is-cancel {
+  margin-top: 8px;
+  border-radius: 14px;
+  background: var(--ios-card);
+  font-weight: 600;
+}
+.ios-sheet .team-error {
+  margin: 0 0 12px;
+}
+
+/* ---------- Boutons ---------- */
+.team-primary,
+.team-secondary {
+  min-height: 50px;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  transition:
+    opacity 0.15s,
+    transform 0.15s,
+    background-color 0.2s;
+}
+.team-primary {
+  background: var(--ios-blue);
+  color: #fff;
+}
+.team-primary:not(:disabled):hover {
+  background: var(--ios-blue);
+  opacity: 0.9;
+}
+.team-secondary {
+  border: 0;
+  background: color-mix(in srgb, var(--ios-blue) 14%, transparent);
+  color: var(--ios-blue);
+}
+.team-secondary:not(:disabled):hover {
+  border: 0;
+}
+.team-primary:active,
+.team-secondary:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+.team-primary:disabled,
+.team-secondary:disabled {
+  opacity: 0.4;
+}
+.team-text-button,
+.team-back {
+  color: var(--ios-blue);
+}
+.team-avatar {
+  background: linear-gradient(180deg, #a5abb8, #858994);
+}
+
+/* ---------- Composants existants : surfaces et états système ---------- */
+.team-error {
+  background: color-mix(in srgb, var(--ios-red) 14%, transparent);
+  color: var(--ios-red);
+}
+.team-success,
+.home-edit-success {
+  background: color-mix(in srgb, var(--ios-green) 16%, transparent);
+  color: color-mix(in srgb, var(--ios-green) 70%, var(--ios-label));
+}
+.team-notice {
+  background: color-mix(in srgb, var(--ios-orange) 16%, transparent);
+  color: color-mix(in srgb, var(--ios-orange) 60%, var(--ios-label));
+}
+.team-badge {
+  background: var(--ios-fill);
+  color: var(--ios-label-2);
+}
+.team-badge.review {
+  background: color-mix(in srgb, var(--ios-orange) 18%, transparent);
+  color: color-mix(in srgb, var(--ios-orange) 70%, var(--ios-label));
+}
+.team-badge.published {
+  background: color-mix(in srgb, var(--ios-green) 18%, transparent);
+  color: color-mix(in srgb, var(--ios-green) 70%, var(--ios-label));
+}
+.team-badge.archived {
+  background: var(--ios-fill);
+  color: var(--ios-label-2);
+}
+.team-post-row:hover,
+.team-post-row:active {
+  background: var(--ios-fill);
+}
+.team-dropzone,
+.team-photo-edit,
+.settings-image > img {
+  background: var(--ios-fill);
+}
+.home-edit-field textarea,
+.inbox-list select {
+  border-color: var(--ios-sep);
+  background: var(--ios-card);
+  color: var(--ios-label);
+}
+.home-photo-picker label:has(input:checked) {
+  border-color: var(--ios-blue);
+  background: color-mix(in srgb, var(--ios-blue) 12%, transparent);
+}
+.home-edit-actions {
+  border-color: var(--ios-sep);
+  background: var(--ios-bar);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.home-edit-preview,
+.team-site-management > a:first-child {
+  border-color: var(--ios-sep);
+}
+:is(
+  .home-edit-field small,
+  .home-edit-help,
+  .inbox-list time,
+  .inbox-list small,
+  .team-recent time
+) {
+  color: var(--ios-label-2);
+}
+:is(.settings-order button, .inbox-links a, .team-recent > a) {
+  color: var(--ios-blue);
+}
+.team-photo-actions button:last-child {
+  color: var(--ios-red);
+}
+.team-editor-savebar {
+  background: var(--ios-bar);
+  border-top-color: var(--ios-sep);
+}
+.team-editor-savebar > span::before {
+  background: var(--ios-green);
+}
+.team-editor-savebar > span.unsaved::before {
+  background: var(--ios-orange);
+}
+.team-filters button {
+  border-radius: 999px;
+}
+.team-filters button[aria-pressed="true"] {
+  background: var(--ios-label);
+  border-color: var(--ios-label);
+  color: var(--ios-bg);
+}
+
+/* ---------- Grand écran : barre latérale, pas de barres iPhone ---------- */
+@media (min-width: 1000px) {
+  .ios-navbar,
+  .ios-tabbar {
+    display: none;
+  }
+  .team-shell {
+    padding-bottom: 0;
+  }
+  .team-shell .team-main {
+    padding: 56px 48px 80px;
+  }
+  .team-shell .team-editor-main > .team-back {
+    display: inline-flex;
+  }
+  .ios-sheet {
+    align-items: center;
+  }
+  .ios-sheet-panel {
+    padding: 14px 18px 18px;
+    border-radius: 14px;
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+      transform 0.3s var(--ios-spring),
+      opacity 0.2s;
+  }
+  .ios-sheet.is-open .ios-sheet-panel {
+    opacity: 1;
+  }
+  .ios-sheet-action .ios-sheet-panel {
+    max-width: 400px;
+  }
+  .ios-sheet-grabber {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ios-navbar-title,
+  .ios-tabbar,
+  .ios-sheet-panel,
+  .ios-sheet-backdrop {
+    transition: none;
+  }
+}
+
+/* ---------- Accueil de l’app : compteurs, listes, publications ---------- */
+.ios-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.ios-stats > div {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--ios-card);
+}
+.ios-stats strong {
+  color: var(--ios-label);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+  font-variant-numeric: tabular-nums;
+}
+.ios-stats span {
+  color: var(--ios-label-2);
+  font-size: 13px;
+  line-height: 18px;
+}
+.ios-count {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--ios-red);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.ios-tip {
+  margin-top: 8px;
+}
+.team-section-title h2 {
+  font-size: 22px;
+  font-weight: 700;
+}
+.team-section-title > a {
+  color: var(--ios-blue);
+  font-size: 17px;
+  font-weight: 400;
+}
+.team-section-title .team-secondary {
+  min-height: 36px;
+  border-radius: 999px;
+}
+.team-filters button {
+  min-height: 34px;
+  border: 0;
+  background: var(--ios-fill);
+  color: var(--ios-label);
+  font-size: 15px;
+  font-weight: 500;
+}
+.team-post-list {
+  border: 0;
+  border-radius: 10px;
+  background: var(--ios-card);
+}
+.team-post-row {
+  position: relative;
+  padding: 10px 16px;
+  border-bottom: 0;
+  transition: background-color 0.18s;
+}
+.team-post-row + .team-post-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 90px;
+  height: 0.5px;
+  background: var(--ios-sep);
+}
+.team-post-row:active {
+  background: var(--ios-fill-2);
+  transition: none;
+}
+.team-post-thumb {
+  border-radius: 8px;
+  background: var(--ios-fill);
+  color: var(--ios-label-3);
+}
+.team-post-title small {
+  color: var(--ios-label-2);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.team-post-title strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+.team-post-title span {
+  color: var(--ios-label-2);
+  font-size: 13px;
+}
+.team-empty {
+  border: 0;
+  border-radius: 10px;
+  background: var(--ios-card);
+}
+.team-empty svg {
+  color: var(--ios-label-3);
+}
+.install-hint {
+  border: 0;
+  border-radius: 12px;
+  background: var(--ios-card);
+  box-shadow: none;
+  color: var(--ios-label);
+}
+.install-hint p {
+  color: var(--ios-label-2);
+}
+.team-shell .install-hint {
+  margin-bottom: 28px;
+}
+.team-post-title small,
+.team-badge,
+.team-section-title > span {
+  font-family: var(--ios-font);
+}
+
+/* ---------- Éditeur : contrôle segmenté iOS ---------- */
+.team-editor-tabs {
+  padding: 2px;
+  border-radius: 9px;
+  background: var(--ios-fill);
+}
+.team-editor-tabs button {
+  border-radius: 7px;
+  color: var(--ios-label);
+  font-size: 13px;
+  font-weight: 500;
+}
+.team-editor-tabs button[aria-selected="true"] {
+  background: var(--ios-card);
+  box-shadow:
+    0 3px 8px rgb(0 0 0 / 0.12),
+    0 3px 1px rgb(0 0 0 / 0.04);
+  font-weight: 600;
+}
+.team-editor-tabs button > span {
+  display: none;
+}
+.team-editor-card,
+.team-editor-main aside > * {
+  border-color: var(--ios-sep);
+}
+.team-editor-main label > span {
+  font-family: var(--ios-font);
+  font-variant-numeric: tabular-nums;
+  color: var(--ios-label-2);
+}
+
+/* ---------- Connexion ---------- */
+.team-login-back {
+  border: 0;
+  background: var(--ios-fill);
+  color: var(--ios-blue);
+  font-size: 15px;
+  font-weight: 500;
+}
+.team-login-intro h1 {
+  margin-bottom: 8px;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 41px;
+  letter-spacing: 0.01em;
+}
+.team-login-intro > p:not(.label) {
+  color: var(--ios-label-2);
+  font-size: 17px;
+  line-height: 22px;
+}
+.team-login-panel {
+  border: 0;
+  border-radius: 12px;
+  background: var(--ios-card);
+  box-shadow: none;
+}
+.team-login-panel .install-hint {
+  background: var(--ios-bg);
+}
+.team-login-panel h2 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+}
+.team-login-panel > p {
+  color: var(--ios-label-2);
+  font-size: 15px;
+  line-height: 20px;
+}
+.team-login-panel :is(input, button) {
+  font-family: var(--ios-font);
+}
+.team-login-panel input {
+  border-color: var(--ios-sep);
+  background: var(--ios-bg);
+  color: var(--ios-label);
+  font-size: 17px;
+}
+@media (prefers-color-scheme: dark) {
+  .team-login-brand img {
+    filter: brightness(0) invert(1);
+  }
+}
