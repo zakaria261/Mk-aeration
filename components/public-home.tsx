@@ -28,6 +28,18 @@ import {
 } from "@/lib/home-content";
 import type { TeamPost } from "@/lib/cms-types";
 
+function Emphasis({ text }: { text: string }) {
+  return text
+    .split("**")
+    .map((part, i) =>
+      i % 2 ? (
+        <strong key={i}>{part}</strong>
+      ) : (
+        <Fragment key={i}>{part}</Fragment>
+      ),
+    );
+}
+
 export function PublicHome({
   content,
   news,
@@ -67,11 +79,10 @@ export function PublicHome({
         <div className="lp-container">
           <div className="lp-about-copy" data-reveal="0">
             <div className="lp-about-title">
-              <p className="lp-eyebrow">MK Aération · Depuis 2021</p>
               <h2 id="about-title">
                 {content.benefitsTitle === defaultHomeContent.benefitsTitle ? (
                   <>
-                    Le savoir-faire de terrain.
+                    Le savoir‑faire de terrain.
                     <br />
                     <span>L’exigence du détail.</span>
                   </>
@@ -103,9 +114,8 @@ export function PublicHome({
                     <cite>{v.author}</cite>
                   </blockquote>
                 ))}
-              <Link href="/entreprise" className="lp-text-link">
-                Découvrir MK Aération{" "}
-                <ArrowUpRight size={18} aria-hidden="true" />
+              <Link href="/entreprise" className="lp-cta">
+                Découvrir MK Aération
               </Link>
             </div>
           </div>
@@ -122,7 +132,7 @@ export function PublicHome({
       >
         <div className="lp-container">
           <div className="lp-sector-list">
-            {homeSectors.map((s, i) => (
+            {homeSectors.map((s) => (
               <article
                 className="lp-sector"
                 id={s.id}
@@ -130,22 +140,15 @@ export function PublicHome({
                 aria-labelledby={`sector-${s.id}`}
               >
                 <div className="lp-sector-copy" data-reveal="0">
-                  <p className="lp-sector-index">
-                    <span>0{i + 1}</span>
-                    Secteur
-                  </p>
                   <h3 id={`sector-${s.id}`}>{s.title}</h3>
-                  <p className="lp-sector-text">{s.text}</p>
-                  <ul className="lp-scope">
-                    {s.points.map((point) => (
-                      <li key={point}>
-                        <Check size={16} aria-hidden="true" /> {point}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href={s.link.href} className="lp-text-link">
-                    {s.link.label} <ArrowUpRight size={18} aria-hidden="true" />
-                  </Link>
+                  {s.paragraphs.map((text) => (
+                    <p className="lp-sector-text" key={text}>
+                      <Emphasis text={text} />
+                    </p>
+                  ))}
+                  <a href="#contact" className="lp-cta">
+                    Contactez-nous
+                  </a>
                 </div>
                 <figure className="lp-sector-photo" data-reveal="100">
                   <Photo
@@ -154,9 +157,11 @@ export function PublicHome({
                     width={s.image.width}
                     height={s.image.height}
                     loading="lazy"
-                    sizes="(max-width: 767px) 100vw, 54vw"
+                    sizes="(max-width: 767px) 100vw, 46vw"
                   />
-                  <span className="lp-image-tag">{s.image.tag}</span>
+                  <figcaption>
+                    <Link href={s.caption.href}>{s.caption.label}</Link>
+                  </figcaption>
                 </figure>
               </article>
             ))}
@@ -167,10 +172,6 @@ export function PublicHome({
     flagship: (
       <section className="lp-flagship lp-section" aria-labelledby="mont-title">
         <div className="lp-container">
-          <div className="lp-section-kicker">
-            <span>Une référence emblématique</span>
-            <span>France — Italie</span>
-          </div>
           <div className="lp-flagship-grid">
             <figure className="lp-flagship-photo" data-reveal="0">
               <div className="lp-flagship-image">
@@ -186,9 +187,6 @@ export function PublicHome({
             </figure>
             <div className="lp-flagship-copy" data-reveal="100">
               <div className="lp-flagship-title">
-                <p className="lp-eyebrow">
-                  L’expertise en conditions exigeantes
-                </p>
                 <h2 id="mont-title">
                   Tunnel du
                   <br />
@@ -227,10 +225,9 @@ export function PublicHome({
                 </div>
                 <Link
                   href="/realisations/tunnel-du-mont-blanc"
-                  className="lp-text-link"
+                  className="lp-cta"
                 >
-                  Découvrir notre intervention{" "}
-                  <ArrowUpRight size={18} aria-hidden="true" />
+                  Découvrir notre intervention
                 </Link>
               </div>
             </div>
@@ -271,7 +268,6 @@ export function PublicHome({
       >
         <div className="lp-container lp-contact-grid">
           <div className="lp-contact-copy" data-reveal="0">
-            <p className="lp-eyebrow">Contactez-nous</p>
             <h2 id="contact-title">{content.contactTitle}</h2>
             <p className="lp-contact-lead">
               <strong>

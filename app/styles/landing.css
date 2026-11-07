@@ -1839,7 +1839,6 @@ body:has(.public-header),
 /* Contact — esprit clair et aérien : fond bleu pâle, courbes douces,
    titre bleu ciel, coordonnées soulignées d’un filet vertical. */
 .lp-contact {
-  --lp-sky: #0a7fc2;
   background: #edf6fc;
   color: var(--lp-navy);
   overflow: hidden;
@@ -2011,5 +2010,212 @@ body:has(.public-header),
   }
   .lp-contact .inquiry-card {
     box-shadow: 0 12px 36px #0a4f7a12;
+  }
+}
+
+/* ————————————————————————————————————————————————————————————————
+   Identité claire et aérée (référence : cisepz.fr)
+   Titres bleu ciel en graisse normale, texte sombre avec mots clés en
+   gras, boutons noirs en capitales, filets verticaux entre les colonnes,
+   aucun filet horizontal ni sur-titre.
+   ———————————————————————————————————————————————————————————————— */
+.landing {
+  --lp-sky: #2b8bd0;
+  --lp-ink: #15191c;
+}
+.lp-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 30px;
+  padding: 12px 26px;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.lp-cta:hover {
+  background: var(--lp-sky);
+}
+.lp-cta:focus-visible {
+  outline: 3px solid var(--lp-sky);
+  outline-offset: 3px;
+}
+
+/* Présentation : titre à gauche, filet vertical, texte à droite. */
+.lp-about-copy {
+  gap: 0;
+}
+.landing .lp-about-copy h2 {
+  color: var(--lp-ink);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  padding-right: clamp(32px, 5vw, 72px);
+}
+.landing .lp-about-copy h2 > span {
+  color: var(--lp-sky);
+}
+.lp-about-body {
+  border-left: 1px solid var(--lp-ink);
+  padding-left: clamp(32px, 5vw, 72px);
+}
+.lp-company-text p,
+.lp-company-text p:first-child {
+  color: #2a3238;
+  font-size: 15px;
+  line-height: 1.75;
+}
+.lp-company-text p:first-child {
+  color: var(--lp-ink);
+  font-weight: 600;
+}
+
+/* Secteurs : texte | filet vertical | photo et légende en capitales. */
+.lp-sectors {
+  border-top: 0;
+  padding-block: clamp(16px, 3vw, 40px) clamp(40px, 6vw, 80px);
+}
+.lp-sector,
+.lp-sector:nth-child(even) {
+  position: relative;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(56px, 9vw, 140px);
+  padding-block: clamp(56px, 7vw, 110px);
+  border-bottom: 0;
+}
+.lp-sector::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: clamp(56px, 7vw, 110px);
+  bottom: clamp(56px, 7vw, 110px);
+  width: 1px;
+  background: var(--lp-ink);
+}
+.landing .lp-sector-copy h3 {
+  max-width: 16ch;
+  color: var(--lp-sky);
+  font-size: clamp(32px, 3.3vw, 48px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 30px;
+}
+.lp-sector-copy .lp-sector-text {
+  max-width: 54ch;
+  margin-top: 16px;
+  color: #2a3238;
+  font-size: 16px;
+  line-height: 1.7;
+}
+.lp-sector-text strong {
+  color: var(--lp-ink);
+  font-weight: 650;
+}
+.lp-sector-photo figcaption {
+  margin-top: 16px;
+  font-size: clamp(17px, 1.6vw, 23px);
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--lp-ink);
+}
+.lp-sector-photo figcaption a {
+  transition: color 0.2s;
+}
+.lp-sector-photo figcaption a:hover {
+  color: var(--lp-sky);
+}
+
+/* Mont-Blanc : même grammaire, sans bandeau ni filet horizontal. */
+.lp-flagship {
+  background: #fff;
+}
+.landing .lp-flagship-copy h2,
+.landing .lp-flagship-copy h2 > span {
+  color: var(--lp-sky);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.lp-flagship-copy {
+  gap: 0;
+}
+.lp-flagship-title {
+  padding-right: clamp(32px, 5vw, 72px);
+}
+.lp-flagship-detail {
+  border-left: 1px solid var(--lp-ink);
+  padding-left: clamp(32px, 5vw, 72px);
+}
+.lp-flagship-detail > p {
+  color: #2a3238;
+  font-size: 16px;
+}
+.lp-flagship-fact {
+  border-top: 0;
+  padding-top: 0;
+}
+.lp-flagship-fact > p {
+  font-size: 12px;
+}
+.lp-flagship-detail .lp-cta {
+  margin-top: 6px;
+}
+
+/* Contact : titre bleu ciel, sans sur-titre. */
+.landing .lp-contact h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  .lp-cta {
+    margin-top: 24px;
+  }
+  .landing .lp-about-copy h2,
+  .lp-flagship-title {
+    padding-right: 0;
+  }
+  .lp-about-body,
+  .lp-flagship-detail {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .lp-sector,
+  .lp-sector:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding-block: 44px;
+  }
+  .lp-sector::before {
+    display: none;
+  }
+  .landing .lp-sector-copy h3 {
+    font-size: clamp(28px, 7.6vw, 36px);
+    margin-bottom: 18px;
+  }
+  .lp-sector-copy .lp-sector-text {
+    font-size: 15px;
+  }
+  .lp-sector-photo figcaption {
+    font-size: 16px;
+    margin-top: 12px;
+  }
+}
+/* FAQ : même identité, sans sur-titre. */
+.landing .faq .faq-head > .label {
+  display: none;
+}
+.landing .faq h2 {
+  color: var(--lp-sky);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+@media (max-width: 767px) {
+  .lp-about-copy {
+    gap: 26px;
   }
 }
