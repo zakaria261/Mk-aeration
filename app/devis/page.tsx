@@ -1,7 +1,6 @@
 import { pageMetadata } from "@/lib/site-content-server";
 import Link from "next/link";
 import { QuoteForm } from "@/components/quote-form";
-import { SectionLabel } from "@/components/ui";
 export const generateMetadata = () => pageMetadata("contact", "/devis");
 export default function Devis() {
   return (
@@ -13,7 +12,6 @@ export default function Devis() {
             <span aria-hidden="true">/</span>
             <span aria-current="page">Demander un devis</span>
           </nav>
-          <SectionLabel>Votre projet commence ici</SectionLabel>
           <div className="quote-header-grid">
             <h1>
               Donnons de l’air

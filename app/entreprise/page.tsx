@@ -1,13 +1,24 @@
 import { companyPresentation, companySignature } from "@/lib/home-content";
 import { publicSite, pageMetadata } from "@/lib/site-content-server";
 import { Photo } from "@/components/photo";
-import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowUpRight, MapPin, Phone, Check } from "lucide-react";
 import { companyLinks } from "@/lib/site-content";
-import { PageIntro, SectionLabel } from "@/components/ui";
+import { PageIntro } from "@/components/ui";
 import { ContactBanner } from "@/components/site-shell";
 export const generateMetadata = () => pageMetadata("entreprise", "/entreprise");
+const values = [
+  [
+    "La précision",
+    "Des installations soignées, avec une attention portée aux réseaux, aux transitions et aux raccordements.",
+  ],
+  [
+    "L’écoute",
+    "Un échange direct pour comprendre votre besoin et les contraintes propres à votre chantier.",
+  ],
+  [
+    "Le collectif",
+    "Un travail d’équipe, en lien avec les intervenants du projet, pour faire avancer le chantier.",
+  ],
+] as const;
 export default async function Entreprise() {
   const settings = await publicSite();
   const company = companyLinks(settings.company);
@@ -25,20 +36,19 @@ export default async function Entreprise() {
           height="1350"
           fetchPriority="high"
         />
-        <figcaption className="mono">
-          Photo de chantier · FIER, Annecy
-        </figcaption>
+        <figcaption>Chantier FIER · Annecy</figcaption>
       </figure>
-      <section className="section">
-        <div className="wrap company-story">
-          <SectionLabel>Notre conviction</SectionLabel>
-          <div>
-            <h2>
+      <section className="split-list" aria-labelledby="conviction-title">
+        <div className="wrap">
+          <div className="split-head">
+            <h2 id="conviction-title">
               La qualité de l’air commence par <em>la qualité du geste.</em>
             </h2>
-            <div className="company-text">
-              {companyPresentation.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+            <div className="split-text">
+              {companyPresentation.map((paragraph, i) => (
+                <p key={paragraph} className={i === 0 ? "split-lead" : ""}>
+                  {paragraph}
+                </p>
               ))}
               <p>
                 <strong>{companySignature}</strong>
@@ -47,92 +57,52 @@ export default async function Entreprise() {
           </div>
         </div>
       </section>
-      <section className="values surface section">
+      <section className="values-band" aria-labelledby="values-title">
         <div className="wrap">
-          <SectionLabel>Ce qui nous anime</SectionLabel>
-          <ol className="steps">
-            {[
-              [
-                "01",
-                "La précision",
-                "Des installations soignées, avec une attention portée aux réseaux, aux transitions et aux raccordements.",
-              ],
-              [
-                "02",
-                "L’écoute",
-                "Un échange direct pour comprendre votre besoin et les contraintes propres à votre chantier.",
-              ],
-              [
-                "03",
-                "Le collectif",
-                "Un travail d’équipe, en lien avec les intervenants du projet, pour faire avancer le chantier.",
-              ],
-            ].map(([n, t, d]) => (
-              <li key={n}>
-                <span className="mono">{n}</span>
-                <h3>{t}</h3>
-                <p>{d}</p>
+          <h2 id="values-title">Ce qui nous anime</h2>
+          <ul className="values-cols">
+            {values.map(([title, text]) => (
+              <li key={title}>
+                <h3>{title}</h3>
+                <p>{text}</p>
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       </section>
-      <section className="section" id="zone">
-        <div className="wrap zone-grid">
-          <div>
-            <SectionLabel>Proches de vos chantiers</SectionLabel>
-            <h2>
-              Ici, c’est
-              <br />
-              <em>notre terrain.</em>
+      <section className="split-list" id="zone" aria-labelledby="zone-title">
+        <div className="wrap">
+          <div className="split-head">
+            <h2 id="zone-title">
+              Ici, c’est <em>notre terrain.</em>
             </h2>
-            <p>
-              Notre équipe intervient dans les zones indiquées ci-dessous.
-              Contactez-nous pour confirmer la faisabilité de votre déplacement.
-            </p>
-            <a
-              href={company.maps}
-              className="link-arrow"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Nous situer <ArrowUpRight size={18} />
-            </a>
-          </div>
-          <div className="zone-departments">
-            {company.areas
-              .map((name, i) => [String(i + 1).padStart(2, "0"), name, ""])
-              .map(([n, t, d]) => (
-                <div key={n}>
-                  <span className="mono">{n}</span>
-                  <div>
-                    <h3>{t}</h3>
-                    <p>{d}</p>
-                  </div>
-                  <Check size={20} aria-hidden="true" />
-                </div>
-              ))}
+            <div className="split-text">
+              <p>
+                Basée à <strong>{company.city}</strong>, notre équipe intervient
+                sur vos chantiers dans les départements suivants. Contactez-nous
+                pour confirmer la faisabilité de votre déplacement.
+              </p>
+              <ul className="zone-list">
+                {company.areas.map((name) => (
+                  <li key={name}>{name}</li>
+                ))}
+              </ul>
+              <p className="zone-address">
+                {company.address}
+                <br />
+                {company.city}
+              </p>
+              <a
+                href={company.maps}
+                className="lp-cta"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Nous situer
+              </a>
+            </div>
           </div>
         </div>
-      </section>
-      <section className="company-contact wrap">
-        <div>
-          <MapPin />
-          <span>
-            {company.address}
-            <br />
-            {company.city}
-          </span>
-        </div>
-        <a href={company.tel}>
-          <Phone />
-          {company.phone}
-          <ArrowUpRight size={19} />
-        </a>
-        <Link href="/devis">
-          Décrivez-nous votre projet
-          <ArrowUpRight size={19} />
-        </Link>
       </section>
       <ContactBanner />
     </main>

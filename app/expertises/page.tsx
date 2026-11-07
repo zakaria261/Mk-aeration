@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Photo } from "@/components/photo";
 import { PageIntro, FAQ } from "@/components/ui";
 import { ContactBanner } from "@/components/site-shell";
@@ -7,6 +6,8 @@ import { publicSite, pageMetadata } from "@/lib/site-content-server";
 import { companyLinks } from "@/lib/site-content";
 export const revalidate = 60;
 export const generateMetadata = () => pageMetadata("expertises", "/expertises");
+const quoteKind = (id: string) =>
+  ["reseaux", "vmc", "extraction"].includes(id) ? id : "autre";
 export default async function Expertises() {
   const settings = await publicSite(),
     company = companyLinks(settings.company);
@@ -15,45 +16,41 @@ export default async function Expertises() {
       <PageIntro label="Expertises" title={settings.pages.expertises.title}>
         {settings.pages.expertises.description}
       </PageIntro>
-      <section
-        className="wrap service-index section"
-        aria-label="Toutes nos prestations"
-      >
-        {settings.services.map((s, i) => (
-          <article id={s.id} key={s.id}>
-            <Link href={`/expertises/${s.id}`} className="service-index-image">
-              <Photo
-                src={s.image.src}
-                alt={s.image.alt}
-                width={s.image.width}
-                height={s.image.height}
-                loading={i === 0 ? "eager" : "lazy"}
-                sizes="(max-width:767px) 100vw, 45vw"
-              />
-            </Link>
-            <div>
-              <span className="label">{String(i + 1).padStart(2, "0")}</span>
-              <h2>{s.title}</h2>
-              <p>{s.short}</p>
-              <ul className="service-index-details">
-                {s.details.slice(0, 3).map((d) => (
-                  <li key={d}>{d}</li>
-                ))}
-              </ul>
-              <div className="service-actions">
-                <Link
-                  className="btn btn-primary"
-                  href={`/devis?service=${["reseaux", "vmc", "extraction"].includes(s.id) ? s.id : "autre"}`}
-                >
-                  Demander un devis <ArrowUpRight size={18} />
-                </Link>
-                <Link className="link-arrow" href={`/expertises/${s.id}`}>
-                  Voir la prestation <ArrowRight size={18} />
-                </Link>
+      <section className="split-list" aria-label="Toutes nos prestations">
+        <div className="wrap">
+          {settings.services.map((s, i) => (
+            <article className="split" id={s.id} key={s.id}>
+              <div className="split-copy">
+                <h2>{s.title}</h2>
+                <p className="split-lead">{s.short}</p>
+                <p>{s.description}</p>
+                <div className="split-actions">
+                  <Link className="lp-cta" href={`/expertises/${s.id}`}>
+                    Voir la prestation
+                  </Link>
+                  <Link
+                    className="split-link"
+                    href={`/devis?service=${quoteKind(s.id)}`}
+                  >
+                    Demander un devis
+                  </Link>
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+              <figure className="split-photo">
+                <Link href={`/expertises/${s.id}`} tabIndex={-1}>
+                  <Photo
+                    src={s.image.src}
+                    alt={s.image.alt}
+                    width={s.image.width}
+                    height={s.image.height}
+                    loading={i === 0 ? "eager" : "lazy"}
+                    sizes="(max-width:767px) 100vw, 46vw"
+                  />
+                </Link>
+              </figure>
+            </article>
+          ))}
+        </div>
       </section>
       <FAQ phone={company.phone} tel={company.tel} />
       <ContactBanner />

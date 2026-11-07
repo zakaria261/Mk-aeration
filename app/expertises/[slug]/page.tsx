@@ -41,37 +41,46 @@ export default async function Service({ params }: Props) {
       <PageIntro label="Expertises" title={s.title}>
         {s.short}
       </PageIntro>
-      <section className="wrap service-detail-layout section">
-        <Photo
-          src={s.image.src}
-          alt={s.image.alt}
-          width={s.image.width}
-          height={s.image.height}
-          loading="eager"
-          fetchPriority="high"
-          sizes="(max-width:767px) 100vw, 52vw"
-        />
-        <div>
-          <h2>Notre intervention</h2>
-          <p>{s.description}</p>
-          <ul className="checks">
-            {s.details.map((d) => (
-              <li key={d}>
-                <Check size={17} />
-                {d}
-              </li>
-            ))}
-          </ul>
-          <Link className="btn btn-primary" href={`/devis?service=${kind}`}>
-            Demander un devis <ArrowUpRight size={18} />
-          </Link>
-          <a className="service-direct" href={company.tel}>
-            <Phone size={18} />
-            {company.phone}
-          </a>
-          <Link className="link-arrow" href="/realisations">
-            Voir nos réalisations <ArrowUpRight size={18} />
-          </Link>
+      <section className="split-list" aria-label="Notre intervention">
+        <div className="wrap">
+          <article className="split split-reverse">
+            <figure className="split-photo">
+              <Photo
+                src={s.image.src}
+                alt={s.image.alt}
+                width={s.image.width}
+                height={s.image.height}
+                loading="eager"
+                fetchPriority="high"
+                sizes="(max-width:767px) 100vw, 46vw"
+              />
+            </figure>
+            <div className="split-copy">
+              <h2>Notre intervention</h2>
+              <p>{s.description}</p>
+              <ul className="split-points">
+                {s.details.map((d) => (
+                  <li key={d}>
+                    <Check size={17} aria-hidden="true" />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+              <div className="split-actions">
+                <Link className="lp-cta" href={`/devis?service=${kind}`}>
+                  Demander un devis
+                </Link>
+                <a className="split-link" href={company.tel}>
+                  <Phone size={17} aria-hidden="true" />
+                  {company.phone}
+                </a>
+              </div>
+              <Link className="split-link split-more" href="/realisations">
+                Voir nos réalisations{" "}
+                <ArrowUpRight size={17} aria-hidden="true" />
+              </Link>
+            </div>
+          </article>
         </div>
       </section>
       {s.id === "extraction" && (
@@ -81,11 +90,8 @@ export default async function Service({ params }: Props) {
             <div className="film-copy">
               <h2>La pose d’une hotte</h2>
               <p>{hotte.description}</p>
-              <Link
-                className="btn btn-light"
-                href={`/realisations/${hotte.slug}`}
-              >
-                Voir cette intervention <ArrowUpRight size={18} />
+              <Link className="lp-cta" href={`/realisations/${hotte.slug}`}>
+                Voir cette intervention
               </Link>
             </div>
           </div>

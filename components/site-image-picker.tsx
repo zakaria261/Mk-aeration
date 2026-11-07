@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Upload, LoaderCircle } from "lucide-react";
-import { staticImages, type SiteContent } from "@/lib/site-content";
+import { selectableImages, type SiteContent } from "@/lib/site-content";
 type Image = SiteContent["logo"];
 export function SiteImagePicker({
   value,
@@ -129,7 +129,7 @@ export function SiteImagePicker({
           }}
         >
           <option value={value.src}>{value.src.split("/").pop()}</option>
-          {staticImages
+          {selectableImages
             .filter((s) => s !== value.src)
             .map((s) => (
               <option key={s} value={s}>

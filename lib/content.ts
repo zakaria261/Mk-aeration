@@ -48,8 +48,8 @@ export const services = [
     short: "De la diffusion de l’air jusqu’au rejet.",
     description:
       "Pose de grilles de soufflage, réseaux d’extraction, hottes de cuisines professionnelles et rejets en toiture. Nous soignons l’intégration des éléments de diffusion et coordonnons leur pose avec les autres corps d’état, jusque dans les réservations de la chape.",
-    image: "/images/yottacity-soufflage.webp",
-    alt: "Grilles de soufflage au sol positionnées dans les réservations de la chape",
+    image: "/images/lidl-extraction.webp",
+    alt: "Conduit métallique et rejet d’extraction vertical en toiture d’une plateforme logistique",
     details: [
       "Grilles de soufflage et diffusion d’air",
       "Intégration des grilles au sol et préparation des finitions",

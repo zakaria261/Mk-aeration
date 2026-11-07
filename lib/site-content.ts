@@ -2,7 +2,21 @@ import { z } from "zod";
 import { company, services, projects, type Project } from "./content.ts";
 import { homePhotos } from "./home-content.ts";
 
-export const staticImages = [
+// Images retirées du site : encore acceptées à la lecture des réglages déjà
+// enregistrés (pour ne pas invalider la base), mais remplacées à l’affichage.
+export const retiredImages: Record<
+  string,
+  { src: string; alt: string; width: number; height: number }
+> = {
+  "/images/yottacity-soufflage.webp": {
+    src: "/images/lidl-extraction.webp",
+    alt: "Conduit métallique et rejet d’extraction vertical en toiture d’une plateforme logistique",
+    width: 922,
+    height: 922,
+  },
+};
+// Images proposées dans la médiathèque des réglages.
+export const selectableImages = [
   ...new Set([
     ...homePhotos.map((p) => p.src),
     ...services.map((s) => s.image),
@@ -11,6 +25,10 @@ export const staticImages = [
     "/brand/lockup.webp",
     "/brand/emblem.webp",
   ]),
+];
+export const staticImages = [
+  ...selectableImages,
+  ...Object.keys(retiredImages),
 ];
 export const imageSchema = z
   .object({
@@ -382,7 +400,13 @@ export function publicSnapshot(c: SiteContent): SiteContent {
             published: false,
           },
     ),
-    services: c.services.filter((s) => s.published),
+    services: c.services
+      .filter((s) => s.published)
+      .map((s) =>
+        retiredImages[s.image.src]
+          ? { ...s, image: retiredImages[s.image.src] }
+          : s,
+      ),
     credibility: c.credibility
       .filter((v) => v.published && v.confirmed)
       .map((v) => ({ ...v, evidence: "" })),

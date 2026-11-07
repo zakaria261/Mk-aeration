@@ -308,15 +308,12 @@ export function ContactBanner() {
     <section className="public-contact" aria-labelledby="public-contact-title">
       <div className="lp-container">
         <div>
-          <p className="lp-eyebrow lp-eyebrow-light">
-            Un plan, un chantier, une question
-          </p>
           <h2 id="public-contact-title">Parlons de votre projet.</h2>
           <p>Un contact direct pour étudier votre besoin en ventilation.</p>
         </div>
         <div>
-          <Link href="/devis" className="lp-button lp-button-white">
-            Demander un devis <ArrowUpRight size={18} aria-hidden="true" />
+          <Link href="/devis" className="lp-cta">
+            Demander un devis
           </Link>
           <a href={company.tel}>
             <Phone size={18} aria-hidden="true" />

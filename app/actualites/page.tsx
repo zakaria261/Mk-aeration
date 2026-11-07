@@ -1,7 +1,6 @@
 import { publicSite, pageMetadata } from "@/lib/site-content-server";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { publicNews } from "@/lib/cms-posts";
 import { PageIntro } from "@/components/ui";
 import { NewsCard } from "@/components/news-card";
@@ -25,7 +24,6 @@ export default async function News() {
           </div>
         ) : (
           <div className="empty-state">
-            <p className="label">À suivre</p>
             <h2>
               Les prochaines nouvelles
               <br />
@@ -35,8 +33,8 @@ export default async function News() {
               Retrouvez dès maintenant les photos et les interventions de notre
               équipe dans les réalisations.
             </p>
-            <Link href="/realisations" className="link-arrow">
-              Découvrir nos chantiers <ArrowUpRight size={19} />
+            <Link href="/realisations" className="lp-cta">
+              Découvrir nos chantiers
             </Link>
           </div>
         )}

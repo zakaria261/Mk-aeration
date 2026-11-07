@@ -18,9 +18,6 @@ export default async function Contact() {
         </nav>
         <div className="contact-experience-grid">
           <div className="contact-editorial">
-            <p className="contact-overline">
-              <span /> Parlons de votre projet
-            </p>
             <h1>
               {settings.pages.contact.title}
               <span>Construisons la suite.</span>

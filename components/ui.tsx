@@ -22,7 +22,6 @@ export function SectionLabel({
 
 export function ProjectCard({
   project,
-  index = 0,
   priority = false,
   sizes = "(max-width: 720px) 82vw, (max-width: 1080px) 46vw, 30vw",
 }: {
@@ -51,25 +50,12 @@ export function ProjectCard({
             {project.video.duration}
           </span>
         )}
-        {project.coverKind !== "chantier" && (
-          <span className="pcard-note">
-            {project.coverKind === "projet"
-              ? "Vue du projet"
-              : "Visuel de présentation"}
-          </span>
-        )}
       </div>
       <div className="pcard-body">
-        <span className="pcard-ref mono">
-          R-{String(index + 1).padStart(2, "0")} · {project.category}
-        </span>
         <h3>{project.title}</h3>
         <p>
           {project.sector} · {project.place}
         </p>
-        <span className="pcard-arrow" aria-hidden="true">
-          <ArrowUpRight size={20} />
-        </span>
       </div>
     </Link>
   );

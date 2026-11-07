@@ -1,7 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Photo } from "./photo";
-import { Cote } from "./drawing";
 
 export const montBlancSpecs = [
   { value: "8 mois", label: "de travaux, chantier terminé" },
@@ -41,9 +39,8 @@ export function MontBlancFeature() {
       <Link
         href="/realisations/tunnel-du-mont-blanc"
         className="mb-feature-media"
-        aria-label="Tunnel du Mont-Blanc — le détail de notre intervention"
+        tabIndex={-1}
       >
-        <Cote>Réf. 01 · Tunnel du Mont-Blanc</Cote>
         <Photo
           src="/images/mont-blanc-presentation.webp"
           alt="Entrée du tunnel du Mont-Blanc au pied des Alpes, visuel de présentation MK Aération"
@@ -52,26 +49,18 @@ export function MontBlancFeature() {
           sizes="(max-width: 1392px) 100vw, 1300px"
         />
       </Link>
-      <div className="mb-feature-body">
+      <div className="split-head">
+        <h2>Tunnel du Mont-Blanc</h2>
         <div>
-          <p className="label">
-            <span className="label-num">01</span>Infrastructure · France /
-            Italie
-          </p>
-          <h2>Tunnel du Mont-Blanc</h2>
           <p>
             Ventilation des locaux techniques, supportage et réseaux
-            hydrauliques. Huit mois de travaux, de jour comme de nuit.
+            hydrauliques. <strong>Huit mois de travaux</strong>, de jour comme
+            de nuit, entre la France et l’Italie.
           </p>
-          <Link
-            href="/realisations/tunnel-du-mont-blanc"
-            className="link-arrow"
-          >
-            Le détail de notre intervention{" "}
-            <ArrowUpRight size={18} aria-hidden="true" />
+          <Link href="/realisations/tunnel-du-mont-blanc" className="lp-cta">
+            Découvrir notre intervention
           </Link>
         </div>
-        <MontBlancSpecs />
       </div>
     </article>
   );

@@ -2,15 +2,13 @@ import { Photo } from "@/components/photo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
-import { projects, projectMediaLabels } from "@/lib/content";
+import { ArrowRight, Check } from "lucide-react";
+import { projects } from "@/lib/content";
 import { ContactBanner } from "@/components/site-shell";
-import { SectionLabel } from "@/components/ui";
 import { ProjectVideo } from "@/components/project-video";
 import { allProjects, getPublicPosts } from "@/lib/cms-posts";
 import { PublicationView } from "@/components/publication-view";
 import { MontBlancSpecs } from "@/components/mont-blanc-feature";
-import { Cote } from "@/components/drawing";
 export const revalidate = 60;
 type Props = { params: Promise<{ slug: string }> };
 export function generateStaticParams() {
@@ -68,7 +66,6 @@ export default async function Project({ params }: Props) {
   const next = references[(references.indexOf(p) + 1) % references.length];
   const hero = p.media[0];
   const photos = p.video ? p.media : p.media.slice(1);
-  const ref = String(references.indexOf(p) + 1).padStart(2, "0");
   return (
     <main id="contenu" className="project">
       <section className="wrap project-head">
@@ -79,18 +76,15 @@ export default async function Project({ params }: Props) {
           <span aria-hidden="true">/</span>
           <span aria-current="page">{p.title}</span>
         </nav>
-        <p className="label">
-          <span className="label-num">{ref}</span>
-          {p.sector} · {p.category}
-        </p>
         <h1>{p.title}</h1>
-        <p className="project-place">{p.place}</p>
+        <p className="project-place">
+          {p.sector} · {p.place}
+        </p>
       </section>
       {p.video ? (
         <section className="wrap film-lead project-film">
           <ProjectVideo video={p.video} />
           <div className="film-copy">
-            <SectionLabel>En direct du chantier</SectionLabel>
             <h2>{p.intro}</h2>
             {p.figures && (
               <dl className="figures">
@@ -105,18 +99,14 @@ export default async function Project({ params }: Props) {
             <p>{p.description}</p>
             <Link
               href={`/devis?service=${p.category === "Extraction" ? "extraction" : "vmc"}`}
-              className="btn btn-primary"
+              className="lp-cta"
             >
-              Parlons de votre chantier{" "}
-              <ArrowUpRight size={18} aria-hidden="true" />
+              Parlons de votre chantier
             </Link>
           </div>
         </section>
       ) : (
         <figure className="wrap project-hero">
-          {p.slug === "tunnel-du-mont-blanc" && (
-            <Cote>Tunnel du Mont-Blanc · France / Italie</Cote>
-          )}
           <Photo
             className={hero.height > hero.width ? "is-portrait" : ""}
             sizes="(max-width: 1392px) 100vw, 1300px"
@@ -126,10 +116,7 @@ export default async function Project({ params }: Props) {
             height={hero.height}
             fetchPriority="high"
           />
-          <figcaption className="media-caption">
-            <span className="mono">{projectMediaLabels[hero.kind]}</span>
-            {hero.caption}
-          </figcaption>
+          <figcaption className="media-caption">{hero.caption}</figcaption>
         </figure>
       )}
       {p.slug === "tunnel-du-mont-blanc" && (
@@ -139,13 +126,12 @@ export default async function Project({ params }: Props) {
       )}
       <section className="wrap story section">
         <div className="story-main">
-          <SectionLabel>Le chantier</SectionLabel>
           <h2>{p.video ? "Une pose précise, à chaque étape." : p.intro}</h2>
           <p>{p.objective || p.description}</p>
           {p.objective && !p.video && <p>{p.description}</p>}
         </div>
         <aside className="story-scope">
-          <p className="cartouche-key">Notre intervention</p>
+          <h3>Notre intervention</h3>
           <ul className="checks">
             {p.scope.map((s) => (
               <li key={s}>
@@ -154,26 +140,22 @@ export default async function Project({ params }: Props) {
               </li>
             ))}
           </ul>
-          <Link className="btn btn-primary btn-block" href="/devis">
-            Un projet similaire ? <ArrowUpRight size={18} aria-hidden="true" />
+          <Link className="lp-cta" href="/devis">
+            Un projet similaire ?
           </Link>
         </aside>
       </section>
       {p.stages && (
         <section className="stages section">
           <div className="wrap">
-            <SectionLabel light>Les étapes de la réhabilitation</SectionLabel>
             <h2>
               De l’existant
               <br />
               <em>aux nouveaux réseaux.</em>
             </h2>
             <ol className="steps steps-dark">
-              {p.stages.map((stage, index) => (
+              {p.stages.map((stage) => (
                 <li key={stage.title}>
-                  <span className="mono">
-                    Étape {String(index + 1).padStart(2, "0")}
-                  </span>
                   <h3>{stage.title}</h3>
                   <p>{stage.description}</p>
                 </li>
@@ -184,9 +166,7 @@ export default async function Project({ params }: Props) {
       )}
       {photos.length > 0 && (
         <section className="wrap photos section">
-          <SectionLabel number={String(photos.length).padStart(2, "0")}>
-            Le chantier en images
-          </SectionLabel>
+          <h2 className="photos-title">Le chantier en images</h2>
           <div className={`photo-grid ${p.video ? "is-portrait" : ""}`}>
             {photos.map((m) => (
               <figure key={m.src}>
@@ -198,10 +178,7 @@ export default async function Project({ params }: Props) {
                   loading="lazy"
                   sizes="(max-width: 720px) 100vw, 50vw"
                 />
-                <figcaption className="media-caption">
-                  <span className="mono">{projectMediaLabels[m.kind]}</span>
-                  {m.caption}
-                </figcaption>
+                <figcaption className="media-caption">{m.caption}</figcaption>
               </figure>
             ))}
           </div>
@@ -209,7 +186,7 @@ export default async function Project({ params }: Props) {
       )}
       <div className="wrap next-link">
         <Link href={`/realisations/${next.slug}`}>
-          <span className="mono">Chantier suivant</span>
+          <span>Chantier suivant</span>
           <strong>{next.title}</strong>
           <ArrowRight size={28} aria-hidden="true" />
         </Link>
