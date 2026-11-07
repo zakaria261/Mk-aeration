@@ -84,6 +84,90 @@ export const companyPresentation = [
   "Nous accompagnons nos clients dans leurs projets de bâtiments tertiaires, industriels et de logements collectifs, en apportant des solutions techniques fiables, durables et performantes.",
   "De la préparation à la réalisation, notre engagement repose sur la qualité d’exécution, la précision technique et le respect des exigences de chaque chantier.",
 ];
+// Secteurs d’activité de l’accueil : un thème, un texte, une photo qui l’illustre.
+export const homeSectors = [
+  {
+    id: "grande-distribution",
+    title: "Grande distribution",
+    text: "Dans une surface de vente, l’air se renouvelle au-dessus des rayons, des clients et des produits frais. Nous posons les réseaux de soufflage et d’extraction en charpente, au-dessus des allées, en coordination avec les autres corps d’état.",
+    points: [
+      "Gaines circulaires de grande section suspendues en charpente",
+      "Soufflage des surfaces de vente et des réserves",
+      "Extraction et rejets en toiture",
+    ],
+    link: { href: "/expertises/extraction", label: "Soufflage & extraction" },
+    image: {
+      src: "/images/grande-distribution-gaines.webp",
+      alt: "Gaines de ventilation circulaires suspendues sous la charpente, au-dessus des rayons d’une grande surface",
+      width: 960,
+      height: 720,
+      tag: "Surface de vente",
+    },
+  },
+  {
+    id: "agroalimentaire",
+    title: "Agroalimentaire",
+    text: "Dans les ateliers de transformation et les légumeries, la ventilation participe à l’hygiène des locaux et au confort de travail. Nous raccordons les centrales double flux et adaptons les réseaux à la configuration de chaque bâtiment.",
+    points: [
+      "Raccordement de centrales de traitement d’air double flux",
+      "Transitions entre gaines rectangulaires et circulaires",
+      "Réseaux en partie haute des zones techniques",
+    ],
+    link: {
+      href: "/realisations/legumerie-vourney",
+      label: "Voir la légumerie de Vourney",
+    },
+    image: {
+      src: "/images/legumerie-ventilation.webp",
+      alt: "Centrale double flux raccordée aux gaines circulaires dans une légumerie",
+      width: 1200,
+      height: 1200,
+      tag: "Légumerie de Vourney",
+    },
+  },
+  {
+    id: "tertiaire",
+    title: "Tertiaire",
+    text: "Bureaux, équipements publics, bâtiments recevant du public : nous installons les colonnes, les réseaux et les raccordements en toiture qui distribuent l’air à chaque niveau du bâtiment.",
+    points: [
+      "Colonnes circulaires et rectangulaires",
+      "Gaines de ventilation en toiture",
+      "Préparation des raccordements aux CTA",
+    ],
+    link: {
+      href: "/realisations/forum-metropole-grenoble",
+      label: "Voir le Forum de la Métropole",
+    },
+    image: {
+      src: "/images/grenoble-toiture.webp",
+      alt: "Réseaux de ventilation en toiture du Forum de la Métropole à Grenoble, face aux montagnes",
+      width: 800,
+      height: 600,
+      tag: "Forum de la Métropole · Grenoble",
+    },
+  },
+  {
+    id: "logement-collectif",
+    title: "Logement collectif",
+    text: "En construction neuve comme en réhabilitation, la VMC assure le renouvellement de l’air de chaque logement. Nous déposons les anciens réseaux, préparons les passages et installons les nouveaux réseaux jusqu’aux bouches d’extraction.",
+    points: [
+      "Dépose des réseaux existants",
+      "Réseaux VMC et bouches d’extraction",
+      "Intervention organisée bâtiment par bâtiment",
+    ],
+    link: {
+      href: "/realisations/rehabilitation-vmc-21-appartements",
+      label: "Voir la réhabilitation VMC",
+    },
+    image: {
+      src: "/images/vmc-cheminements.webp",
+      alt: "Cheminement des gaines de ventilation en partie haute sur un chantier de réhabilitation VMC",
+      width: 1440,
+      height: 2560,
+      tag: "Réhabilitation VMC",
+    },
+  },
+] as const;
 export const companySignature =
   "MK AÉRATION, la maîtrise de l’air et le savoir-faire au service de vos projets.";
 export function readHomeContent(value: unknown): HomeContent {

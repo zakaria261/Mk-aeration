@@ -45,10 +45,10 @@ export function MontBlancFeature() {
       >
         <Cote>Réf. 01 · Tunnel du Mont-Blanc</Cote>
         <Photo
-          src="/images/mont-blanc-entree.webp"
-          alt="L’entrée nord du tunnel du Mont-Blanc à Chamonix — photographie de Rémih"
-          width={1600}
-          height={1200}
+          src="/images/mont-blanc-presentation.webp"
+          alt="Entrée du tunnel du Mont-Blanc au pied des Alpes, visuel de présentation MK Aération"
+          width={1461}
+          height={720}
           sizes="(max-width: 1392px) 100vw, 1300px"
         />
       </Link>
@@ -73,25 +73,6 @@ export function MontBlancFeature() {
         </div>
         <MontBlancSpecs />
       </div>
-      <p className="credit mono">
-        Vue de l’ouvrage ·{" "}
-        <a
-          href="https://commons.wikimedia.org/wiki/File:Tunnel_du_Mont-Blanc_entr%C3%A9e_nord.jpg"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Rémih
-        </a>{" "}
-        ·{" "}
-        <a
-          href="https://creativecommons.org/licenses/by-sa/4.0/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          CC BY-SA 4.0
-        </a>{" "}
-        · format optimisé.
-      </p>
     </article>
   );
 }

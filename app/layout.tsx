@@ -7,6 +7,7 @@ import "./styles/pages.css";
 import "./styles/quote.css";
 import "./styles/public-site.css";
 import "./styles/landing.css";
+import "./styles/contact.css";
 import { Header, Footer } from "@/components/site-shell";
 import { SiteProvider } from "@/components/site-provider";
 import { ConversionListener } from "@/components/conversion-controls";

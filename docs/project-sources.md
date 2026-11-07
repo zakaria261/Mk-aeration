@@ -51,3 +51,11 @@ Les fichiers MOV et HEIC originaux ne sont pas publiés. Les médias web ne cont
 ### Héros en pleine largeur — adaptation paysage
 
 À la demande du client, le visuel n’est plus présenté dans un cadre à droite. `mk-aeration-hero-landscape.webp` reprend la partie paysage et installations de `IMG_9523.JPG` (recadrage x=0, y=550, 720 × 470 px, avec une variante 480 px). Les titres, la signature, le repère tricolore, le bouton et les courbes bleues sont recomposés en HTML/CSS/SVG sur la largeur du héros. Aucune extension de scène ou génération d’image n’est utilisée. Sur téléphone, le visuel portrait original est affiché bord à bord. Un véritable bouton HTML opaque recouvre le bouton imprimé dans l’image : largeur de 92 %, hauteur minimale de 56 px, libellé et flèche visibles, états d’appui et de focus, lien vers les expertises.
+
+### Affinage du 5 novembre 2026
+
+Le client a choisi de remplacer le recadrage de 720 px sur ordinateur par la photographie réelle des installations de FIER Annecy déjà fournie au projet (`annecy-panorama`, 1800 × 1350 px, AVIF avec repli WebP). Le portrait de campagne reste utilisé sur mobile. Aucun agrandissement artificiel ou visuel généré n’a été ajouté. Le cliché d’Annecy est légendé et relié à sa réalisation.
+
+L’accueil présente trois photographies de références hors héros : la vue du tunnel du Mont-Blanc et deux réalisations sélectionnées. Les images des expertises, de la présentation et des actualités sont retirées de l’accueil ; les médias complets restent sur leurs pages dédiées. Les textes de présentation fournis par MK Aération sont conservés.
+
+Le formulaire commun à l’accueil et à la page contact est redessiné avec des styles isolés, un choix de besoin facultatif, les coordonnées et une confirmation avec référence. Le besoin choisi est intégré au message, en conservant le contrat de l’API, l’identifiant de déduplication et le consentement. Les apparitions au défilement et interactions respectent la préférence de réduction des animations.

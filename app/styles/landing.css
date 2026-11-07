@@ -177,71 +177,12 @@ body:has(.public-header),
   font-size: 20px;
   font-weight: 300;
 }
-/* Une présentation de l’entreprise appuyée sur une photographie de chantier. */
+/* Présentation éditoriale : les photos sont réservées aux trois références. */
 .lp-about-grid {
   display: grid;
   grid-template-columns: 1fr 1.12fr;
   gap: 90px;
   align-items: center;
-}
-.lp-about-visual {
-  position: relative;
-  padding-right: 28px;
-  padding-bottom: 30px;
-}
-.lp-about-photo {
-  position: relative;
-}
-.lp-about-photo > img {
-  width: 100%;
-  height: 600px;
-  object-fit: cover;
-  object-position: 50% 52%;
-}
-.lp-about-photo figcaption {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding-top: 15px;
-  font-family: var(--f-mono);
-  text-transform: uppercase;
-  color: var(--lp-muted);
-  font-size: 8px;
-  letter-spacing: 0.03em;
-}
-.lp-about-photo .lp-photo-dot {
-  width: 5px;
-  height: 5px;
-  background: var(--lp-blue);
-}
-.lp-since {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 157px;
-  min-height: 166px;
-  padding: 23px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
-  background: #1766c2;
-  color: white;
-  box-shadow: -10px -10px 0 #fff;
-}
-.lp-since span {
-  font-size: 9px;
-}
-.lp-since span:last-child {
-  font-family: var(--f-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.lp-since strong {
-  font-size: 56px;
-  line-height: 1;
-  font-weight: 500;
-  letter-spacing: -0.07em;
 }
 .lp-about-copy .lp-eyebrow {
   margin-bottom: 18px;
@@ -421,7 +362,7 @@ body:has(.public-header),
 }
 .lp-project-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
 }
 .lp-project-photo {
@@ -513,27 +454,6 @@ body:has(.public-header),
 }
 .lp-service:hover {
   border-color: var(--lp-blue);
-}
-.lp-service-photo {
-  overflow: hidden;
-  position: relative;
-}
-.lp-service-photo img {
-  width: 100%;
-  height: 230px;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.65s var(--ease);
-}
-.lp-service-photo > span {
-  position: absolute;
-  left: 20px;
-  bottom: 16px;
-  font-family: var(--f-mono);
-  color: #fff;
-  background: #102a3de0;
-  padding: 6px 9px;
-  font-size: 10px;
 }
 .lp-service-body {
   padding: 27px;
@@ -699,151 +619,10 @@ body:has(.public-header),
 .lp-contact-form {
   padding-top: 4px;
 }
-.lp-form-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 28px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #a3bdcd3d;
-  font-size: 17px;
-  letter-spacing: -0.02em;
-}
-.quick-contact {
-  width: 100%;
-  min-width: 0;
-}
-.quick-contact fieldset {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-  display: grid;
-  gap: 18px;
-}
 .quick-contact-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
-}
-.quick-contact label:not(.contact-consent) {
-  display: grid;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 550;
-}
-.quick-contact label > span {
-  font-weight: 400;
-}
-.quick-contact input:not([type="checkbox"]),
-.quick-contact textarea {
-  width: 100%;
-  min-width: 0;
-  font-size: 16px;
-  padding: 13px 14px;
-  border: 1px solid #c8d3df;
-  border-radius: 4px;
-  background: #fff;
-  color: #102b46;
-  line-height: 1.5;
-}
-.quick-contact textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-.quick-contact input:focus,
-.quick-contact textarea:focus {
-  outline: 3px solid #75b5fb;
-  outline-offset: 2px;
-}
-.quick-contact .lp-button {
-  justify-content: space-between;
-  width: 100%;
-  background: #fff;
-  color: #102b46;
-  border-color: #fff;
-}
-.contact-consent {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 11px;
-  line-height: 1.7;
-}
-.contact-consent input {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  margin-top: 2px;
-  accent-color: #156be0;
-}
-.contact-consent a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.contact-honeypot {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-}
-.contact-error {
-  border-left: 3px solid #ffb8ab;
-  padding: 12px;
-  margin-top: 18px;
-  font-size: 14px;
-  line-height: 1.7;
-}
-.contact-error a {
-  text-decoration: underline;
-}
-.contact-confirmation {
-  padding: 28px;
-  background: #fff;
-  color: #102b46;
-  border-radius: 4px;
-}
-.contact-confirmation > svg {
-  color: #14734b;
-  margin-bottom: 18px;
-}
-.contact-confirmation p {
-  margin-block: 18px;
-  font-size: 14px;
-  line-height: 1.8;
-}
-.contact-confirmation a {
-  display: inline-block;
-  padding-block: 12px;
-  text-decoration: underline;
-  font-weight: 600;
-}
-.quick-contact label:not(.contact-consent) {
-  font-size: 11px;
-  color: #cddce6;
-}
-.quick-contact input:not([type="checkbox"]),
-.quick-contact textarea {
-  border-radius: 1px;
-  background: #143246;
-  border-color: #496171;
-  color: #fff;
-  padding: 12px 14px;
-  font-size: 14px;
-}
-.quick-contact .lp-button {
-  border-radius: 1px;
-  font-size: 12px;
-  min-height: 52px;
-}
-.contact-consent {
-  color: #b8cbd7;
-  font-size: 10px;
-}
-.quick-contact textarea {
-  min-height: 108px;
 }
 .verified-credential {
   margin-top: 18px;
@@ -888,9 +667,6 @@ body:has(.public-header),
   .lp-about-grid {
     gap: 50px;
   }
-  .lp-about-photo > img {
-    height: 650px;
-  }
   .lp-flagship-grid {
     gap: 50px;
   }
@@ -918,17 +694,6 @@ body:has(.public-header),
     grid-template-columns: 0.9fr 1.1fr;
     gap: 38px;
   }
-  .lp-about-photo > img {
-    height: 700px;
-  }
-  .lp-about-visual {
-    padding-right: 16px;
-  }
-  .lp-since {
-    width: 132px;
-    min-height: 146px;
-    padding: 18px;
-  }
   .lp-company-text p {
     font-size: 12px;
   }
@@ -954,9 +719,6 @@ body:has(.public-header),
   }
   .lp-service-body h3 {
     font-size: 20px;
-  }
-  .lp-service-photo img {
-    height: 190px;
   }
   .lp-proof-grid > div {
     padding-inline: 22px;
@@ -1030,25 +792,6 @@ body:has(.public-header),
   .lp-about-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 40px;
-  }
-  .lp-about-photo > img {
-    height: 390px;
-  }
-  .lp-about-visual {
-    padding: 0 20px 24px 0;
-  }
-  .lp-about-photo figcaption {
-    font-size: 7px;
-  }
-  .lp-since {
-    width: 126px;
-    min-height: 137px;
-  }
-  .lp-since strong {
-    font-size: 47px;
-  }
-  .lp-since span {
-    font-size: 8px;
   }
   .lp-about-copy h2,
   .landing h2 {
@@ -1144,9 +887,6 @@ body:has(.public-header),
   .lp-project-body h3 {
     font-size: 25px;
   }
-  .lp-service-photo img {
-    height: 230px;
-  }
   .lp-service-body {
     padding: 25px;
   }
@@ -1198,16 +938,9 @@ body:has(.public-header),
     width: 44px;
     height: 44px;
   }
-  .lp-form-heading {
-    font-size: 16px;
-  }
   .quick-contact-row {
     grid-template-columns: minmax(0, 1fr);
     gap: 18px;
-  }
-  .quick-contact input:not([type="checkbox"]),
-  .quick-contact textarea {
-    font-size: 16px;
   }
   .public-footer-grid {
     padding-block: 48px 36px;
@@ -1223,8 +956,6 @@ body:has(.public-header),
   .lp-contact-direct > div {
     font-size: 22px;
   }
-}
-@media (prefers-reduced-motion: no-preference) {
 }
 /* Les composants de contact partagés conservent leur comportement sur tout le site. */
 .public-footer {
@@ -1254,13 +985,6 @@ body:has(.public-header),
 }
 .public-footer-bottom {
   border-color: #cfdae1;
-}
-.quick-contact label > .contact-phone-label {
-  font-weight: 550;
-}
-.contact-phone-label > span {
-  font-weight: 400;
-  color: #b6cbd8;
 }
 .mobile-contact {
   display: none;
@@ -1651,5 +1375,641 @@ body:has(.public-header),
   .lp-hero-original-mobile .lp-hero-primary:focus-visible {
     outline: 3px solid #fff;
     outline-offset: 2px;
+  }
+}
+
+/* Une lecture plus sélective : trois photographies de références, hors héros. */
+.lp-about-grid {
+  align-items: start;
+  gap: clamp(45px, 6vw, 100px);
+}
+.lp-about-statement {
+  padding-top: 3px;
+}
+.lp-manifesto {
+  font-size: clamp(38px, 4.2vw, 61px);
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  font-weight: 550;
+  margin-top: 28px;
+}
+.lp-manifesto > span {
+  color: #738390;
+}
+.lp-method {
+  border-top: 1px solid var(--lp-line);
+  margin-top: 48px;
+  padding-top: 9px;
+  max-width: 380px;
+}
+.lp-method > p {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 53px;
+  border-bottom: 1px solid var(--lp-line);
+  font-size: 14px;
+}
+.lp-method > p > span {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--lp-blue);
+}
+.lp-method svg {
+  color: var(--lp-blue);
+  margin-left: auto;
+}
+.lp-service {
+  border: 1px solid #dce5ea;
+  border-bottom: 2px solid #dce5ea;
+}
+.lp-service-symbol {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px 28px 15px;
+  color: #1766c2;
+}
+.lp-service-symbol > span {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: #718492;
+}
+.lp-service-symbol > svg {
+  margin: 14px 4px 16px;
+}
+.lp-service-body {
+  padding-top: 15px;
+}
+.lp-service-body > p {
+  font-size: 13px;
+}
+.lp-service .lp-card-link {
+  font-size: 12px;
+}
+.lp-service:hover {
+  border-color: #7ba8d3;
+  background: #fbfdff;
+}
+.lp-service .lp-card-link > svg {
+  transition: transform 0.3s;
+}
+.lp-service:hover .lp-card-link > svg {
+  transform: translate(3px, -3px);
+}
+.lp-news .log-entry-text {
+  grid-template-columns: 74px minmax(0, 1fr) 40px;
+}
+.lp-hero-caption {
+  position: absolute;
+  right: 56px;
+  bottom: 87px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  color: #fff;
+  padding: 12px 16px;
+  border: 1px solid #ffffff40;
+  background: #072c47c9;
+  border-radius: 4px;
+}
+.lp-hero-caption > span {
+  font-family: var(--f-mono);
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8cddf6;
+  padding-right: 12px;
+  border-right: 1px solid #ffffff40;
+}
+.lp-hero-photo-hd .lp-hero-scroll {
+  display: none;
+}
+@media (min-width: 768px) {
+  .lp-hero-photo-hd .lp-hero-background {
+    object-position: center 64%;
+  }
+  .lp-hero-photo-hd .lp-hero-shade {
+    background:
+      linear-gradient(
+        90deg,
+        #032c4ff7 0%,
+        #033253de 28%,
+        #0332538c 48%,
+        #0332530a 78%
+      ),
+      linear-gradient(0deg, #032d5d99, transparent 50%);
+  }
+  .lp-hero-photo-hd .lp-hero-wave {
+    height: 36px;
+  }
+}
+@media (max-width: 1079px) and (min-width: 768px) {
+  .lp-hero-caption {
+    right: 28px;
+    bottom: 30px;
+    font-size: 9px;
+  }
+}
+@media (max-width: 767px) {
+  .lp-about-grid {
+    gap: 44px;
+  }
+  .lp-manifesto {
+    font-size: clamp(37px, 9.5vw, 58px);
+  }
+  .lp-method {
+    margin-top: 28px;
+    max-width: none;
+  }
+  .lp-service-symbol {
+    padding: 24px 24px 4px;
+  }
+  .lp-service-symbol > svg {
+    margin-top: 0;
+  }
+  .lp-hero-caption {
+    display: none;
+  }
+  .lp-news .log-entry-text {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+  .lp-news .log-entry-text .log-arrow {
+    display: none;
+  }
+}
+
+/* Mouvement mesuré : entrée des titres, apparition au défilement et interactions. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-motion] {
+    transition:
+      opacity 0.65s ease var(--reveal-delay, 0ms),
+      transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms);
+  }
+  [data-motion="pending"] {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  [data-motion="visible"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .lp-hero-message {
+    animation: mk-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .lp-hero-conversion {
+    animation: mk-rise 0.8s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .lp-hero-rule {
+    transform-origin: left;
+    animation: mk-line 1s 0.2s both;
+  }
+  .lp-service-symbol > svg {
+    transition: transform 0.5s;
+  }
+  .lp-service:hover .lp-service-symbol > svg {
+    transform: translateY(-5px);
+  }
+  .lp-service:hover .lp-service-symbol > .lucide-fan {
+    transform: rotate(90deg);
+  }
+  .contact-editorial > h1,
+  .contact-experience .inquiry-heading {
+    animation: mk-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+@media (max-width: 767px) {
+  /* Ne pas créer de contenant transformé pour le bouton superposé au portrait. */
+  .lp-hero-original-mobile .lp-hero-message,
+  .lp-hero-original-mobile .lp-hero-conversion {
+    animation: none;
+  }
+}
+@keyframes mk-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes mk-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Secteurs d’activité : un thème, son texte et une photo qui l’illustre. */
+.lp-sectors {
+  background: #fff;
+  border-top: 1px solid var(--lp-line);
+}
+.lp-sector-list {
+  border-top: 1px solid var(--lp-line);
+}
+.lp-sector {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+  padding-block: clamp(48px, 5vw, 72px);
+  border-bottom: 1px solid var(--lp-line);
+  scroll-margin-top: 100px;
+}
+.lp-sector:nth-child(even) {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+.lp-sector:nth-child(even) .lp-sector-photo {
+  order: -1;
+}
+.lp-sector-index {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+  margin-bottom: 18px;
+}
+.lp-sector-index > span {
+  color: var(--lp-blue);
+}
+.landing .lp-sector-copy h3 {
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  font-weight: 550;
+}
+.lp-sector-text {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--lp-muted);
+  margin-top: 20px;
+  max-width: 52ch;
+}
+.lp-sector-copy .lp-scope {
+  margin-block: 24px 28px;
+}
+.lp-sector-photo {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+.lp-sector-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.lp-sector-photo .lp-image-tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+@media (max-width: 767px) {
+  .lp-sector,
+  .lp-sector:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .lp-sector:nth-child(even) .lp-sector-photo {
+    order: 0;
+  }
+  .lp-sector-photo .lp-image-tag {
+    top: 14px;
+    left: 14px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lp-sector-photo img {
+    transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .lp-sector:hover .lp-sector-photo img {
+    transform: scale(1.03);
+  }
+}
+
+/* Mont-Blanc : le visuel de présentation en pleine largeur, sans recadrage. */
+.lp-flagship-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 56px);
+}
+.lp-flagship-image img {
+  height: auto;
+  aspect-ratio: 1461 / 720;
+  object-fit: cover;
+  object-position: center;
+}
+.lp-flagship-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(28px, 6vw, 96px);
+  align-items: start;
+}
+.lp-flagship-detail > p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--lp-muted);
+  margin-bottom: 4px;
+  max-width: 56ch;
+}
+@media (max-width: 767px) {
+  .lp-flagship-copy {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Finitions : rythme vertical, lisibilité des listes et version mobile. */
+.lp-flagship {
+  margin-top: 0;
+}
+.lp-scope li {
+  font-size: 13px;
+}
+@media (max-width: 767px) {
+  .lp-section-kicker span:last-child {
+    display: none;
+  }
+  .lp-sector {
+    padding-block: 40px;
+  }
+  .lp-sector-text {
+    font-size: 15px;
+    line-height: 1.75;
+    margin-top: 14px;
+  }
+  .lp-sector-copy .lp-scope {
+    margin-block: 18px 22px;
+  }
+  .lp-scope li {
+    font-size: 14px;
+  }
+  /* Cartes d’expertise compactes : icône, titre et lien sans espace vide. */
+  .lp-service-grid {
+    gap: 14px;
+  }
+  .lp-service-symbol {
+    padding: 22px 22px 0;
+  }
+  .lp-service-symbol > svg {
+    width: 34px;
+    height: 34px;
+    margin: 0;
+  }
+  .lp-service-body {
+    padding: 14px 22px 20px;
+  }
+  .landing .lp-service-body h3 {
+    font-size: 22px;
+  }
+  .lp-service-body > p {
+    font-size: 14px;
+  }
+  .lp-service .lp-card-link {
+    font-size: 13px;
+    padding-top: 14px;
+    margin-top: 16px;
+  }
+  .lp-project-prompt p {
+    font-size: 13px;
+  }
+  .lp-project-prompt strong {
+    font-size: 15px;
+  }
+  /* Même marge latérale que le reste de la page. */
+  .landing .faq .wrap {
+    padding-inline: 24px;
+  }
+  .landing .faq summary {
+    font-size: 15px;
+  }
+  .landing .faq-list details > p {
+    font-size: 14px;
+  }
+}
+
+/* Accueil épuré : présentation directe, puis secteurs sans en-tête. */
+.lp-about-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 7vw, 110px);
+  align-items: start;
+}
+.lp-about-copy .lp-eyebrow {
+  margin-bottom: 20px;
+}
+.landing .lp-about-copy h2 {
+  font-size: clamp(34px, 3.6vw, 52px);
+  line-height: 1.08;
+}
+.lp-about-copy .lp-company-text {
+  margin-top: 0;
+}
+.lp-sectors {
+  padding-top: 0;
+}
+.lp-sector-list {
+  border-top: 0;
+}
+@media (max-width: 767px) {
+  .lp-about-copy {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .landing .lp-about-copy h2 {
+    font-size: clamp(30px, 8vw, 40px);
+  }
+  .lp-company-text p,
+  .lp-company-text p:first-child {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+}
+
+/* Contact — esprit clair et aérien : fond bleu pâle, courbes douces,
+   titre bleu ciel, coordonnées soulignées d’un filet vertical. */
+.lp-contact {
+  --lp-sky: #0a7fc2;
+  background: #edf6fc;
+  color: var(--lp-navy);
+  overflow: hidden;
+  isolation: isolate;
+}
+.lp-contact::before,
+.lp-contact::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.lp-contact::before {
+  width: 980px;
+  height: 980px;
+  left: -520px;
+  top: -360px;
+  border: 150px solid #ffffffb3;
+}
+.lp-contact::after {
+  width: 760px;
+  height: 760px;
+  right: -380px;
+  bottom: -420px;
+  border: 110px solid #d9ecf8;
+}
+.lp-contact-grid {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(48px, 7vw, 110px);
+}
+.lp-contact .lp-eyebrow {
+  color: var(--lp-sky);
+  margin-bottom: 18px;
+}
+.landing .lp-contact h2 {
+  max-width: 12ch;
+  color: var(--lp-sky);
+  font-size: clamp(38px, 4.2vw, 58px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+.lp-contact .lp-contact-copy > p.lp-contact-lead {
+  margin-top: 26px;
+  max-width: 44ch;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #34495a;
+}
+.lp-contact-lead strong {
+  color: var(--lp-navy);
+  font-weight: 650;
+}
+.lp-contact-list {
+  display: grid;
+  gap: 22px;
+  margin-block: 38px 36px;
+  padding-left: 24px;
+  border-left: 1px solid var(--lp-sky);
+}
+.lp-contact-list dt {
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #5b6f7e;
+  margin-bottom: 5px;
+}
+.lp-contact-list dd {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--lp-navy);
+}
+.lp-contact-list a {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s;
+}
+.lp-contact-list a:hover {
+  text-decoration-color: currentColor;
+}
+.lp-contact-list .lp-contact-phone {
+  font-size: clamp(24px, 2.4vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--lp-navy);
+}
+.lp-contact-call {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 14px 28px;
+  background: #0d1b26;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.lp-contact-call:hover {
+  background: var(--lp-sky);
+}
+.lp-contact-call:focus-visible {
+  outline: 3px solid var(--lp-sky);
+  outline-offset: 3px;
+}
+/* Le formulaire : carte nette, angles francs, bouton noir en capitales. */
+.lp-contact .inquiry-card {
+  border-radius: 4px;
+  border-color: #d3e5f2;
+  box-shadow: 0 20px 60px #0a4f7a14;
+}
+.lp-contact .inquiry-eyebrow {
+  color: var(--lp-sky);
+}
+.lp-contact .inquiry-submit {
+  border-radius: 2px;
+  border-color: #0d1b26;
+  background: #0d1b26;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+.lp-contact .inquiry-submit:hover {
+  background: var(--lp-sky);
+  border-color: var(--lp-sky);
+  box-shadow: none;
+}
+@media (max-width: 1079px) {
+  .lp-contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  .lp-contact {
+    padding-block: 56px 64px;
+  }
+  .lp-contact::before {
+    width: 620px;
+    height: 620px;
+    left: -360px;
+    top: -250px;
+    border-width: 90px;
+  }
+  .lp-contact::after {
+    display: none;
+  }
+  .lp-contact-grid {
+    gap: 40px;
+  }
+  .landing .lp-contact h2 {
+    font-size: clamp(34px, 9vw, 44px);
+  }
+  .lp-contact-list {
+    gap: 18px;
+    margin-block: 30px 28px;
+    padding-left: 18px;
+  }
+  .lp-contact-list dd {
+    font-size: 15px;
+  }
+  .lp-contact-call {
+    width: 100%;
+  }
+  .lp-contact .inquiry-card {
+    box-shadow: 0 12px 36px #0a4f7a12;
   }
 }

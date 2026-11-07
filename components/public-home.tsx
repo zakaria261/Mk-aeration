@@ -4,13 +4,12 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
-  Mail,
-  MapPin,
   Phone,
 } from "lucide-react";
 import { Fragment } from "react";
 import { Photo } from "./photo";
 import { ContactForm } from "./contact-form";
+import { PageMotion } from "./page-motion";
 import {
   companyLinks,
   defaultSiteContent,
@@ -24,13 +23,13 @@ import {
   companySignature,
   defaultHomeContent,
   homePhotos,
+  homeSectors,
   type HomeContent,
 } from "@/lib/home-content";
 import type { TeamPost } from "@/lib/cms-types";
 
 export function PublicHome({
   content,
-  references,
   news,
   settings = defaultSiteContent,
   preview = false,
@@ -42,7 +41,6 @@ export function PublicHome({
   preview?: boolean;
 }) {
   const company = companyLinks(settings.company);
-  const services = settings.services.filter((s) => s.published);
   const photo = settings.home.heroImage
     ? { ...settings.home.heroImage, label: settings.home.heroImage.alt }
     : homePhotos.find((item) => item.src === content.heroImage) ||
@@ -51,21 +49,14 @@ export function PublicHome({
     "/images/mk-aeration-hero.webp",
     "/images/mk-aeration-hero-landscape.webp",
   ].includes(photo.src);
-  const heroPhoto = suppliedHero ? homePhotos[0] : photo;
+  const heroPhoto = suppliedHero
+    ? homePhotos.find((item) => item.src === "/images/annecy-panorama.webp")!
+    : photo;
   const originalPoster =
     suppliedHero &&
     content.heroTitle === defaultHomeContent.heroTitle &&
     content.heroAccent === defaultHomeContent.heroAccent &&
     content.heroDescription === defaultHomeContent.heroDescription;
-  const selection = references
-    .filter(
-      (p) =>
-        p.slug !== "pose-hotte-cuisine-professionnelle" &&
-        p.slug !== "tunnel-du-mont-blanc" &&
-        (p.coverKind === "chantier" ||
-          p.media.some((m) => m.kind === "chantier")),
-    )
-    .slice(0, 3);
   const sections = {
     about: (
       <section
@@ -74,34 +65,9 @@ export function PublicHome({
         aria-labelledby="about-title"
       >
         <div className="lp-container">
-          <div className="lp-section-kicker">
-            <span>01 / L’entreprise</span>
-            <span>La précision, par nature.</span>
-          </div>
-          <div className="lp-about-grid">
-            <div className="lp-about-visual">
-              <figure className="lp-about-photo">
-                <Photo
-                  src="/images/htc-la-boisse-descentes.webp"
-                  alt="Gaines et descentes de ventilation installées par MK Aération sur le chantier HTC La Boisse"
-                  width={1152}
-                  height={1536}
-                  loading="lazy"
-                  sizes="(max-width: 767px) 100vw, 44vw"
-                />
-                <figcaption>
-                  <span className="lp-photo-dot" /> Sur le terrain · HTC La
-                  Boisse
-                </figcaption>
-              </figure>
-              <div className="lp-since">
-                <span>Le savoir-faire</span>
-                <strong>MK.</strong>
-                <span>Depuis 2021</span>
-              </div>
-            </div>
-            <div className="lp-about-copy">
-              <p className="lp-eyebrow">L’exigence à chaque étape</p>
+          <div className="lp-about-copy" data-reveal="0">
+            <div className="lp-about-title">
+              <p className="lp-eyebrow">MK Aération · Depuis 2021</p>
               <h2 id="about-title">
                 {content.benefitsTitle === defaultHomeContent.benefitsTitle ? (
                   <>
@@ -113,6 +79,8 @@ export function PublicHome({
                   content.benefitsTitle
                 )}
               </h2>
+            </div>
+            <div className="lp-about-body">
               <div className="lp-company-text">
                 <p>{content.benefitsIntro}</p>
                 {companyPresentation.slice(1).map((paragraph) => (
@@ -144,20 +112,55 @@ export function PublicHome({
         </div>
       </section>
     ),
+    // La clé « proof » est conservée pour l’ordre des sections déjà enregistré :
+    // elle affiche désormais les secteurs d’activité (sans chiffres clés).
     proof: (
       <section
-        className="lp-proof"
-        aria-label="MK Aération en quelques repères"
+        className="lp-sectors lp-section"
+        id="secteurs"
+        aria-label="Nos secteurs d’activité"
       >
-        <div className="lp-container lp-proof-grid">
-          {settings.credibility
-            .filter((c) => c.published && c.confirmed)
-            .map((c) => (
-              <div key={c.label}>
-                <strong>{c.value}</strong>
-                <span>{c.label}</span>
-              </div>
+        <div className="lp-container">
+          <div className="lp-sector-list">
+            {homeSectors.map((s, i) => (
+              <article
+                className="lp-sector"
+                id={s.id}
+                key={s.id}
+                aria-labelledby={`sector-${s.id}`}
+              >
+                <div className="lp-sector-copy" data-reveal="0">
+                  <p className="lp-sector-index">
+                    <span>0{i + 1}</span>
+                    Secteur
+                  </p>
+                  <h3 id={`sector-${s.id}`}>{s.title}</h3>
+                  <p className="lp-sector-text">{s.text}</p>
+                  <ul className="lp-scope">
+                    {s.points.map((point) => (
+                      <li key={point}>
+                        <Check size={16} aria-hidden="true" /> {point}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href={s.link.href} className="lp-text-link">
+                    {s.link.label} <ArrowUpRight size={18} aria-hidden="true" />
+                  </Link>
+                </div>
+                <figure className="lp-sector-photo" data-reveal="100">
+                  <Photo
+                    src={s.image.src}
+                    alt={s.image.alt}
+                    width={s.image.width}
+                    height={s.image.height}
+                    loading="lazy"
+                    sizes="(max-width: 767px) 100vw, 54vw"
+                  />
+                  <span className="lp-image-tag">{s.image.tag}</span>
+                </figure>
+              </article>
             ))}
+          </div>
         </div>
       </section>
     ),
@@ -165,230 +168,79 @@ export function PublicHome({
       <section className="lp-flagship lp-section" aria-labelledby="mont-title">
         <div className="lp-container">
           <div className="lp-section-kicker">
-            <span>02 / Une référence emblématique</span>
+            <span>Une référence emblématique</span>
             <span>France — Italie</span>
           </div>
           <div className="lp-flagship-grid">
-            <figure className="lp-flagship-photo">
+            <figure className="lp-flagship-photo" data-reveal="0">
               <div className="lp-flagship-image">
                 <Photo
-                  src="/images/mont-blanc-entree.webp"
-                  alt="L’entrée française du tunnel du Mont-Blanc à Chamonix, photographiée par Rémih"
-                  width={1600}
-                  height={1200}
+                  src="/images/mont-blanc-presentation.webp"
+                  alt="Entrée du tunnel du Mont-Blanc au pied des Alpes, visuel de présentation MK Aération"
+                  width={1461}
+                  height={720}
                   loading="lazy"
                   sizes="(max-width: 767px) 100vw, 56vw"
                 />
-                <span className="lp-image-tag">
-                  Infrastructures · Haute-Savoie
-                </span>
               </div>
-              <figcaption>
-                Vue de l’ouvrage ·{" "}
-                <a
-                  href="https://commons.wikimedia.org/wiki/File:Tunnel_du_Mont-Blanc_entr%C3%A9e_nord.jpg"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Rémih
-                </a>{" "}
-                ·{" "}
-                <a
-                  href="https://creativecommons.org/licenses/by-sa/4.0/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  CC BY-SA 4.0
-                </a>{" "}
-                · format optimisé
-              </figcaption>
             </figure>
-            <div className="lp-flagship-copy">
-              <p className="lp-eyebrow">L’expertise en conditions exigeantes</p>
-              <h2 id="mont-title">
-                Tunnel du
-                <br />
-                <span>Mont-Blanc.</span>
-              </h2>
-              <p>
-                Un ouvrage singulier. Des contraintes bien réelles. Pendant huit
-                mois, MK Aération est intervenue au cœur du tunnel du
-                Mont-Blanc.
-              </p>
-              <ul className="lp-scope">
-                <li>
-                  <Check size={16} aria-hidden="true" /> Ventilation d’un local
-                  électrique
-                </li>
-                <li>
-                  <Check size={16} aria-hidden="true" /> Réseaux PVC et
-                  préparation du supportage
-                </li>
-                <li>
-                  <Check size={16} aria-hidden="true" /> Interventions de nuit
-                  dans les zones techniques
-                </li>
-              </ul>
-              <div className="lp-flagship-fact">
-                <strong>
-                  8 <span>mois</span>
-                </strong>
-                <p>
-                  de travaux sur une
-                  <br />
-                  infrastructure transalpine
+            <div className="lp-flagship-copy" data-reveal="100">
+              <div className="lp-flagship-title">
+                <p className="lp-eyebrow">
+                  L’expertise en conditions exigeantes
                 </p>
+                <h2 id="mont-title">
+                  Tunnel du
+                  <br />
+                  <span>Mont-Blanc.</span>
+                </h2>
               </div>
-              <Link
-                href="/realisations/tunnel-du-mont-blanc"
-                className="lp-text-link"
-              >
-                Découvrir notre intervention{" "}
-                <ArrowUpRight size={18} aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    ),
-    projects: (
-      <section
-        className="lp-section lp-projects"
-        id="realisations"
-        aria-labelledby="projects-title"
-      >
-        <div className="lp-container">
-          <div className="lp-section-head">
-            <div>
-              <p className="lp-eyebrow">Des projets, des preuves</p>
-              <h2 id="projects-title">
-                Notre savoir-faire.
-                <br />
-                <span>Sur le terrain.</span>
-              </h2>
-            </div>
-            <div className="lp-section-aside">
-              <p>
-                Des réseaux installés, des contraintes maîtrisées.
-                <br />
-                Découvrez le travail de nos équipes en images.
-              </p>
-              <Link href="/realisations" className="lp-text-link">
-                Toutes nos réalisations{" "}
-                <ArrowUpRight size={18} aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-          <div className="lp-project-grid">
-            {selection.map((p, i) => {
-              const actual =
-                p.coverKind !== "chantier"
-                  ? p.media.find((m) => m.kind === "chantier")
-                  : undefined;
-              return (
+              <div className="lp-flagship-detail">
+                <p>
+                  Un ouvrage singulier. Des contraintes bien réelles. Pendant
+                  huit mois, MK Aération est intervenue au cœur du tunnel du
+                  Mont-Blanc.
+                </p>
+                <ul className="lp-scope">
+                  <li>
+                    <Check size={16} aria-hidden="true" /> Ventilation d’un
+                    local électrique
+                  </li>
+                  <li>
+                    <Check size={16} aria-hidden="true" /> Réseaux PVC et
+                    préparation du supportage
+                  </li>
+                  <li>
+                    <Check size={16} aria-hidden="true" /> Interventions de nuit
+                    dans les zones techniques
+                  </li>
+                </ul>
+                <div className="lp-flagship-fact">
+                  <strong>
+                    8 <span>mois</span>
+                  </strong>
+                  <p>
+                    de travaux sur une
+                    <br />
+                    infrastructure transalpine
+                  </p>
+                </div>
                 <Link
-                  className="lp-project"
-                  href={`/realisations/${p.slug}`}
-                  key={p.slug}
+                  href="/realisations/tunnel-du-mont-blanc"
+                  className="lp-text-link"
                 >
-                  <div className="lp-project-photo">
-                    <Photo
-                      src={actual?.src || p.image}
-                      alt={actual?.alt || p.alt}
-                      width={actual?.width || p.imageWidth || 900}
-                      height={actual?.height || p.imageHeight || 900}
-                      loading="lazy"
-                      sizes="(max-width: 767px) 100vw, 33vw"
-                      style={{ objectPosition: p.imagePosition }}
-                    />
-                    <span className="lp-image-tag">{p.sector}</span>
-                    <span className="lp-project-open">
-                      <ArrowUpRight size={23} aria-hidden="true" />
-                    </span>
-                  </div>
-                  <div className="lp-project-body">
-                    <p>
-                      <span>0{i + 1}</span>
-                      {p.category}
-                    </p>
-                    <h3>{p.title}</h3>
-                    <span>
-                      <MapPin size={13} aria-hidden="true" />
-                      {p.place}
-                    </span>
-                  </div>
+                  Découvrir notre intervention{" "}
+                  <ArrowUpRight size={18} aria-hidden="true" />
                 </Link>
-              );
-            })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
     ),
-    services: (
-      <section
-        className="lp-services lp-section"
-        id="expertises"
-        aria-labelledby="services-title"
-      >
-        <div className="lp-container">
-          <div className="lp-section-head">
-            <div>
-              <p className="lp-eyebrow">03 / Nos expertises</p>
-              <h2 id="services-title">
-                Une vision d’ensemble.
-                <br />
-                <span>La précision en détail.</span>
-              </h2>
-            </div>
-            <p>
-              Du réseau aéraulique au raccordement des équipements, un
-              savoir-faire technique au service de votre installation.
-            </p>
-          </div>
-          <div className="lp-service-grid">
-            {services.map((s, i) => (
-              <Link
-                className="lp-service"
-                href={`/expertises/${s.id}`}
-                key={s.id}
-              >
-                <div className="lp-service-photo">
-                  <Photo
-                    src={s.image.src}
-                    alt={s.image.alt}
-                    width={s.image.width}
-                    height={s.image.height}
-                    sizes="(max-width: 767px) 100vw, 33vw"
-                    loading="lazy"
-                  />
-                  <span>0{i + 1}</span>
-                </div>
-                <div className="lp-service-body">
-                  <h3>{s.title}</h3>
-                  <p>{s.short}</p>
-                  <span className="lp-card-link">
-                    Explorer cette expertise{" "}
-                    <ArrowUpRight size={19} aria-hidden="true" />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="lp-project-prompt">
-            <div>
-              <span className="lp-photo-dot" />
-              <p>
-                Un projet neuf ou une réhabilitation ?
-                <strong>Construisons la bonne solution ensemble.</strong>
-              </p>
-            </div>
-            <Link href="/devis" className="lp-text-link">
-              Étudier mon projet <ArrowRight size={19} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
-    ),
+    // Réalisations et expertises : présentées sur leurs propres pages.
+    projects: null,
+    services: null,
     news: news.length > 0 && (
       <section className="lp-section lp-news" aria-labelledby="news-title">
         <div className="lp-container">
@@ -404,7 +256,7 @@ export function PublicHome({
           </div>
           <div className="log-list">
             {news.slice(0, 2).map((post) => (
-              <NewsCard post={post} key={post.id} />
+              <NewsCard post={post} key={post.id} showImage={false} />
             ))}
           </div>
         </div>
@@ -418,38 +270,51 @@ export function PublicHome({
         aria-labelledby="contact-title"
       >
         <div className="lp-container lp-contact-grid">
-          <div className="lp-contact-copy">
-            <p className="lp-eyebrow">Passons au concret</p>
+          <div className="lp-contact-copy" data-reveal="0">
+            <p className="lp-eyebrow">Contactez-nous</p>
             <h2 id="contact-title">{content.contactTitle}</h2>
-            <p>{content.contactDescription}</p>
-            <div className="lp-contact-details">
-              <a className="lp-contact-direct" href={company.tel}>
-                <span>
-                  <Phone size={20} aria-hidden="true" />
-                </span>
-                <div>
-                  <small>Un échange direct avec notre équipe</small>
-                  {company.phone}
-                </div>
-                <ArrowUpRight size={21} aria-hidden="true" />
-              </a>
-              <a className="lp-contact-mail" href={`mailto:${company.email}`}>
-                <Mail size={17} aria-hidden="true" />
-                {company.email}
-              </a>
-            </div>
-            <p className="lp-contact-location">
-              <MapPin size={17} aria-hidden="true" />
-              {company.city}
-              <br />
-              {company.areas.join(" · ")}
+            <p className="lp-contact-lead">
+              <strong>
+                Réseaux aérauliques, CTA, VMC, soufflage ou extraction ?
+              </strong>{" "}
+              {content.contactDescription}
             </p>
+            <dl className="lp-contact-list">
+              <div>
+                <dt>Téléphone</dt>
+                <dd>
+                  <a className="lp-contact-phone" href={company.tel}>
+                    {company.phone}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt>E-mail</dt>
+                <dd>
+                  <a href={`mailto:${company.email}`}>{company.email}</a>
+                </dd>
+              </div>
+              <div>
+                <dt>Adresse</dt>
+                <dd>
+                  <a href={company.maps} target="_blank" rel="noreferrer">
+                    {company.address}
+                    <br />
+                    {company.city}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt>Zone d’intervention</dt>
+                <dd>{company.areas.join(" · ")}</dd>
+              </div>
+            </dl>
+            <a className="lp-contact-call" href={company.tel}>
+              <Phone size={17} aria-hidden="true" />
+              Appeler MK Aération
+            </a>
           </div>
-          <div className="lp-contact-form">
-            <p className="lp-form-heading">
-              Présentez-nous votre projet{" "}
-              <ArrowUpRight size={20} aria-hidden="true" />
-            </p>
+          <div className="lp-contact-form" data-reveal="100">
             <ContactForm preview={preview} />
           </div>
         </div>
@@ -458,8 +323,9 @@ export function PublicHome({
   };
   return (
     <main id="contenu" className="landing">
+      <PageMotion />
       <section
-        className={`lp-hero ${originalPoster ? "lp-hero-original-mobile" : ""}`}
+        className={`lp-hero ${suppliedHero ? "lp-hero-photo-hd" : ""} ${originalPoster ? "lp-hero-original-mobile" : ""}`}
         aria-labelledby="hero-title"
       >
         <picture className="lp-hero-backdrop">
@@ -470,10 +336,22 @@ export function PublicHome({
               sizes="100vw"
             />
           )}
+          {suppliedHero && (
+            <source
+              media="(min-width: 768px)"
+              type="image/avif"
+              srcSet="/images/annecy-panorama-800.avif 800w, /images/annecy-panorama-1800.avif 1800w"
+              sizes="100vw"
+            />
+          )}
           <Photo
             className="lp-hero-background"
             src={heroPhoto.src}
-            alt={originalPoster ? "" : heroPhoto.alt}
+            alt={
+              suppliedHero
+                ? "Réseaux de ventilation et équipements de traitement d’air en toiture"
+                : heroPhoto.alt
+            }
             width={heroPhoto.width}
             height={heroPhoto.height}
             loading="eager"
@@ -522,6 +400,12 @@ export function PublicHome({
             </div>
           </div>
         </div>
+        {suppliedHero && (
+          <Link className="lp-hero-caption" href="/realisations/fier-annecy">
+            <span>Sur le terrain</span>Installation de ventilation · Annecy{" "}
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </Link>
+        )}
         <a
           className="lp-hero-scroll"
           href="#entreprise"
@@ -544,24 +428,6 @@ export function PublicHome({
           <path d="M0 83C480 130 1050 112 1440 51V100H0Z" fill="#084b95" />
         </svg>
       </section>
-      <div className="lp-trades" aria-label="Nos domaines d’intervention">
-        <div className="lp-container">
-          <span>
-            La maîtrise de l’air,
-            <br />
-            <strong>à chaque échelle.</strong>
-          </span>
-          <p>Réseaux aérauliques</p>
-          <span className="lp-trades-plus" aria-hidden="true">
-            +
-          </span>
-          <p>Traitement d’air</p>
-          <span className="lp-trades-plus" aria-hidden="true">
-            +
-          </span>
-          <p>Ventilation mécanique</p>
-        </div>
-      </div>
       {settings.home.sections.map((key) => (
         <Fragment key={key}>{sections[key]}</Fragment>
       ))}

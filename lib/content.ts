@@ -49,7 +49,7 @@ export const services = [
     description:
       "Pose de grilles de soufflage, réseaux d’extraction, hottes de cuisines professionnelles et rejets en toiture. Nous soignons l’intégration des éléments de diffusion et coordonnons leur pose avec les autres corps d’état, jusque dans les réservations de la chape.",
     image: "/images/yottacity-soufflage.webp",
-    alt: "Grilles de soufflage au sol positionnées dans les réservations de la chape sur le chantier Yottacity",
+    alt: "Grilles de soufflage au sol positionnées dans les réservations de la chape",
     details: [
       "Grilles de soufflage et diffusion d’air",
       "Intégration des grilles au sol et préparation des finitions",
@@ -387,10 +387,10 @@ export const projects: Project[] = [
     place: "France · Italie",
     sector: "Infrastructures",
     category: "Ventilation & hydraulique",
-    image: "/images/mont-blanc-entree.webp",
-    imageWidth: 1600,
-    imageHeight: 1200,
-    alt: "Entrée nord du tunnel du Mont-Blanc à Chamonix — photographie de Rémih, CC BY-SA 4.0",
+    image: "/images/mont-blanc-presentation.webp",
+    imageWidth: 1461,
+    imageHeight: 720,
+    alt: "Entrée du tunnel du Mont-Blanc au pied des Alpes, visuel de présentation MK Aération",
     coverKind: "projet",
     intro: "Huit mois de travaux au cœur des Alpes.",
     description:
@@ -404,44 +404,12 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        src: "/images/mont-blanc-entree.webp",
-        alt: "Photographie de l’entrée française du tunnel du Mont-Blanc à Chamonix",
-        caption:
-          "Vue de l’ouvrage — photographie de Rémih, CC BY-SA 4.0. Format et dimensions optimisés.",
+        src: "/images/mont-blanc-presentation.webp",
+        alt: "Entrée du tunnel du Mont-Blanc au pied des Alpes, visuel de présentation MK Aération",
+        caption: "Tunnel du Mont-Blanc · visuel de présentation MK Aération.",
         kind: "projet",
-        width: 1600,
-        height: 1200,
-      },
-    ],
-  },
-  {
-    slug: "yottacity",
-    title: "Yottacity",
-    place: "Grilles intégrées dans la chape",
-    sector: "Soufflage au sol",
-    category: "Soufflage",
-    image: "/images/yottacity-soufflage.webp",
-    alt: "Grilles de soufflage au sol posées dans les réservations sur le chantier Yottacity",
-    coverKind: "chantier",
-    imagePosition: "35% 65%",
-    intro: "La précision se joue aussi au niveau du sol.",
-    description:
-      "Pose de grilles de soufflage au sol sur le chantier Yottacity. Les grilles sont intégrées dans les réservations de la chape afin de préparer une finition affleurante avec le carrelage. L’intervention est coordonnée avec le chapiste pour conserver l’espace nécessaire à la découpe et à la pose, avant la reprise de la chape autour des grilles.",
-    scope: [
-      "Pose de grilles de soufflage au sol",
-      "Implantation dans les réservations de la chape",
-      "Coordination avec le chapiste",
-      "Préparation d’une finition affleurante au carrelage",
-    ],
-    media: [
-      {
-        src: "/images/yottacity-soufflage.webp",
-        alt: "Vue des grilles de soufflage alignées le long du mur et intégrées dans les réservations de la chape à Yottacity",
-        caption:
-          "Sur le chantier Yottacity : implantation des grilles de soufflage avant la reprise de la chape.",
-        kind: "chantier",
-        width: 800,
-        height: 1066,
+        width: 1461,
+        height: 720,
       },
     ],
   },

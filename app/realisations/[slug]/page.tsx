@@ -129,25 +129,6 @@ export default async function Project({ params }: Props) {
           <figcaption className="media-caption">
             <span className="mono">{projectMediaLabels[hero.kind]}</span>
             {hero.caption}
-            {hero.src === "/images/mont-blanc-entree.webp" && (
-              <span>
-                <a
-                  href="https://commons.wikimedia.org/wiki/File:Tunnel_du_Mont-Blanc_entr%C3%A9e_nord.jpg"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Source photographique : Rémih
-                </a>{" "}
-                ·{" "}
-                <a
-                  href="https://creativecommons.org/licenses/by-sa/4.0/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Licence CC BY-SA 4.0
-                </a>
-              </span>
-            )}
           </figcaption>
         </figure>
       )}

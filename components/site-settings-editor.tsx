@@ -19,7 +19,7 @@ import {
 } from "@/lib/site-content";
 import { SiteImagePicker } from "./site-image-picker";
 const sectionLabels: Record<string, string> = {
-  proof: "Chiffres clés",
+  proof: "Secteurs d’activité",
   flagship: "Mont-Blanc",
   services: "Prestations",
   projects: "Réalisations",
