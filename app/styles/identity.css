@@ -1070,3 +1070,58 @@ body:has(.public-header) .quote-form-panel h2 {
     border-left: 0;
   }
 }
+
+/* Galerie d’une expertise : deux vues larges, une vue verticale à droite. */
+.service-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: clamp(16px, 2vw, 28px);
+}
+.service-gallery figure {
+  margin: 0;
+}
+.service-gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.service-gallery figure:nth-child(3) {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+}
+.service-gallery figure:nth-child(3) img {
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: auto;
+}
+@media (max-width: 767px) {
+  .service-gallery {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .service-gallery figure:nth-child(3) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .service-gallery figure:nth-child(3) img {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* Photo principale verticale : pleine largeur, recadrée, sans marges vides. */
+body:has(.public-header) .project-hero img.is-portrait {
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 16 / 9;
+  max-height: 78vh;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+@media (max-width: 767px) {
+  body:has(.public-header) .project-hero img.is-portrait {
+    aspect-ratio: 4 / 5;
+  }
+}

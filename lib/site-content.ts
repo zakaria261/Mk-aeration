@@ -8,6 +8,12 @@ export const retiredImages: Record<
   string,
   { src: string; alt: string; width: number; height: number }
 > = {
+  "/images/legumerie-ventilation.webp": {
+    src: "/images/annecy-cta.webp",
+    alt: "Centrale de traitement d’air double flux et réseaux circulaires en toiture sur le chantier FIER à Annecy",
+    width: 1200,
+    height: 1200,
+  },
   "/images/yottacity-soufflage.webp": {
     src: "/images/lidl-extraction.webp",
     alt: "Conduit métallique et rejet d’extraction vertical en toiture d’une plateforme logistique",

@@ -31,8 +31,8 @@ export const services = [
     short: "Traitement d’air et ventilation mécanique.",
     description:
       "Du raccordement d’une centrale de traitement d’air (CTA) à la pose de réseaux de ventilation mécanique contrôlée (VMC), nous réalisons les liaisons qui assurent le renouvellement de l’air. Notre savoir-faire comprend les installations double flux et les transitions entre gaines rectangulaires et circulaires.",
-    image: "/images/legumerie-ventilation.webp",
-    alt: "Raccordement d’une CTA double flux aux gaines circulaires dans une légumerie",
+    image: "/images/annecy-cta.webp",
+    alt: "Centrale de traitement d’air double flux et réseaux circulaires en toiture sur le chantier FIER à Annecy",
     details: [
       "Raccordement des centrales de traitement d’air — CTA",
       "Installation de VMC et réseaux double flux",
@@ -116,6 +116,38 @@ export const projectMediaLabels: Record<ProjectMedia["kind"], string> = {
   chantier: "PHOTO DE CHANTIER",
   projet: "VUE DU PROJET",
   presentation: "VISUEL DE PRÉSENTATION",
+};
+
+/** Photos complémentaires affichées sur la page d’une expertise. */
+export const serviceGalleries: Record<
+  string,
+  { src: string; alt: string; caption: string; width: number; height: number }[]
+> = {
+  reseaux: [
+    {
+      src: "/images/reseaux-plateau-technique.webp",
+      alt: "Réseaux de ventilation circulaires calorifugés et raccordements souples sur un plateau technique",
+      caption:
+        "Réseaux de grande section calorifugés et raccordements souples aux équipements.",
+      width: 1600,
+      height: 720,
+    },
+    {
+      src: "/images/reseaux-charpente-pose.webp",
+      alt: "Pose de gaines circulaires le long d’un bâtiment industriel, suspentes en place",
+      caption: "Pose des gaines circulaires en hauteur, le long du bâtiment.",
+      width: 1600,
+      height: 721,
+    },
+    {
+      src: "/images/reseaux-gaines-suspendues.webp",
+      alt: "Gaine circulaire spiralée suspendue et descentes calorifugées vers les équipements",
+      caption:
+        "Gaines suspendues et descentes calorifugées vers les équipements.",
+      width: 900,
+      height: 2000,
+    },
+  ],
 };
 
 export const projects: Project[] = [
@@ -247,9 +279,12 @@ export const projects: Project[] = [
     place: "Grenoble",
     sector: "Tertiaire",
     category: "Réseaux aérauliques",
-    image: "/images/forum-grenoble-projet.webp",
-    alt: "Vue architecturale du projet du Forum de la Métropole de Grenoble",
-    coverKind: "projet",
+    image: "/images/forum-grenoble-plateau.webp",
+    imageWidth: 900,
+    imageHeight: 1600,
+    alt: "Colonnes aérauliques calorifugées sur un plateau du Forum de la Métropole à Grenoble",
+    coverKind: "chantier",
+    imagePosition: "50% 55%",
     intro: "Des colonnes aérauliques à l’échelle du bâtiment.",
     description:
       "Fourniture et pose des systèmes de ventilation pour le projet du Forum de la Métropole de Grenoble. Les travaux présentés comprennent la mise en place de 13 colonnes circulaires et rectangulaires, du R+2 jusqu’à la terrasse, ainsi que la préparation des raccordements aux centrales de traitement d’air.",
@@ -262,13 +297,48 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        src: "/images/forum-grenoble-chantier.webp",
-        alt: "Façade du chantier Forum Grenoble et colonnes de ventilation en cours de pose à l’intérieur du bâtiment",
+        src: "/images/forum-grenoble-plateau.webp",
+        alt: "Colonnes aérauliques calorifugées et gaine rectangulaire sur un plateau de bureaux du Forum de la Métropole",
         caption:
-          "Sur le chantier : façade, traversées de niveaux et colonnes aérauliques.",
+          "Les colonnes aérauliques calorifugées traversent les plateaux de bureaux.",
         kind: "chantier",
-        width: 1280,
-        height: 1024,
+        width: 900,
+        height: 1600,
+      },
+      {
+        src: "/images/forum-grenoble-colonnes.webp",
+        alt: "Deux colonnes calorifugées encadrant une gaine rectangulaire en tôle galvanisée, avant la pose des cloisons",
+        caption:
+          "Colonnes calorifugées et gaine rectangulaire, avant la pose des cloisons.",
+        kind: "chantier",
+        width: 900,
+        height: 1600,
+      },
+      {
+        src: "/images/forum-grenoble-colonnes-detail.webp",
+        alt: "Détail des colonnes calorifugées et du départ de la gaine rectangulaire en plafond",
+        caption:
+          "Détail : le départ de la gaine rectangulaire en plafond, entre deux colonnes.",
+        kind: "chantier",
+        width: 900,
+        height: 1600,
+      },
+      {
+        src: "/images/forum-grenoble-couloir.webp",
+        alt: "Gaine calorifugée et gaine circulaire spiralée posées côte à côte dans un couloir du Forum",
+        caption:
+          "Dans les circulations : gaine calorifugée et gaine circulaire spiralée.",
+        kind: "chantier",
+        width: 900,
+        height: 1600,
+      },
+      {
+        src: "/images/forum-grenoble-circulations.webp",
+        alt: "Réseaux de ventilation circulaires suspendus sous la dalle d’un couloir en travaux",
+        caption: "Réseaux circulaires suspendus sous la dalle des couloirs.",
+        kind: "chantier",
+        width: 900,
+        height: 1600,
       },
       {
         src: "/images/forum-grenoble-projet.webp",
@@ -456,8 +526,10 @@ export const projects: Project[] = [
     place: "Bâtiment professionnel",
     sector: "Double flux",
     category: "CTA & double flux",
-    image: "/images/legumerie-ventilation.webp",
-    alt: "Centrale double flux et gaines circulaires à la légumerie de Vourney",
+    image: "/images/legumerie-raccordements.webp",
+    imageWidth: 540,
+    imageHeight: 405,
+    alt: "Transitions entre les départs rectangulaires de la CTA double flux et les gaines circulaires à la légumerie de Vourney",
     coverKind: "chantier",
     intro: "Du rectangulaire au circulaire.",
     description:
@@ -469,13 +541,13 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        src: "/images/legumerie-ventilation.webp",
-        alt: "CTA double flux raccordée aux gaines circulaires dans la légumerie de Vourney",
+        src: "/images/legumerie-raccordements.webp",
+        alt: "Transitions entre les départs rectangulaires de la CTA double flux et les gaines circulaires à la légumerie de Vourney",
         caption:
           "Raccordement de la CTA et transition vers les gaines circulaires Ø 400 mm.",
         kind: "chantier",
-        width: 1200,
-        height: 1200,
+        width: 540,
+        height: 405,
       },
     ],
   },

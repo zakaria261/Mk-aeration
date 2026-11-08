@@ -6,7 +6,7 @@ import { PageIntro } from "@/components/ui";
 import { ContactBanner } from "@/components/site-shell";
 import { publicSite } from "@/lib/site-content-server";
 import { companyLinks } from "@/lib/site-content";
-import { projects } from "@/lib/content";
+import { projects, serviceGalleries } from "@/lib/content";
 import { ProjectVideo } from "@/components/project-video";
 export const revalidate = 60;
 type Props = { params: Promise<{ slug: string }> };
@@ -83,6 +83,31 @@ export default async function Service({ params }: Props) {
           </article>
         </div>
       </section>
+      {serviceGalleries[s.id] && (
+        <section
+          className="wrap photos section"
+          aria-labelledby="gallery-title"
+        >
+          <h2 id="gallery-title" className="photos-title">
+            En images
+          </h2>
+          <div className="service-gallery">
+            {serviceGalleries[s.id].map((m) => (
+              <figure key={m.src}>
+                <Photo
+                  src={m.src}
+                  alt={m.alt}
+                  width={m.width}
+                  height={m.height}
+                  loading="lazy"
+                  sizes="(max-width: 720px) 100vw, 60vw"
+                />
+                <figcaption className="media-caption">{m.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
       {s.id === "extraction" && (
         <section className="film-feature section">
           <div className="wrap film-lead">

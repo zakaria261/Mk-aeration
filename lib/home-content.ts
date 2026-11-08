@@ -91,8 +91,8 @@ export const homeSectors = [
     id: "grande-distribution",
     title: "Ventilation pour la grande distribution",
     paragraphs: [
-      "Dans une surface de vente, l’air se renouvelle au-dessus des **rayons**, des **clients** et des **produits frais**.",
-      "MK Aération pose les **réseaux de soufflage et d’extraction** en charpente, au-dessus des allées : **gaines circulaires de grande section**, diffusion dans les surfaces de vente et les réserves, **rejets en toiture**, en coordination avec les autres corps d’état.",
+      "Dans une surface de vente, l’air est diffusé au-dessus des **rayons**, des **clients** et des **produits frais**.",
+      "MK Aération installe les **réseaux de soufflage** en charpente, au-dessus des allées : **gaines circulaires de grande section**, diffusion d’air dans les **surfaces de vente** et les **réserves**, en coordination avec les autres corps d’état.",
     ],
     image: {
       src: "/images/grande-distribution-gaines.webp",
@@ -110,10 +110,10 @@ export const homeSectors = [
       "Nous raccordons les **centrales de traitement d’air double flux** et adaptons les réseaux à chaque bâtiment, avec des **transitions entre gaines rectangulaires et circulaires** en partie haute des zones techniques.",
     ],
     image: {
-      src: "/images/legumerie-ventilation.webp",
-      alt: "Centrale double flux raccordée aux gaines circulaires dans une légumerie",
-      width: 1200,
-      height: 1200,
+      src: "/images/legumerie-raccordements.webp",
+      alt: "Transitions entre les départs rectangulaires d’une CTA double flux et les gaines circulaires dans une légumerie",
+      width: 540,
+      height: 405,
     },
     caption: {
       label: "Légumerie de Vourney",
@@ -128,10 +128,10 @@ export const homeSectors = [
       "Un travail coordonné avec les intervenants du chantier pour distribuer l’air à **chaque niveau du bâtiment**.",
     ],
     image: {
-      src: "/images/grenoble-toiture.webp",
-      alt: "Réseaux de ventilation en toiture du Forum de la Métropole à Grenoble, face aux montagnes",
-      width: 800,
-      height: 600,
+      src: "/images/forum-grenoble-colonnes.webp",
+      alt: "Colonnes aérauliques calorifugées et gaine rectangulaire au Forum de la Métropole à Grenoble",
+      width: 900,
+      height: 1600,
     },
     caption: {
       label: "Le Forum de la Métropole – Grenoble",
