@@ -1318,7 +1318,7 @@ body:has(.public-header),
   .lp-hero-original-mobile .lp-hero-background {
     width: 100%;
     height: auto;
-    aspect-ratio: 720 / 1278;
+    aspect-ratio: 900 / 1598;
     object-fit: contain;
   }
   .lp-hero-original-mobile .lp-hero-shade,
@@ -1487,20 +1487,25 @@ body:has(.public-header),
 .lp-hero-photo-hd .lp-hero-scroll {
   display: none;
 }
+/* Ordinateur : la photo de l’affiche à droite, fondue dans le bleu du ciel. */
 @media (min-width: 768px) {
+  .lp-hero-photo-hd {
+    background: linear-gradient(180deg, #0b4fa6 0%, #08417f 55%, #062f62 100%);
+  }
+  .lp-hero-photo-hd .lp-hero-backdrop {
+    left: auto;
+    width: 72%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 34%);
+    mask-image: linear-gradient(90deg, transparent, #000 34%);
+  }
   .lp-hero-photo-hd .lp-hero-background {
-    object-position: center 64%;
+    object-position: 60% 30%;
   }
   .lp-hero-photo-hd .lp-hero-shade {
     background:
-      linear-gradient(
-        90deg,
-        #032c4ff7 0%,
-        #033253de 28%,
-        #0332538c 48%,
-        #0332530a 78%
-      ),
-      linear-gradient(0deg, #032d5d99, transparent 50%);
+      linear-gradient(90deg, #062f62cc 0%, #08417f80 34%, transparent 58%),
+      linear-gradient(0deg, #062f62b3, transparent 34%),
+      linear-gradient(180deg, #0b4fa666, transparent 22%);
   }
   .lp-hero-photo-hd .lp-hero-wave {
     height: 36px;

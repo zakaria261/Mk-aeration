@@ -1,7 +1,7 @@
 import type { ImgHTMLAttributes } from "react";
 const widths: Record<string, number> = {
-  "mk-aeration-hero-landscape": 720,
-  "mk-aeration-hero": 720,
+  "mk-aeration-hero-landscape": 900,
+  "mk-aeration-hero": 900,
   "mont-blanc-entree": 1600,
   "vmc-equipements": 1440,
   "vmc-reseaux": 1440,

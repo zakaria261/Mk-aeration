@@ -4,16 +4,16 @@ export const homePhotos = [
   {
     src: "/images/mk-aeration-hero-landscape.webp",
     label: "L’expertise des réseaux aérauliques — composition paysage",
-    alt: "Installations de ventilation et gaines en toiture devant les Alpes, extraites du visuel fourni par MK Aération",
-    width: 720,
-    height: 470,
+    alt: "Deux techniciens MK Aération devant les gaines et la centrale de traitement d’air en toiture, face aux Alpes",
+    width: 900,
+    height: 654,
   },
   {
     src: "/images/mk-aeration-hero.webp",
     label: "La maîtrise de l’air, au service de vos projets",
     alt: "L’expertise des réseaux aérauliques — concevoir, fournir et installer des solutions de ventilation performantes. Visuel fourni par MK Aération.",
-    width: 720,
-    height: 1278,
+    width: 900,
+    height: 1598,
   },
   {
     src: "/images/mont-blanc-presentation.webp",

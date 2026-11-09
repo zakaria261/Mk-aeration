@@ -62,7 +62,9 @@ export function PublicHome({
     "/images/mk-aeration-hero-landscape.webp",
   ].includes(photo.src);
   const heroPhoto = suppliedHero
-    ? homePhotos.find((item) => item.src === "/images/annecy-panorama.webp")!
+    ? homePhotos.find(
+        (item) => item.src === "/images/mk-aeration-hero-landscape.webp",
+      )!
     : photo;
   const originalPoster =
     suppliedHero &&
@@ -328,31 +330,19 @@ export function PublicHome({
           {originalPoster && (
             <source
               media="(max-width: 767px)"
-              srcSet="/images/mk-aeration-hero-480.webp 480w, /images/mk-aeration-hero.webp 720w"
-              sizes="100vw"
-            />
-          )}
-          {suppliedHero && (
-            <source
-              media="(min-width: 768px)"
-              type="image/avif"
-              srcSet="/images/annecy-panorama-800.avif 800w, /images/annecy-panorama-1800.avif 1800w"
+              srcSet="/images/mk-aeration-hero-480.webp 480w, /images/mk-aeration-hero-800.webp 800w, /images/mk-aeration-hero.webp 900w"
               sizes="100vw"
             />
           )}
           <Photo
             className="lp-hero-background"
             src={heroPhoto.src}
-            alt={
-              suppliedHero
-                ? "Réseaux de ventilation et équipements de traitement d’air en toiture"
-                : heroPhoto.alt
-            }
+            alt={heroPhoto.alt}
             width={heroPhoto.width}
             height={heroPhoto.height}
             loading="eager"
             fetchPriority="high"
-            sizes="100vw"
+            sizes={suppliedHero ? "(min-width: 768px) 72vw, 100vw" : "100vw"}
           />
         </picture>
         <div className="lp-hero-shade" aria-hidden="true" />
@@ -396,12 +386,6 @@ export function PublicHome({
             </div>
           </div>
         </div>
-        {suppliedHero && (
-          <Link className="lp-hero-caption" href="/realisations/fier-annecy">
-            <span>Sur le terrain</span>Installation de ventilation · Annecy{" "}
-            <ArrowUpRight size={15} aria-hidden="true" />
-          </Link>
-        )}
         <a
           className="lp-hero-scroll"
           href="#entreprise"
