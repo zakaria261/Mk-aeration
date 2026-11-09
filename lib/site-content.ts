@@ -14,6 +14,12 @@ export const retiredImages: Record<
     width: 1200,
     height: 1200,
   },
+  "/images/legumerie-raccordements.webp": {
+    src: "/images/legumerie-cta.webp",
+    alt: "Centrale de traitement d’air double flux raccordée aux gaines circulaires sur la plateforme technique d’une légumerie",
+    width: 1440,
+    height: 1080,
+  },
   "/images/yottacity-soufflage.webp": {
     src: "/images/lidl-extraction.webp",
     alt: "Conduit métallique et rejet d’extraction vertical en toiture d’une plateforme logistique",

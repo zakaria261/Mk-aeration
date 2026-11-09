@@ -12,6 +12,7 @@ const widths: Record<string, number> = {
   "annecy-cta": 1200,
   "legumerie-ventilation": 1200,
   "legumerie-raccordements": 540,
+  "legumerie-cta": 1440,
   "lidl-extraction": 922,
   "grande-distribution-gaines": 960,
   "forum-grenoble-plateau": 900,

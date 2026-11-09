@@ -526,10 +526,10 @@ export const projects: Project[] = [
     place: "Bâtiment professionnel",
     sector: "Double flux",
     category: "CTA & double flux",
-    image: "/images/legumerie-raccordements.webp",
-    imageWidth: 540,
-    imageHeight: 405,
-    alt: "Transitions entre les départs rectangulaires de la CTA double flux et les gaines circulaires à la légumerie de Vourney",
+    image: "/images/legumerie-cta.webp",
+    imageWidth: 1440,
+    imageHeight: 1080,
+    alt: "Centrale de traitement d’air double flux CIAT raccordée aux gaines circulaires sur la plateforme technique de la légumerie de Vourney",
     coverKind: "chantier",
     intro: "Du rectangulaire au circulaire.",
     description:
@@ -541,13 +541,13 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        src: "/images/legumerie-raccordements.webp",
-        alt: "Transitions entre les départs rectangulaires de la CTA double flux et les gaines circulaires à la légumerie de Vourney",
+        src: "/images/legumerie-cta.webp",
+        alt: "Centrale de traitement d’air double flux CIAT raccordée aux gaines circulaires sur la plateforme technique de la légumerie de Vourney",
         caption:
           "Raccordement de la CTA et transition vers les gaines circulaires Ø 400 mm.",
         kind: "chantier",
-        width: 540,
-        height: 405,
+        width: 1440,
+        height: 1080,
       },
     ],
   },

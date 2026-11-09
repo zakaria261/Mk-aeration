@@ -104,16 +104,16 @@ export const homeSectors = [
   },
   {
     id: "agroalimentaire",
-    title: "Ventilation pour l’agroalimentaire",
+    title: "Ventilation pour l’agroalimentaire et le pharmaceutique",
     paragraphs: [
-      "Dans les ateliers de transformation et les légumeries, la ventilation participe à l’**hygiène des locaux** et au **confort de travail**.",
+      "Dans les ateliers de transformation, les légumeries et les sites **pharmaceutiques**, la ventilation participe à l’**hygiène des locaux** et au **confort de travail**.",
       "Nous raccordons les **centrales de traitement d’air double flux** et adaptons les réseaux à chaque bâtiment, avec des **transitions entre gaines rectangulaires et circulaires** en partie haute des zones techniques.",
     ],
     image: {
-      src: "/images/legumerie-raccordements.webp",
-      alt: "Transitions entre les départs rectangulaires d’une CTA double flux et les gaines circulaires dans une légumerie",
-      width: 540,
-      height: 405,
+      src: "/images/legumerie-cta.webp",
+      alt: "Centrale de traitement d’air double flux raccordée aux gaines circulaires sur la plateforme technique d’une légumerie",
+      width: 1440,
+      height: 1080,
     },
     caption: {
       label: "Légumerie de Vourney",
